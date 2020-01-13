@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "690942032633",
+    "firebase_url": "https://feedit-4ebf5.firebaseio.com",
+    "project_id": "feedit-4ebf5",
+    "storage_bucket": "feedit-4ebf5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:690942032633:android:9f4182920a1b0524a98028",
+        "android_client_info": {
+          "package_name": "com.example.feedit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "690942032633-8s2ig3uhgdahigv0a7h7grchvljtuufa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9Lv5k7XoJL0qCd9ux9_6OMFPEd0MzGHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "690942032633-8s2ig3uhgdahigv0a7h7grchvljtuufa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
