@@ -7,4 +7,11 @@
     <string name="sign_in">Sign in!</string>
     <string name="log_in">Log in!</string>
     <string name="auth_failed">Authentication Failed.</string>
+    <string name="hello">Hello, Welcome to Feedit!</string>
+    <string name="user_name_">User Name:</string>
+    <string name="password_">Password:</string>
+    <string name="remember_me">Remember Me</string>
+
+
+
 </resources>
