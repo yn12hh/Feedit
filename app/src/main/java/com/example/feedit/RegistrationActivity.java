@@ -1,5 +1,6 @@
 package com.example.feedit;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -80,7 +81,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 if (task.isSuccessful())
                 {
                     Toast.makeText(getApplicationContext(),"User Registered Successfull", Toast.LENGTH_SHORT).show();
-
                 }
                 else {
 
