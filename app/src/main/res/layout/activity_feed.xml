@@ -5,18 +5,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Feed">
-<FrameLayout
-    android:id="@+id/fragment_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_above="@+id/bottom_navigation"/>
 
-<com.google.android.material.bottomnavigation.BottomNavigationView
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="643dp"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_marginBottom="0dp">
+
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
     android:id="@+id/bottom_navigation"
     android:layout_width="match_parent"
     android:layout_height="46dp"
     android:layout_alignParentBottom="true"
     app:menu="@menu/bottom_navigation"
     app:itemIconSize="@dimen/bottom_navigation_icon_size" />
+
+
+    <ImageView
+        android:id="@+id/feed_icon"
+        android:layout_width="88dp"
+        android:layout_height="38dp"
+        app:srcCompat="@drawable/feed_icon" />
+
+    <TextView
+        android:id="@+id/feedit"
+        android:layout_width="79dp"
+        android:layout_height="23dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="17dp"
+        android:layout_alignParentBottom="@+id/fragment_container"
+        android:gravity="center_horizontal|top"
+        android:text="@string/feedit"
+        android:textAppearance="@style/feedit" />
+
+    <ImageView
+        android:id="@+id/toolbar_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="@+id/fragment_container"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="-4dp"
+        android:layout_marginRight="-4dp"
+        app:srcCompat="@drawable/toolbar_rectangle" />
+
+    <ImageView
+        android:id="@+id/ic_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/toolbar_background"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="13dp"
+        app:srcCompat="@drawable/ic_search" />
+
+    <TextView
+        android:id="@+id/projects"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fragment_container"
+        android:layout_marginEnd="162dp"
+        android:layout_marginRight="162dp"
+        android:layout_marginBottom="12dp"
+        android:layout_toStartOf="@+id/ic_search"
+        android:layout_toLeftOf="@+id/ic_search"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        tools:text="@string/projects" />
+
 
 </RelativeLayout>
