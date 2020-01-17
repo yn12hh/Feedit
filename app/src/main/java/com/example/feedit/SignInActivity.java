@@ -109,7 +109,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 if(task.isSuccessful())
                 {
                     signin_progressbar.setVisibility(View.GONE);
-
+                    Intent myIntent = new Intent (getBaseContext(),Feed.class);
+                    startActivity(myIntent);
                 }
                 else {
                     Toast.makeText(getApplicationContext(),task.getException().getMessage(), Toast.LENGTH_SHORT).show();

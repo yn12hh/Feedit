@@ -11,7 +11,9 @@
     <string name="user_name_">User Name:</string>
     <string name="password_">Password:</string>
     <string name="remember_me">Remember Me</string>
-
+    <string name="feed">Feed</string>
+    <string name="projects">Projects</string>
+    <string name="teams">Teams</string>
 
 
 </resources>
