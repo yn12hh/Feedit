@@ -15,6 +15,11 @@
     <string name="projects">Projects</string>
     <string name="teams">Teams</string>
     <string name="feedit">FeedIt</string>
+    <string name="new_post">New Post</string>
+    <string name="write_your_post">Write Your Post</string>
+    <string name="enter_relevant_project">Enter Relevant Project</string>
+    <string name="enter_relevant_teams">Enter Relevant Teams</string>
+    <string name="enter_post_s_title">Enter Post\'s Title</string>
 
 
 </resources>
