@@ -77,14 +77,14 @@
 
     <ImageView
         android:id="@+id/ic_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="36dp"
+        android:layout_height="34dp"
         android:layout_alignBottom="@+id/toolbar_background"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="9dp"
         app:srcCompat="@drawable/ic_search" />
 
     <TextView

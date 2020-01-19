@@ -71,7 +71,15 @@ public class Feed extends AppCompatActivity {
             public void onClick(View view) {
                 EditText name = (EditText) findViewById(R.id.title_input);
                 String name_string =  name.getText().toString();
-                Post new_post_object = new Post(name_string ,R.id.teams_name_input, R.id.txtInput_userID, R.id.posts_content_input, R.id.projects_name_input);
+                EditText teams_name = (EditText) findViewById(R.id.teams_name_input);
+                String teams_name_string =  teams_name.getText().toString();
+                EditText user_ID = (EditText) findViewById(R.id.txtInput_userID);
+                String user_ID_string =  user_ID.getText().toString();
+                EditText posts_content = (EditText) findViewById(R.id.posts_content_input);
+                String posts_content_string =  posts_content.getText().toString();
+                EditText projects_name = (EditText) findViewById(R.id.projects_name_input);
+                String projects_name_string =  projects_name.getText().toString();
+                Post new_post_object = new Post(name_string ,teams_name_string, user_ID_string, posts_content_string, projects_name_string);
                 //pass to firebase!;
                 new_post_dialog.dismiss();
 
