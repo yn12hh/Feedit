@@ -20,6 +20,7 @@
     <string name="enter_relevant_project">Enter Relevant Project</string>
     <string name="enter_relevant_teams">Enter Relevant Teams</string>
     <string name="enter_post_s_title">Enter Post\'s Title</string>
+    <string name="post_prompt">Post!</string>
 
 
 </resources>

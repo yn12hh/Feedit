@@ -4,10 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,7 +20,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Feed extends AppCompatActivity {
 
     private ImageView add_button;
-    private TextView test;
+    private Dialog  new_post_dialog;
+    private ImageView close_dialog;
+    private Button post_button_clicked;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +34,46 @@ public class Feed extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FeedFragment()).commit();
 
+        new_post_dialog = new Dialog(this);
+
         add_button = (ImageView) findViewById(R.id.add_icon);
-        test = (TextView) findViewById(R.id.test);
         add_button.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
-                test.setText("it works");
+                showAddPost();
             }
         });
 
+
+
+
+    }
+
+    public void showAddPost(){
+        new_post_dialog.setContentView(R.layout.add_post_dialog);
+        close_dialog = (ImageView) new_post_dialog.findViewById(R.id.close_dialog_imag);
+        post_button_clicked = (Button) new_post_dialog.findViewById(R.id.post_button);
+
+        close_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new_post_dialog.dismiss();
+            }
+        });
+
+        new_post_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        new_post_dialog.show();
+
+        post_button_clicked.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Post new_post_object = new Post(R.id.title_input,R.id.teams_name_input, time!, R.id.txtInput_userID, R.id.posts_content_input, R.id.projects_name_input);
+                //pass to firebase!;
+                new_post_dialog.dismiss();
+
+            }
+        });
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
