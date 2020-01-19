@@ -51,7 +51,7 @@
                 android:ems="10"
                 android:gravity="top|left"
                 android:inputType="text"
-                android:text="@string/write_your_post"
+                android:hint="@string/write_your_post"
                 android:textAppearance="@style/title" />
 
             <EditText
@@ -68,7 +68,7 @@
                 android:background="@color/white"
                 android:ems="10"
                 android:inputType="text"
-                android:text="@string/enter_relevant_project"
+                android:hint="@string/enter_relevant_project"
                 android:textAppearance="@style/title" />
 
             <EditText
@@ -89,7 +89,7 @@
                 android:background="@color/white"
                 android:ems="10"
                 android:inputType="text"
-                android:text="@string/enter_post_s_title"
+                android:hint="@string/enter_post_s_title"
                 android:textAppearance="@style/title" />
 
             <EditText
@@ -107,7 +107,7 @@
                 android:background="@color/white"
                 android:ems="10"
                 android:inputType="text"
-                android:text="@string/enter_relevant_teams"
+                android:hint="@string/enter_relevant_teams"
                 android:textAppearance="@style/title" />
 
             <Button
