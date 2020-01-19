@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -68,7 +69,17 @@ public class Feed extends AppCompatActivity {
         post_button_clicked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Post new_post_object = new Post(R.id.title_input,R.id.teams_name_input, time!, R.id.txtInput_userID, R.id.posts_content_input, R.id.projects_name_input);
+                EditText name = (EditText) findViewById(R.id.title_input);
+                String name_string =  name.getText().toString();
+                EditText teams_name = (EditText) findViewById(R.id.teams_name_input);
+                String teams_name_string =  teams_name.getText().toString();
+                EditText user_ID = (EditText) findViewById(R.id.txtInput_userID);
+                String user_ID_string =  user_ID.getText().toString();
+                EditText posts_content = (EditText) findViewById(R.id.posts_content_input);
+                String posts_content_string =  posts_content.getText().toString();
+                EditText projects_name = (EditText) findViewById(R.id.projects_name_input);
+                String projects_name_string =  projects_name.getText().toString();
+                Post new_post_object = new Post(name_string ,teams_name_string, user_ID_string, posts_content_string, projects_name_string);
                 //pass to firebase!;
                 new_post_dialog.dismiss();
 
