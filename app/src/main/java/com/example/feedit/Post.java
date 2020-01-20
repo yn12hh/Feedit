@@ -3,12 +3,15 @@ package com.example.feedit;
 
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class Post {
     private String title;
@@ -20,10 +23,13 @@ public class Post {
     private String project;
     private SimpleDateFormat timestamp_format = new SimpleDateFormat("HH:mm dd/mm/yyyy", Locale.getDefault());
 
-    public Post(String title, String team, String author, String post_text, String project) {
+    public Post(String title, String team, String post_text, String project) {
         this.title = title;
         this.team = team;
-        this.author = author;
+        if((this.author = FirebaseAuth.getInstance().getCurrentUser().getEmail()) == null)
+            this.author = "Anonymous";
+        else
+            this.author = this.author.substring(0, this.author.indexOf('@'));
         this.post_text = post_text;
         this.project = project;
         this.time_stamp = new Date();

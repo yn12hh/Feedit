@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -32,7 +33,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     FirebaseAuth mAuth;
     ProgressBar signin_progressbar;
     GoogleSignInClient mGoogleSignInClient;
-    private LocalUserInfo local_user_info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +40,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in);
         edittext_username = (EditText) findViewById(R.id.sign_in_username);
         edittext_password = (EditText) findViewById(R.id.sign_in_password);
-        local_user_info = LocalUserInfo.getInstance(getSharedPreferences("UserInfo", MODE_PRIVATE));
-        local_user_info.autoFill(edittext_username, edittext_password);
         signin_progressbar = (ProgressBar) findViewById(R.id.signin_progressbar);
         findViewById(R.id.Resigstration_signin_textView).setOnClickListener(this);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -112,7 +110,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
-                    local_user_info.updateUserInfo(username, password);
                     signin_progressbar.setVisibility(View.GONE);
                     Intent myIntent = new Intent (getBaseContext(),Feed.class);
                     startActivity(myIntent);
