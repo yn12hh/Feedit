@@ -40,7 +40,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_in);
         edittext_username = (EditText) findViewById(R.id.sign_in_username);
         edittext_password = (EditText) findViewById(R.id.sign_in_password);
-        local_user_info = LocalUserInfo.getInstance(edittext_username,edittext_password);
+        local_user_info = LocalUserInfo.getInstance(getSharedPreferences("UserInfo", MODE_PRIVATE));
+        local_user_info.autoFill(edittext_username, edittext_password);
         signin_progressbar = (ProgressBar) findViewById(R.id.signin_progressbar);
         findViewById(R.id.Resigstration_signin_textView).setOnClickListener(this);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
@@ -78,8 +79,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void userLogin() {
-        String username = edittext_username.getText().toString().trim();
-        String password = edittext_password.getText().toString().trim();
+        final String username = edittext_username.getText().toString().trim();
+        final String password = edittext_password.getText().toString().trim();
 
         if (username.isEmpty()) {
             edittext_username.setError("Username is required");
@@ -105,11 +106,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         signin_progressbar.setVisibility(View.VISIBLE);
+
         mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful())
                 {
+                    local_user_info.updateUserInfo(username, password);
                     signin_progressbar.setVisibility(View.GONE);
                     Intent myIntent = new Intent (getBaseContext(),Feed.class);
                     startActivity(myIntent);

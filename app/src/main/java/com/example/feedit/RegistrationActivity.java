@@ -31,7 +31,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_registration);
         edittext_username = (EditText) findViewById(R.id.usernameEt);
         edittext_password = (EditText) findViewById(R.id.passwordEt);
-        local_user_info = LocalUserInfo.getInstance(edittext_username,edittext_password);
+        local_user_info = LocalUserInfo.getInstance(getSharedPreferences("UserInfo", MODE_PRIVATE));
         reg_progressbar = (ProgressBar)findViewById(R.id.reg_progressbar);
         findViewById(R.id.registration_button).setOnClickListener(this);
         // Initialize Firebase Auth
@@ -80,6 +80,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }
 
         reg_progressbar.setVisibility(View.VISIBLE);
+        local_user_info.updateUserInfo(username, password);
         mAuth.createUserWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
