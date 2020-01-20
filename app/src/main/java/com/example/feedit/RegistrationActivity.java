@@ -1,6 +1,5 @@
 package com.example.feedit;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -20,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
-    EditText edittext_username, edittext_password;
+    EditText edittext_email, edittext_password;
     private FirebaseAuth mAuth;
     ProgressBar reg_progressbar;
 
@@ -28,8 +27,8 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        edittext_username = (EditText) findViewById(R.id.usernameEt);
-        edittext_password = (EditText) findViewById(R.id.passwordEt);
+        edittext_email = (EditText) findViewById(R.id.email_edit);
+        edittext_password = (EditText) findViewById(R.id.password_edit);
         reg_progressbar = (ProgressBar)findViewById(R.id.reg_progressbar);
         findViewById(R.id.registration_button).setOnClickListener(this);
         // Initialize Firebase Auth
@@ -47,17 +46,17 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void registerUser() {
-        String username = edittext_username.getText().toString().trim();
+        String username = edittext_email.getText().toString().trim();
         String password = edittext_password.getText().toString().trim();
 
         if (username.isEmpty()) {
-            edittext_username.setError("Username is required");
-            edittext_username.requestFocus();
+            edittext_email.setError("Username is required");
+            edittext_email.requestFocus();
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
-            edittext_username.setError("Please enter a valid email");
-            edittext_username.requestFocus();
+            edittext_email.setError("Please enter a valid email");
+            edittext_email.requestFocus();
             return;
         }
 
