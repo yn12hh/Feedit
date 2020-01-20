@@ -1,5 +1,4 @@
 package com.example.feedit;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -16,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.feedit.Post;
+import com.example.feedit.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Feed extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class Feed extends AppCompatActivity {
     private Dialog  new_post_dialog;
     private ImageView close_dialog;
     private Button post_button_clicked;
+    private FeedItFBInterface FBI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class Feed extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FeedFragment()).commit();
 
         new_post_dialog = new Dialog(this);
+
+        FBI = new FeedItFBInterface();
 
         add_button = (ImageView) findViewById(R.id.add_icon);
         add_button.setOnClickListener(new View.OnClickListener(){
@@ -69,18 +73,21 @@ public class Feed extends AppCompatActivity {
         post_button_clicked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText name = (EditText) findViewById(R.id.title_input);
-                String name_string =  name.getText().toString();
+                /*EditText title = (EditText) findViewById(R.id.title_input);
+                String title_string =   title.getText().toString();
                 EditText teams_name = (EditText) findViewById(R.id.teams_name_input);
                 String teams_name_string =  teams_name.getText().toString();
-                EditText user_ID = (EditText) findViewById(R.id.txtInput_userID);
-                String user_ID_string =  user_ID.getText().toString();
+                //EditText user_ID = (EditText) findViewById(R.id.txtInput_userID);
+                String user_ID_string =  "1234";
                 EditText posts_content = (EditText) findViewById(R.id.posts_content_input);
                 String posts_content_string =  posts_content.getText().toString();
                 EditText projects_name = (EditText) findViewById(R.id.projects_name_input);
-                String projects_name_string =  projects_name.getText().toString();
-                Post new_post_object = new Post(name_string ,teams_name_string, user_ID_string, posts_content_string, projects_name_string);
+                String projects_name_string =  projects_name.getText().toString();*/
+                //Post new_post_object = new Post(name_string ,teams_name_string, user_ID_string, posts_content_string, projects_name_string);
                 //pass to firebase!;
+
+                /*Post post = new Post("come see the new board!", "marketing", "naftali", "it's ready!!!", "luach_bogrim");
+                FBI.uploadPost(post);*/
                 new_post_dialog.dismiss();
 
             }
@@ -109,6 +116,4 @@ public class Feed extends AppCompatActivity {
     };
 
 
-    }
-
-
+}

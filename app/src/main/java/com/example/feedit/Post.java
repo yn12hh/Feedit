@@ -53,6 +53,7 @@ public class Post {
 
     public Date getTime_stamp() { return time_stamp; }
 
+    public String getTime_stampAsString() { return timestamp_format.format(time_stamp);}
 
     public void setTitle(String title) {
         this.title = title;
