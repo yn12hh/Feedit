@@ -24,6 +24,7 @@ public class Post {
     private SimpleDateFormat timestamp_format = new SimpleDateFormat("HH:mm dd/mm/yyyy", Locale.getDefault());
 
     public Post(String title, String team, String post_text, String project) {
+
         this.title = title;
         this.team = team;
         if((author = FirebaseAuth.getInstance().getCurrentUser().getEmail()) == null)
@@ -37,7 +38,7 @@ public class Post {
 
     //getters
     public String getTitle(){
-       return title;
+        return title;
     }
 
     public String getTeam(){

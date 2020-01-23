@@ -36,6 +36,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.0.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.android.support:cardview-v7:29'
+
     implementation 'com.android.support:multidex:1.0.3'
 
     implementation 'com.google.firebase:firebase-database:19.2.0'
@@ -47,6 +48,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     // I don't know why the guy in the video doesn't want me to add a dependency to recyclerview, keep that in mind...
     implementation 'android.arch.core:runtime:1.1.1'
+
 
 }
 
