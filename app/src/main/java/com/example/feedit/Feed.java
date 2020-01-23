@@ -19,13 +19,15 @@ import com.example.feedit.Post;
 import com.example.feedit.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Feed extends AppCompatActivity {
+public class Feed extends AppCompatActivity implements dialog.dialogListener {
 
     private ImageView add_button;
     private Dialog  new_post_dialog;
     private ImageView close_dialog;
     private Button post_button_clicked;
     private FeedItFBInterface FBI;
+
+    private TextView title_tv,teams_tv, projects_tv, post_content_tv, author_tv; //time?
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class Feed extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FeedFragment()).commit();
 
+        //missing author_tv = (TextView) findViewById(), the part that creates the text
         new_post_dialog = new Dialog(this);
 
         FBI = new FeedItFBInterface();
@@ -46,7 +49,7 @@ public class Feed extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                showAddPost();
+                openDialog();
             }
         });
 
@@ -55,7 +58,13 @@ public class Feed extends AppCompatActivity {
 
     }
 
-    public void showAddPost(){
+    public void openDialog () {
+        dialog dialog = new dialog();
+        dialog.show(getSupportFragmentManager(), "exampke dialog");
+
+    }
+
+   /* public void showAddPost(){
         new_post_dialog.setContentView(R.layout.add_post_dialog);
         close_dialog = (ImageView) new_post_dialog.findViewById(R.id.close_dialog_imag);
         post_button_clicked = (Button) new_post_dialog.findViewById(R.id.post_button);
@@ -73,7 +82,7 @@ public class Feed extends AppCompatActivity {
         post_button_clicked.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*EditText title = (EditText) findViewById(R.id.title_input);
+                *//*EditText title = (EditText) findViewById(R.id.title_input);
                 String title_string =   title.getText().toString();
                 EditText teams_name = (EditText) findViewById(R.id.teams_name_input);
                 String teams_name_string =  teams_name.getText().toString();
@@ -82,17 +91,17 @@ public class Feed extends AppCompatActivity {
                 EditText posts_content = (EditText) findViewById(R.id.posts_content_input);
                 String posts_content_string =  posts_content.getText().toString();
                 EditText projects_name = (EditText) findViewById(R.id.projects_name_input);
-                String projects_name_string =  projects_name.getText().toString();*/
+                String projects_name_string =  projects_name.getText().toString();*//*
                 //Post new_post_object = new Post(name_string ,teams_name_string, user_ID_string, posts_content_string, projects_name_string);
                 //pass to firebase!;
 
-                /*Post post = new Post("come see the new board!", "marketing", "naftali", "it's ready!!!", "luach_bogrim");
-                FBI.uploadPost(post);*/
+                *//*Post post = new Post("come see the new board!", "marketing", "naftali", "it's ready!!!", "luach_bogrim");
+                FBI.uploadPost(post);*//*
                 new_post_dialog.dismiss();
 
             }
         });
-    }
+    }*/
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -116,4 +125,9 @@ public class Feed extends AppCompatActivity {
     };
 
 
+    @Override
+    public void applyTexts(String title, String teams, String projects, String post_content) {
+        Post new_post = new Post(title,teams,post_content, projects);
+        FBI.uploadPost(new_post);
+    }
 }

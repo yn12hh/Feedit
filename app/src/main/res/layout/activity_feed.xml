@@ -7,24 +7,23 @@
     tools:context=".Feed">
 
 
-
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="643dp"
         android:layout_above="@+id/bottom_navigation"
-        android:layout_marginBottom="0dp">
+        android:layout_marginBottom="-25dp">
 
         <ImageView
             android:id="@+id/add_icon"
             android:layout_width="74dp"
             android:layout_height="69dp"
             android:layout_gravity="end|bottom"
-            android:layout_marginBottom="20dp"
             android:layout_marginRight="15dp"
-            app:srcCompat="@drawable/ic_add_circle"
+            android:layout_marginBottom="20dp"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            app:srcCompat="@drawable/ic_add_circle" />
 
         <TextView
             android:id="@+id/test"
