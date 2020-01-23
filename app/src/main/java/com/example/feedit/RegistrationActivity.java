@@ -33,6 +33,10 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         findViewById(R.id.registration_button).setOnClickListener(this);
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+
+
+
+
     }
 
 

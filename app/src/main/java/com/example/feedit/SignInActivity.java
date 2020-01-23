@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -76,8 +77,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void userLogin() {
-        String username = edittext_username.getText().toString().trim();
-        String password = edittext_password.getText().toString().trim();
+        final String username = edittext_username.getText().toString().trim();
+        final String password = edittext_password.getText().toString().trim();
 
         if (username.isEmpty()) {
             edittext_username.setError("Username is required");
@@ -103,6 +104,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         signin_progressbar.setVisibility(View.VISIBLE);
+
         mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

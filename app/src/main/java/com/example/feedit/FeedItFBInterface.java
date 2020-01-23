@@ -1,6 +1,16 @@
 package com.example.feedit;
 
 
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -17,13 +27,14 @@ public class FeedItFBInterface {
         entries_collection = db.collection("sampleData");
     }
 
+
     public boolean uploadPost(Post post) {
 
         Map<String, Object> uploadable_post = new HashMap<>();
         uploadable_post.put("title", post.getTitle());
         uploadable_post.put("author", post.getAuthor());
         uploadable_post.put("timestamp", post.getTime_stamp());
-        uploadable_post.put("contants", post.getPost_text());
+        uploadable_post.put("post_text", post.getPost_text());
         uploadable_post.put("team", post.getTeam());
         uploadable_post.put("project", post.getProject());
 
@@ -32,3 +43,4 @@ public class FeedItFBInterface {
 
 
 }
+
