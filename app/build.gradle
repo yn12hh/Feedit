@@ -42,7 +42,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-functions:19.0.1'
     implementation 'com.google.firebase:firebase-firestore:21.3.1'
 
-
+    //ari's shit
+    implementation 'com.firebaseui:firebase-ui-firestore:6.2.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    // I don't know why the guy in the video doesn't want me to add a dependency to recyclerview, keep that in mind...
+    implementation 'android.arch.core:runtime:1.1.1'
 
 }
 
