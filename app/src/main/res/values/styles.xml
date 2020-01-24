@@ -11,6 +11,7 @@
     <style name="hello">
         <item name="android:textSize">30sp</item>
         <item name="android:textColor">#4552C1</item>
+        <item name="android:fontFamily">@font/carter_one</item>
     </style>
 
     <style name="user_name_">
@@ -22,6 +23,7 @@
         <item name="android:textColor">
             #606060
         </item>
+        <item name="android:fontFamily">@font/carter_one</item>
 
     </style>
 
@@ -36,6 +38,8 @@
             #606060
         </item>
 
+        <item name="android:fontFamily">@font/carter_one</item>
+
     </style>
 
     <style name="remember_me">
@@ -47,6 +51,8 @@
         <item name="android:textColor">
             #606060
         </item>
+
+        <item name="android:fontFamily">@font/carter_one</item>
 
     </style>
 
@@ -60,6 +66,8 @@
             #FFFFF7F7
         </item>
 
+        <item name="android:fontFamily">@font/carter_one</item>
+
     </style>
 
     <style name="entry_input">
@@ -71,6 +79,9 @@
         <item name="android:textColor">
             #606060
         </item>
+
+        <item name="android:fontFamily">@font/carter_one</item>
+
     </style>
 
     <style name="navigation_titles">
@@ -83,6 +94,7 @@
             #474747
         </item>
 
+        <item name="android:fontFamily">@font/carter_one</item>
 
     </style>
 
@@ -112,6 +124,8 @@
             2
         </item>
 
+        <item name="android:fontFamily">@font/carter_one</item>
+
     </style>
 
     <style name="new_post">
@@ -123,6 +137,8 @@
         <item name="android:textColor">
             #FFFFFF
         </item>
+
+        <item name="android:fontFamily">@font/carter_one</item>
 
     </style>
 
@@ -136,6 +152,8 @@
             #66158B
         </item>
 
+        <item name="android:fontFamily">@font/carter_one</item>
+
     </style>
 
     <style name="post_prompt">
@@ -147,6 +165,8 @@
         <item name="android:textColor">
             #000000
         </item>
+
+        <item name="android:fontFamily">@font/carter_one</item>
 
     </style>
 
