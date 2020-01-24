@@ -3,6 +3,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -14,19 +15,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.feedit.Post;
 import com.example.feedit.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Feed extends AppCompatActivity implements dialog.dialogListener {
+public class Feed extends AppCompatActivity  {
 
     private ImageView add_button;
     private Dialog  new_post_dialog;
     private ImageView close_dialog;
     private Button post_button_clicked;
     private FeedItFBInterface FBI;
-
+    private EditText title_et, projects_et, teams_et, post_content_et;
     private TextView title_tv,teams_tv, projects_tv, post_content_tv, author_tv; //time?
 
     @Override
@@ -40,7 +42,7 @@ public class Feed extends AppCompatActivity implements dialog.dialogListener {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FeedFragment()).commit();
 
         //missing author_tv = (TextView) findViewById(), the part that creates the text
-        new_post_dialog = new Dialog(this);
+
 
         FBI = new FeedItFBInterface();
 
@@ -49,8 +51,40 @@ public class Feed extends AppCompatActivity implements dialog.dialogListener {
 
             @Override
             public void onClick(View view) {
-                openDialog();
+
+                final AlertDialog.Builder mbuilder = new AlertDialog.Builder(Feed.this);
+                View mview = getLayoutInflater().inflate(R.layout.add_post_dialog,null);
+                title_et = (EditText) mview.findViewById(R.id.title_input);
+                teams_et = (EditText) mview.findViewById(R.id.teams_name_input);
+                projects_et = (EditText) mview.findViewById(R.id.projects_name_input);
+                post_content_et = (EditText) mview.findViewById(R.id.posts_content_input);
+                post_button_clicked = (Button) mview.findViewById(R.id.post_button);
+                post_button_clicked.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String title = title_et.getText().toString();
+                        String teams = teams_et.getText().toString();
+                        String projects = projects_et.getText().toString();
+                        String post_content = post_content_et.getText().toString();
+                        sendDetailsToFB(title, teams,projects,post_content);
+                        new_post_dialog.dismiss();
+                    }
+                });
+
+                close_dialog = (ImageView) mview.findViewById(R.id.close_dialog_imag);
+                close_dialog.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new_post_dialog.dismiss();
+                    }
+                });
+
+                mbuilder.setView(mview);
+                new_post_dialog = mbuilder.create();
+                new_post_dialog.show();
             }
+
+
         });
 
 
@@ -58,50 +92,13 @@ public class Feed extends AppCompatActivity implements dialog.dialogListener {
 
     }
 
-    public void openDialog () {
-        dialog dialog = new dialog();
-        dialog.show(getSupportFragmentManager(), "exampke dialog");
+
+
+   public void showAddPost(){
+
+
 
     }
-
-   /* public void showAddPost(){
-        new_post_dialog.setContentView(R.layout.add_post_dialog);
-        close_dialog = (ImageView) new_post_dialog.findViewById(R.id.close_dialog_imag);
-        post_button_clicked = (Button) new_post_dialog.findViewById(R.id.post_button);
-
-        close_dialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new_post_dialog.dismiss();
-            }
-        });
-
-        new_post_dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        new_post_dialog.show();
-
-        post_button_clicked.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                *//*EditText title = (EditText) findViewById(R.id.title_input);
-                String title_string =   title.getText().toString();
-                EditText teams_name = (EditText) findViewById(R.id.teams_name_input);
-                String teams_name_string =  teams_name.getText().toString();
-                //EditText user_ID = (EditText) findViewById(R.id.txtInput_userID);
-                String user_ID_string =  "1234";
-                EditText posts_content = (EditText) findViewById(R.id.posts_content_input);
-                String posts_content_string =  posts_content.getText().toString();
-                EditText projects_name = (EditText) findViewById(R.id.projects_name_input);
-                String projects_name_string =  projects_name.getText().toString();*//*
-                //Post new_post_object = new Post(name_string ,teams_name_string, user_ID_string, posts_content_string, projects_name_string);
-                //pass to firebase!;
-
-                *//*Post post = new Post("come see the new board!", "marketing", "naftali", "it's ready!!!", "luach_bogrim");
-                FBI.uploadPost(post);*//*
-                new_post_dialog.dismiss();
-
-            }
-        });
-    }*/
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -125,9 +122,12 @@ public class Feed extends AppCompatActivity implements dialog.dialogListener {
     };
 
 
-    @Override
-    public void applyTexts(String title, String teams, String projects, String post_content) {
+
+    public void sendDetailsToFB(String title, String teams, String projects, String post_content) {
         Post new_post = new Post(title,teams,post_content, projects);
         FBI.uploadPost(new_post);
+        new_post_dialog.dismiss();
     }
+
+
 }
