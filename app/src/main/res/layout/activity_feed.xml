@@ -46,22 +46,9 @@
 
     <ImageView
         android:id="@+id/feed_icon"
-        android:layout_width="88dp"
-        android:layout_height="38dp"
-        app:srcCompat="@drawable/feed_icon" />
-
-    <TextView
-        android:id="@+id/feedit"
-        android:layout_width="79dp"
-        android:layout_height="23dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="17dp"
-        android:layout_alignParentBottom="@+id/fragment_container"
-        android:gravity="center_horizontal|top"
-        android:text="@string/feedit"
-        android:textAppearance="@style/feedit" />
+        android:layout_width="95dp"
+        android:layout_height="40dp"
+        app:srcCompat="@drawable/feedit_logo" />
 
     <ImageView
         android:id="@+id/toolbar_background"
