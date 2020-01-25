@@ -56,23 +56,23 @@
         android:layout_marginStart="54dp"
         android:layout_marginLeft="54dp"
         android:fontFamily="@font/imprima"
+        android:text="Email"
         android:textColor="#000000"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_up_title"
-        tools:ignore="MissingConstraints"
-        tools:text="E-mail" />
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/email_edit"
-        android:layout_width="291dp"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="54dp"
         android:layout_marginLeft="54dp"
-        android:layout_marginRight="55dp"
         android:layout_marginEnd="55dp"
+        android:layout_marginRight="55dp"
         android:ems="10"
-        android:hint="@string/fui_email_hint"
+        android:hint="Email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -81,18 +81,21 @@
 
     <TextView
         android:id="@+id/password_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
         android:layout_marginLeft="54dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="55dp"
         android:fontFamily="@font/imprima"
+        android:text="@string/password_"
         android:textColor="#000000"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.006"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_edit"
-        tools:ignore="MissingConstraints"
-        tools:text="Password" />
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/password_edit"
@@ -104,7 +107,7 @@
         android:layout_marginRight="55dp"
         android:autofillHints="password"
         android:ems="10"
-        android:hint="Password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -124,6 +127,7 @@
         android:background="@drawable/button_creat_user_backgrpund"
         android:onClick="onClick"
         android:text="@string/sign_up"
+        android:textColor="@color/fui_bgGoogle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.313"

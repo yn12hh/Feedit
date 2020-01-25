@@ -14,15 +14,14 @@ import java.util.Locale;
 import java.util.Objects;
 
 public class Post {
-    private final String title;
-    private final String team;
-    private final Date time_stamp;
+    private String title;
+    private String team;
+    private Date time_stamp;
     private final Calendar c = Calendar.getInstance();
     private String author;
-    private final String post_text;
-    private final String project;
-    private SimpleDateFormat timestamp_format = new SimpleDateFormat("HH:mm dd/mm/yyyy", Locale.getDefault());
-
+    private String post_text;
+    private String project;
+    private SimpleDateFormat timestamp_format = new SimpleDateFormat("dd MMM | HH:mm", Locale.getDefault());
     public Post(String title, String team, String post_text, String project) {
 
         this.title = title;
@@ -35,6 +34,8 @@ public class Post {
         this.project = project;
         this.time_stamp = new Date();
     }
+
+    Post() {}
 
     //getters
     public String getTitle(){
@@ -57,6 +58,7 @@ public class Post {
         return project;
     }
 
-    public Date getTime_stamp() { return time_stamp; }
+    public String getTimeStampString() { return timestamp_format.format(time_stamp); }
+
 
 }

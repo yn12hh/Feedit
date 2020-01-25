@@ -24,7 +24,7 @@ public class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.Feed
         holder.name.setText(model.getAuthor());
         holder.project.setText(model.getProject());
         holder.text.setText(model.getPost_text());
-        holder.hour.setText(String.valueOf(model.getTime_stamp()));
+        holder.time_stamp.setText(String.valueOf(model.getTimeStampString()));
     }
 
     @NonNull
@@ -35,7 +35,7 @@ public class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.Feed
     }
 
     class FeedPostHolder extends RecyclerView.ViewHolder {
-        TextView title, team, name, project, text, hour;
+        TextView title, team, name, project, text, time_stamp;
         public FeedPostHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.post_title);
@@ -43,7 +43,7 @@ public class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.Feed
             name = itemView.findViewById(R.id.post_author);
             project = itemView.findViewById(R.id.post_project);
             text = itemView.findViewById(R.id.post_text);
-            hour = itemView.findViewById(R.id.post_time_stamp);
+            time_stamp = itemView.findViewById(R.id.post_time_stamp);
 
         }
     }
