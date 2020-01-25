@@ -36,10 +36,7 @@ public class Feed extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FeedFragment()).commit();
 
         //missing author_tv = (TextView) findViewById(), the part that creates the text
 
@@ -110,26 +107,7 @@ public class Feed extends AppCompatActivity  {
 
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            Fragment selectedFragment = null;
 
-            switch (menuItem.getItemId()) {
-                case R.id.nav_feed:
-                    selectedFragment = new FeedFragment();
-                    break;
-                case R.id.nav_team:
-                    selectedFragment = new TeamsFragment();
-                    break;
-                case R.id.nav_projects:
-                    selectedFragment = new ProjectsFragment();
-                    break;
-            }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-            return true;
-        }
-    };
 
 
 
