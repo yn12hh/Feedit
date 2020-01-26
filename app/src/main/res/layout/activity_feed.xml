@@ -8,20 +8,18 @@
     tools:context=".Feed">
 
 
-    <ImageView
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_icon"
         android:layout_width="74dp"
-        android:layout_height="69dp"
+        android:layout_height="64dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="end|bottom"
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="55dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:srcCompat="@drawable/ic_add_circle" />
+        android:layout_marginEnd="76dp"
+        android:layout_marginRight="76dp"
+        android:layout_marginBottom="95dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:src="@drawable/ic_add_icon" />
 
     <ImageView
         android:id="@+id/feed_icon"
