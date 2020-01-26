@@ -13,6 +13,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class FeedItFBInterface {
     private FirebaseFirestore db;
     private CollectionReference entries_collection;
+    private FeedAdapter feed_adapter;
 
     FeedItFBInterface(){
         db =  FirebaseFirestore.getInstance();
@@ -41,6 +43,60 @@ public class FeedItFBInterface {
         return entries_collection.add(uploadable_post).isSuccessful();
     }
 
+    public void setUpRecyclerView(RecyclerView view){
+        Query query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, Post.class).build();
+        feed_adapter =  new FeedAdapter(options);
+        view.setAdapter(feed_adapter);
+    }
+
+    public void startListening() {
+        feed_adapter.startListening();
+    }
+
+    public void stopListening() {
+        feed_adapter.stopListening();
+    }
+
+
+    protected class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.FeedPostHolder> {
+
+        public FeedAdapter(@NonNull FirestoreRecyclerOptions<Post> options) {
+            super(options);
+        }
+
+        @Override
+        protected void onBindViewHolder(@NonNull FeedPostHolder holder, int position, @NonNull Post model) {
+            holder.title.setText(model.getTitle());
+            holder.team.setText(model.getTeam());
+            holder.name.setText(model.getAuthor());
+            holder.project.setText(model.getProject());
+            holder.text.setText(model.getPost_text());
+            holder.time_stamp.setText(String.valueOf(model.getTimeStampString()));
+        }
+
+        @NonNull
+        @Override
+        public FeedPostHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_post, parent, false);
+            return new FeedPostHolder(view);
+        }
+
+        class FeedPostHolder extends RecyclerView.ViewHolder {
+            TextView title, team, name, project, text, time_stamp;
+            public FeedPostHolder(@NonNull View itemView) {
+                super(itemView);
+                title = itemView.findViewById(R.id.post_title);
+                team = itemView.findViewById(R.id.post_team);
+                name = itemView.findViewById(R.id.post_author);
+                project = itemView.findViewById(R.id.post_project);
+                text = itemView.findViewById(R.id.post_text);
+                time_stamp = itemView.findViewById(R.id.post_time_stamp);
+
+            }
+        }
+
+    }
 
 }
 
