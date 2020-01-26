@@ -27,32 +27,32 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        edittext_email = (EditText) findViewById(R.id.email_edit);
-        edittext_password = (EditText) findViewById(R.id.password_edit);
-        reg_progressbar = (ProgressBar)findViewById(R.id.reg_progressbar);
+        edittext_email = findViewById(R.id.email_edit);
+        edittext_password = findViewById(R.id.password_edit);
+        reg_progressbar = findViewById(R.id.reg_progressbar);
         findViewById(R.id.registration_button).setOnClickListener(this);
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-
-
-
 
     }
 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.registration_button:
+        if (v.getId() == R.id.registration_button) {
                 registerUser();
-
         }
     }
 
+    /**
+     * User registration with email and password
+     * If registration is successful starts the FeedActivity, otherwise displays the appropriate error message.
+     */
     private void registerUser() {
         String username = edittext_email.getText().toString().trim();
         String password = edittext_password.getText().toString().trim();
 
+        // Checks if the entered values are valid and display suitable massage if they aren't.
         if (username.isEmpty()) {
             edittext_email.setError("Username is required");
             edittext_email.requestFocus();
@@ -77,17 +77,16 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }
 
         reg_progressbar.setVisibility(View.VISIBLE);
-        mAuth.createUserWithEmailAndPassword(username,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        // Register the user with firebase auth.
+        mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 reg_progressbar.setVisibility(View.GONE);
-                if (task.isSuccessful())
-                {
-                    Toast.makeText(getApplicationContext(),"User Registered Successfull", Toast.LENGTH_SHORT).show();
-                    Intent myIntent = new Intent (getBaseContext(),Feed.class);
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "User Registered Successfull", Toast.LENGTH_SHORT).show();
+                    Intent myIntent = new Intent(getBaseContext(), Feed.class);
                     startActivity(myIntent);
-                }
-                else {
+                } else {
 
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
                         Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_SHORT).show();
@@ -97,6 +96,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                     }
 
                 }
-        }});
+            }
+        });
     }
 }

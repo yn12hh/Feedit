@@ -56,7 +56,7 @@
         android:layout_marginStart="54dp"
         android:layout_marginLeft="54dp"
         android:fontFamily="@font/imprima"
-        android:text="Email"
+        android:text="@string/email"
         android:textColor="#000000"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,12 +72,13 @@
         android:layout_marginEnd="55dp"
         android:layout_marginRight="55dp"
         android:ems="10"
-        android:hint="Email"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_title" />
+        app:layout_constraintTop_toBottomOf="@+id/email_title"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/password_title"
@@ -95,7 +96,8 @@
         app:layout_constraintHorizontal_bias="0.006"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_edit"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:layout_marginEnd="55dp" />
 
     <EditText
         android:id="@+id/password_edit"
@@ -105,7 +107,7 @@
         android:layout_marginLeft="54dp"
         android:layout_marginEnd="55dp"
         android:layout_marginRight="55dp"
-        android:autofillHints="password"
+        android:autofillHints="@string/password"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
@@ -114,6 +116,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_title" />
 
+
+    <ProgressBar
+        android:id="@+id/reg_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/registration_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_title">
+
+    </ProgressBar>
 
     <Button
         android:id="@+id/registration_button"
@@ -134,20 +148,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_edit"
         app:layout_constraintVertical_bias="0.0" />
-
-    <ProgressBar
-        android:id="@+id/reg_progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
-
-    </ProgressBar>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
