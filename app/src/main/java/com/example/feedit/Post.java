@@ -58,7 +58,8 @@ public class Post {
         return project;
     }
 
-    public Date getTimeStamp() {return time_stamp; }
+    public Date getTimeStamp() { return time_stamp; }
+
 
     public String getTimeStampString() { return timestamp_format.format(time_stamp); }
 

@@ -24,7 +24,7 @@ public class FeedItFBInterface {
 
     FeedItFBInterface(){
         db =  FirebaseFirestore.getInstance();
-        entries_collection = db.collection("sampleData");
+        entries_collection = db.collection("entries");
     }
 
 
@@ -33,7 +33,8 @@ public class FeedItFBInterface {
         Map<String, Object> uploadable_post = new HashMap<>();
         uploadable_post.put("title", post.getTitle());
         uploadable_post.put("author", post.getAuthor());
-        uploadable_post.put("timestamp", post.getTimeStamp());
+        uploadable_post.put("time_stamp", post.getTimeStamp());
+
         uploadable_post.put("post_text", post.getPost_text());
         uploadable_post.put("team", post.getTeam());
         uploadable_post.put("project", post.getProject());

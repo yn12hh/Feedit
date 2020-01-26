@@ -66,5 +66,15 @@
         android:textSize="14sp"
         tools:text="@string/projects" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/feed_recycler_view"
+        android:layout_width="385dp"
+        android:layout_height="646dp"
+        android:layout_below="@+id/toolbar_background"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="23dp" />
+
 
 </RelativeLayout>

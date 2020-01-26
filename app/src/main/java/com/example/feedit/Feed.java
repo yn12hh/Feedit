@@ -2,6 +2,8 @@ package com.example.feedit;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -19,7 +21,11 @@ import android.widget.Toast;
 
 import com.example.feedit.Post;
 import com.example.feedit.R;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class Feed extends AppCompatActivity  {
 
@@ -31,14 +37,23 @@ public class Feed extends AppCompatActivity  {
     private EditText title_et, projects_et, teams_et, post_content_et;
     private TextView title_tv,teams_tv, projects_tv, post_content_tv, author_tv; //time?
 
+
+    private FirebaseFirestore firestore_database = FirebaseFirestore.getInstance();
+    private CollectionReference feed_it_posts_ref = firestore_database.collection("entries");
+
+    private FeedAdapter feed_adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+        setUpRecyclerView();
 
 
 
         //missing author_tv = (TextView) findViewById(), the part that creates the text
+
 
 
         FBI = new FeedItFBInterface();
@@ -55,9 +70,32 @@ public class Feed extends AppCompatActivity  {
 
         });
 
+    }
 
 
+    private void setUpRecyclerView(){
+        Query query = feed_it_posts_ref.orderBy("timestamp", Query.Direction.DESCENDING);
 
+        FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, Post.class).build();
+        feed_adapter = new FeedAdapter(options);
+        RecyclerView feed_recycler = findViewById(R.id.feed_recycler_view);
+        //for performance reasons: to enhance the performance
+        feed_recycler.setHasFixedSize(true);
+        feed_recycler.setLayoutManager(new LinearLayoutManager(this));
+        feed_recycler.setAdapter(feed_adapter);
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        feed_adapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        feed_adapter.stopListening();
     }
 
 
@@ -106,10 +144,6 @@ public class Feed extends AppCompatActivity  {
 
 
     }
-
-
-
-
 
     public void sendDetailsToFB(String title, String teams, String projects, String post_content) {
         Post new_post = new Post(title,teams,post_content, projects);
