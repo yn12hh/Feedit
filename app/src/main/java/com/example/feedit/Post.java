@@ -16,7 +16,7 @@ import java.util.Objects;
 public class Post {
     private String title;
     private String team;
-    private Date time_stamp;
+    private Date timestamp;
     private final Calendar c = Calendar.getInstance();
     private String author;
     private String post_text;
@@ -32,7 +32,7 @@ public class Post {
             author = author.substring(0, author.indexOf('@'));
         this.post_text = post_text;
         this.project = project;
-        this.time_stamp = new Date();
+        this.timestamp = new Date();
     }
 
     Post() {}
@@ -58,10 +58,10 @@ public class Post {
         return project;
     }
 
-    public Date getTimeStamp() { return time_stamp; }
+    public Date getTimeStamp() { return timestamp; }
 
 
-    public String getTimeStampString() { return timestamp_format.format(time_stamp); }
+    public String getTimeStampString() { return timestamp_format.format(timestamp); }
 
 
 }

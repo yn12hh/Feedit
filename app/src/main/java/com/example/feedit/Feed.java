@@ -50,8 +50,6 @@ public class Feed extends AppCompatActivity  {
         setContentView(R.layout.activity_feed);
         setUpRecyclerView();
 
-
-
         //missing author_tv = (TextView) findViewById(), the part that creates the text
 
 
