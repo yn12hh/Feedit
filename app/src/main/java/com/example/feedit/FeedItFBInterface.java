@@ -20,13 +20,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class FeedItFBInterface {
-    private FirebaseFirestore db;
     private CollectionReference entries_collection;
     private FeedAdapter feed_adapter;
 
     FeedItFBInterface(){
-        db =  FirebaseFirestore.getInstance();
-        entries_collection = db.collection("entries");
+        entries_collection = FirebaseFirestore.getInstance().collection("entries");
     }
 
 
@@ -43,8 +41,9 @@ public class FeedItFBInterface {
         return entries_collection.add(uploadable_post).isSuccessful();
     }
 
-    public void setUpRecyclerView(RecyclerView view){
-        Query query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
+    public void setUpRecyclerView(RecyclerView view, Query query){
+        if(query == null)
+            query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, Post.class).build();
         feed_adapter =  new FeedAdapter(options);
         view.setAdapter(feed_adapter);
@@ -58,8 +57,12 @@ public class FeedItFBInterface {
         feed_adapter.stopListening();
     }
 
+    public void changeQuery(Query query) {
 
-    protected class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.FeedPostHolder> {
+    }
+
+
+    private class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.FeedPostHolder> {
 
         public FeedAdapter(@NonNull FirestoreRecyclerOptions<Post> options) {
             super(options);

@@ -54,7 +54,7 @@ public class Feed extends AppCompatActivity  {
         feed_recycler.setHasFixedSize(true);
         feed_recycler.setLayoutManager(new LinearLayoutManager(this));
 
-        fb_interface.setUpRecyclerView(feed_recycler);
+        fb_interface.setUpRecyclerView(feed_recycler, null);
 
         //missing author_tv = (TextView) findViewById(), the part that creates the text
 
