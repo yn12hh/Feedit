@@ -22,6 +22,10 @@
     <string name="post_s_title">Post\'s Title</string>
     <string name="post_prompt">Post!</string>
     <string name="sign_in_title">Sign In</string>
+    <string name="email">Email</string>
+    <string name="don_t_have_an_acount">Don\'t have an acount?</string>
+    <string name="logo">Logo</string>
+    <string name="app_logo">app_logo</string>
 
 
 </resources>
