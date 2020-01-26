@@ -37,6 +37,7 @@ public class Feed extends AppCompatActivity  {
     private EditText title_et, projects_et, teams_et, post_content_et;
     private TextView title_tv,teams_tv, projects_tv, post_content_tv, author_tv; //time?
 
+
     private FirebaseFirestore firestore_database = FirebaseFirestore.getInstance();
     private CollectionReference feed_it_posts_ref = firestore_database.collection("entries");
 
@@ -50,7 +51,9 @@ public class Feed extends AppCompatActivity  {
         setUpRecyclerView();
 
 
+
         //missing author_tv = (TextView) findViewById(), the part that creates the text
+
 
 
         FBI = new FeedItFBInterface();
@@ -63,6 +66,8 @@ public class Feed extends AppCompatActivity  {
 
                 showAddPost();
             }
+
+
         });
 
     }
@@ -79,6 +84,7 @@ public class Feed extends AppCompatActivity  {
         feed_recycler.setLayoutManager(new LinearLayoutManager(this));
         feed_recycler.setAdapter(feed_adapter);
     }
+
 
     @Override
     protected void onStart() {
@@ -138,6 +144,7 @@ public class Feed extends AppCompatActivity  {
 
 
     }
+
     public void sendDetailsToFB(String title, String teams, String projects, String post_content) {
         Post new_post = new Post(title,teams,post_content, projects);
         FBI.uploadPost(new_post);

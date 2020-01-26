@@ -60,6 +60,7 @@ public class Post {
 
     public Date getTimeStamp() { return time_stamp; }
 
+
     public String getTimeStampString() { return timestamp_format.format(time_stamp); }
 
 

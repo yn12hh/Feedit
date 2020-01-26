@@ -6,7 +6,8 @@
         android:icon="@drawable/team_icon"
         android:title="@string/teams"
         android:textAppearance="@style/navigation_titles"
-        android:gravity="top"/>
+        android:gravity="top"
+        />
 
     <item
         android:id="@+id/nav_feed"
@@ -18,5 +19,6 @@
         android:id="@+id/nav_projects"
         android:icon="@drawable/projects_icon"
         android:title="@string/projects"
-        android:textAppearance="@style/navigation_titles"/>
+        android:textAppearance="@style/navigation_titles"
+        />
 </menu>
