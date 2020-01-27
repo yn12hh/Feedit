@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.example.feedit.Post;
 import com.example.feedit.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -53,10 +55,10 @@ public class Feed extends AppCompatActivity  {
         feed_recycler = findViewById(R.id.feed_recycler_view);
         feed_recycler.setHasFixedSize(true);
         feed_recycler.setLayoutManager(new LinearLayoutManager(this));
-
+        findViewById(R.id.sign_out_button);
         fb_interface.setUpRecyclerView(feed_recycler, null);
 
-        //missing author_tv = (TextView) findViewById(), the part that creates the text
+        //misfdsing author_tv = (TextView) findViewById(), the part that creates the text
 
 
 
@@ -144,4 +146,13 @@ public class Feed extends AppCompatActivity  {
     }
 
 
+    public void signout(View view) {
+        if (view.getId()==R.id.sign_out_button)
+        {
+            FirebaseAuth.getInstance().signOut();
+            Intent myIntent = new Intent(getBaseContext(), SignInActivity.class);
+            startActivity(myIntent);
+        }
+
+    }
 }
