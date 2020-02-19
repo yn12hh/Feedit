@@ -13,7 +13,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
-public class Post {
+public class Post { 
+    
     private String title;
     private String team;
     private Date timestamp;
@@ -22,8 +23,8 @@ public class Post {
     private String post_text;
     private String project;
     private SimpleDateFormat timestamp_format = new SimpleDateFormat("dd MMM | HH:mm", Locale.getDefault());
+    
     public Post(String title, String team, String post_text, String project) {
-
         this.title = title;
         this.team = team;
         if((author = FirebaseAuth.getInstance().getCurrentUser().getEmail()) == null)
@@ -34,8 +35,6 @@ public class Post {
         this.project = project;
         this.timestamp = new Date();
     }
-
-    Post() {}
 
     //getters
     public String getTitle(){
