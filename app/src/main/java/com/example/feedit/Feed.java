@@ -59,7 +59,7 @@ public class Feed extends AppCompatActivity  {
         fb_interface.setUpRecyclerView(feed_recycler, null);
 
         add_post_button = (ImageView) findViewById(R.id.add_icon);
-        add_post_ button.setOnClickListener(new View.OnClickListener(){
+        add_post_button.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
