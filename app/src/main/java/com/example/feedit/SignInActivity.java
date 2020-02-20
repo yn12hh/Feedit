@@ -26,14 +26,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-/**
- * SignIn Activity
- */
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int RC_SIGN_IN = 123;
     private static final String TAG = "GoogleAuth";
     EditText edittext_username, edittext_password;
-    FirebaseAuth mAuth;
+    FirebaseAuth auth_comp;
     ProgressBar signin_progressbar;
     GoogleSignInClient mGoogleSignInClient;
 
@@ -54,7 +51,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        mAuth = FirebaseAuth.getInstance();
+        auth_comp = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
@@ -63,8 +60,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
      * Signing in the user with google account.
      */
     private void signInWithGoogle() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        Intent sign_in_intent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(sign_in_intent, RC_SIGN_IN);
     }
 
 
@@ -114,13 +111,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         signin_progressbar.setVisibility(View.VISIBLE);
         // Signing In the user with firebase auth.
-        mAuth.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        auth_comp.signInWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     signin_progressbar.setVisibility(View.GONE);
-                    Intent myIntent = new Intent(getBaseContext(), Feed.class);
-                    startActivity(myIntent);
+                    Intent my_intent = new Intent(getBaseContext(), Feed.class);
+                    startActivity(my_intent);
                 } else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -154,7 +151,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
+        auth_comp.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -162,9 +159,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             Toast.makeText(SignInActivity.this, "User signed in successfully with Google account", Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent myIntent = new Intent(getBaseContext(), Feed.class);
-                            startActivity(myIntent);
+                            FirebaseUser user = auth_comp.getCurrentUser();
+                            Intent my_intent = new Intent(getBaseContext(), Feed.class);
+                            startActivity(my_intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
