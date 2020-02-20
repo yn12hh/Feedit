@@ -31,13 +31,13 @@ import com.google.firebase.firestore.Query;
 
 public class Feed extends AppCompatActivity  {
 
-    private ImageView add_button;
+    private ImageView add_post_button;
     private Dialog  new_post_dialog;
     private ImageView close_dialog;
     private Button post_button_clicked;
     private FeedItFBInterface fb_interface;
-    private EditText title_et, projects_et, teams_et, post_content_et;
-    private TextView title_tv,teams_tv, projects_tv, post_content_tv, author_tv; //time?
+    private EditText title_et, projects_et, teams_et, post_content_et; //et stands for Edit Text, written in acronym to save name length
+    private TextView title_tv,teams_tv, projects_tv, post_content_tv, author_tv; //tv stands for Text View, written in acronym to save name length
 
 
     private FirebaseFirestore firestore_database = FirebaseFirestore.getInstance();
@@ -58,19 +58,13 @@ public class Feed extends AppCompatActivity  {
         findViewById(R.id.sign_out_button);
         fb_interface.setUpRecyclerView(feed_recycler, null);
 
-        //misfdsing author_tv = (TextView) findViewById(), the part that creates the text
-
-
-
-
-
-        add_button = (ImageView) findViewById(R.id.add_icon);
-        add_button.setOnClickListener(new View.OnClickListener(){
+        add_post_button = (ImageView) findViewById(R.id.add_icon);
+        add_post_ button.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view) {
 
-                showAddPost();
+                showAddPostDialog();
             }
 
 
@@ -94,8 +88,7 @@ public class Feed extends AppCompatActivity  {
 
 
 
-   public void showAddPost(){
-
+   public void showAddPostDialog(){
 
        final AlertDialog.Builder mbuilder = new AlertDialog.Builder(Feed.this);
        View mview = getLayoutInflater().inflate(R.layout.add_post_dialog, null);
@@ -108,6 +101,7 @@ public class Feed extends AppCompatActivity  {
        teams_et = (EditText) mview.findViewById(R.id.teams_name_input);
        projects_et = (EditText) mview.findViewById(R.id.projects_name_input);
        post_content_et = (EditText) mview.findViewById(R.id.posts_content_input);
+       
        post_button_clicked = (Button) mview.findViewById(R.id.post_button);
        post_button_clicked.setOnClickListener(new View.OnClickListener() {
            @Override
