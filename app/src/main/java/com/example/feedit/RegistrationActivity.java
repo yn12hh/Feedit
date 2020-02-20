@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class RegistrationActivity extends AppCompatActivity implements View.OnClickListener {
     EditText edittext_email, edittext_password;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth auth_comp;
     ProgressBar reg_progressbar;
 
     @Override
@@ -32,7 +32,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         reg_progressbar = findViewById(R.id.reg_progressbar);
         findViewById(R.id.registration_button).setOnClickListener(this);
         // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+        auth_comp = FirebaseAuth.getInstance();
 
     }
 
@@ -78,7 +78,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
 
         reg_progressbar.setVisibility(View.VISIBLE);
         // Register the user with firebase auth.
-        mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        auth_comp.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 reg_progressbar.setVisibility(View.GONE);
