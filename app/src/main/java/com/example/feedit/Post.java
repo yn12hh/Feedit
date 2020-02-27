@@ -35,6 +35,8 @@ public class Post {
         this.project = project;
         this.timestamp = new Date();
     }
+    
+    Post () {}
 
     //getters
     public String getTitle(){
