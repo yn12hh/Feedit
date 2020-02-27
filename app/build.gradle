@@ -49,6 +49,8 @@ dependencies {
     // I don't know why the guy in the video doesn't want me to add a dependency to recyclerview, keep that in mind...
     implementation 'android.arch.core:runtime:1.1.1'
 
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
 
 }
 
