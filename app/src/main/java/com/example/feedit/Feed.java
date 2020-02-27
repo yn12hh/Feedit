@@ -152,8 +152,8 @@ public class Feed extends AppCompatActivity  {
     public void signout(View view) {
         if (view.getId()==R.id.sign_out_button)
         {
-            FirebaseAuth.getInstance().signOut();
-            Intent myIntent = new Intent(getBaseContext(), SignInActivity.class);
+         //   FirebaseAuth.getInstance().signOut();
+            Intent myIntent = new Intent(getBaseContext(), FilterActivity.class);
             startActivity(myIntent);
         }
 
