@@ -73,6 +73,11 @@ public class FeedItFBInterface {
         feed_adapter.stopListening();
     }
 
+    public void feedRefresh() {
+        feed_adapter.stopListening();
+        feed_adapter.startListening();
+    }
+
     private class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.FeedPostHolder> {
 
         public FeedAdapter(@NonNull FirestoreRecyclerOptions<Post> options) {

@@ -81,8 +81,7 @@ public class Feed extends AppCompatActivity  {
         feed_swipe_refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                fb_interface.stopListening();
-                fb_interface.startListening();
+                fb_interface.feedRefresh();
                 feed_swipe_refresh_layout.setRefreshing(false);
             }
         });
