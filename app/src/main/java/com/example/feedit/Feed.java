@@ -30,6 +30,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Feed extends AppCompatActivity  {
 
     private ImageView add_post_button;
@@ -56,7 +59,9 @@ public class Feed extends AppCompatActivity  {
         feed_recycler.setHasFixedSize(true);
         feed_recycler.setLayoutManager(new LinearLayoutManager(this));
         findViewById(R.id.sign_out_button);
-        fb_interface.setUpRecyclerView(feed_recycler, null);
+
+        List<String> empty_list = Arrays.asList();
+        fb_interface.setUpRecyclerView(feed_recycler, empty_list, empty_list);
 
         add_post_button = (ImageView) findViewById(R.id.add_icon);
         add_post_button.setOnClickListener(new View.OnClickListener(){
@@ -69,6 +74,7 @@ public class Feed extends AppCompatActivity  {
 
 
         });
+
 
 
         feed_swipe_refresh_layout = findViewById(R.id.feed_swipe_refresh);
