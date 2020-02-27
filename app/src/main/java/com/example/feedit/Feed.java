@@ -61,7 +61,7 @@ public class Feed extends AppCompatActivity  {
         findViewById(R.id.sign_out_button);
 
         List<String> empty_list = Arrays.asList();
-        fb_interface.setUpRecyclerView(feed_recycler, empty_list, empty_list);
+        fb_interface.setUpRecyclerViewForFeed(feed_recycler, empty_list, empty_list);
 
         add_post_button = (ImageView) findViewById(R.id.add_icon);
         add_post_button.setOnClickListener(new View.OnClickListener(){
@@ -80,13 +80,13 @@ public class Feed extends AppCompatActivity  {
     @Override
     protected void onStart() {
         super.onStart();
-        fb_interface.startListening();
+        fb_interface.startFeedListening();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        fb_interface.stopListening();
+        fb_interface.stopFeedListening();
     }
 
 

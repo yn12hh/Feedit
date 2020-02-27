@@ -42,38 +42,36 @@ public class FeedItFBInterface {
         return entries_collection.add(uploadable_post).isSuccessful();
     }
 
-    public void setUpRecyclerView(RecyclerView view, List<String> projects_for_querry, List<String> teams_for_querry){
-        Query query = setQuery(projects_for_querry, teams_for_querry);
+    public void setUpRecyclerViewForFeed(RecyclerView view, List<String> projects_for_query, List<String> teams_for_query){
+        Query query = setQueryForFeed(projects_for_query, teams_for_query);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, Post.class).build();
         feed_adapter =  new FeedAdapter(options);
         view.setAdapter(feed_adapter);
     }
 
-    private Query setQuery(List<String> projects_for_querry, List<String> teams_for_querry) {
+    private Query setQueryForFeed(List<String> projects_for_query, List<String> teams_for_query) {
         Query query ;
-        if(projects_for_querry.isEmpty() && teams_for_querry.isEmpty()) {
+        if(projects_for_query.isEmpty() && teams_for_query.isEmpty()) {
             query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
-        } else if (projects_for_querry.isEmpty()) {
-            query = entries_collection.whereIn("team", teams_for_querry).orderBy("timestamp", Query.Direction.DESCENDING);
-        } else if (teams_for_querry.isEmpty()) {
-            query = entries_collection.whereIn("project", projects_for_querry).orderBy("timestamp", Query.Direction.DESCENDING);
-        } else if(projects_for_querry.size() > 1){
-            query = entries_collection.whereIn("project", projects_for_querry).whereEqualTo("team", teams_for_querry.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
+        } else if (projects_for_query.isEmpty()) {
+            query = entries_collection.whereIn("team", teams_for_query).orderBy("timestamp", Query.Direction.DESCENDING);
+        } else if (teams_for_query.isEmpty()) {
+            query = entries_collection.whereIn("project", projects_for_query).orderBy("timestamp", Query.Direction.DESCENDING);
+        } else if(projects_for_query.size() > 1){
+            query = entries_collection.whereIn("project", projects_for_query).whereEqualTo("team", teams_for_query.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
         } else {
-            query = entries_collection.whereIn("team", teams_for_querry).whereEqualTo("project", projects_for_querry.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
+            query = entries_collection.whereIn("team", teams_for_query).whereEqualTo("project", projects_for_query.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
         }
         return query;
     }
 
-    public void startListening() {
+    public void startFeedListening() {
         feed_adapter.startListening();
     }
 
-    public void stopListening() {
+    public void stopFeedListening() {
         feed_adapter.stopListening();
     }
-
-
 
     private class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.FeedPostHolder> {
 
