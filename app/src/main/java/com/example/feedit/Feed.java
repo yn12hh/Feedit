@@ -77,8 +77,6 @@ public class Feed extends AppCompatActivity  {
 
     }
 
-
-
     @Override
     protected void onStart() {
         super.onStart();

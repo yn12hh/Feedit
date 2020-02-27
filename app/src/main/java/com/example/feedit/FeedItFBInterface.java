@@ -1,6 +1,5 @@
 package com.example.feedit;
 
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +43,13 @@ public class FeedItFBInterface {
     }
 
     public void setUpRecyclerView(RecyclerView view, List<String> projects_for_querry, List<String> teams_for_querry){
+        Query query = setQuery(projects_for_querry, teams_for_querry);
+        FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, Post.class).build();
+        feed_adapter =  new FeedAdapter(options);
+        view.setAdapter(feed_adapter);
+    }
+
+    private Query setQuery(List<String> projects_for_querry, List<String> teams_for_querry) {
         Query query ;
         if(projects_for_querry.isEmpty() && teams_for_querry.isEmpty()) {
             query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
@@ -56,10 +62,7 @@ public class FeedItFBInterface {
         } else {
             query = entries_collection.whereIn("team", teams_for_querry).whereEqualTo("project", projects_for_querry.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
         }
-
-        FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, Post.class).build();
-        feed_adapter =  new FeedAdapter(options);
-        view.setAdapter(feed_adapter);
+        return query;
     }
 
     public void startListening() {
@@ -70,9 +73,6 @@ public class FeedItFBInterface {
         feed_adapter.stopListening();
     }
 
-    public void changeQuery(Query query) {
-
-    }
 
 
     private class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.FeedPostHolder> {
