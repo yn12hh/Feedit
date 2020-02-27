@@ -85,15 +85,21 @@
         android:textSize="14sp"
         tools:text="@string/projects" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/feed_recycler_view"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/feed_swipe_refresh"
         android:layout_width="385dp"
         android:layout_height="646dp"
         android:layout_below="@+id/toolbar_background"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="23dp" />
+        android:layout_marginBottom="23dp" >
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/feed_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </RelativeLayout>
