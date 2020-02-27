@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -42,6 +43,7 @@ public class Feed extends AppCompatActivity  {
     private EditText title_et, projects_et, teams_et, post_content_et; //et stands for Edit Text, written in acronym to save name length
     private TextView title_tv,teams_tv, projects_tv, post_content_tv, author_tv; //tv stands for Text View, written in acronym to save name length
 
+    private SwipeRefreshLayout feed_swipe_refresh_layout;
 
     private FirebaseFirestore firestore_database = FirebaseFirestore.getInstance();
     private CollectionReference feed_it_posts_ref = firestore_database.collection("entries");
@@ -52,9 +54,7 @@ public class Feed extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-
         fb_interface = new FeedItFBInterface();
-
         feed_recycler = findViewById(R.id.feed_recycler_view);
         feed_recycler.setHasFixedSize(true);
         feed_recycler.setLayoutManager(new LinearLayoutManager(this));
@@ -73,6 +73,18 @@ public class Feed extends AppCompatActivity  {
             }
 
 
+        });
+
+
+
+        feed_swipe_refresh_layout = findViewById(R.id.feed_swipe_refresh);
+        feed_swipe_refresh_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fb_interface.stopListening();
+                fb_interface.startListening();
+                feed_swipe_refresh_layout.setRefreshing(false);
+            }
         });
 
     }
@@ -146,10 +158,11 @@ public class Feed extends AppCompatActivity  {
     public void signout(View view) {
         if (view.getId()==R.id.sign_out_button)
         {
-            FirebaseAuth.getInstance().signOut();
-            Intent myIntent = new Intent(getBaseContext(), SignInActivity.class);
+         //   FirebaseAuth.getInstance().signOut();
+            Intent myIntent = new Intent(getBaseContext(), FilterActivity.class);
             startActivity(myIntent);
         }
 
     }
+
 }
