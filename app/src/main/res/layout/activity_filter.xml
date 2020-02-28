@@ -23,12 +23,13 @@
             app:srcCompat="@drawable/save" />
 
         <ImageView
-            android:id="@+id/turn_off"
+            android:id="@+id/sign_out_button"
             android:layout_width="63dp"
             android:layout_height="40dp"
             android:layout_marginEnd="252dp"
             android:layout_marginRight="252dp"
             android:layout_weight="1"
+            android:onClick="signOut"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/save"
             app:layout_constraintTop_toTopOf="parent"
@@ -40,7 +41,7 @@
             android:layout_width="8dp"
             android:layout_height="40dp"
             android:layout_marginRight="21dp"
-            app:layout_constraintEnd_toStartOf="@+id/turn_off"
+            app:layout_constraintEnd_toStartOf="@+id/sign_out_button"
             app:layout_constraintHorizontal_bias="0.077"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -122,7 +123,8 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:text="Main Office"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:onClick="onCheckboxClicked"/>
 
         <CheckBox
             android:id="@+id/production_team"
@@ -130,7 +132,8 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:text="Production"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:onClick="onCheckboxClicked"/>
 
         <CheckBox
             android:id="@+id/pr_team"
@@ -138,14 +141,16 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:text="PR"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:onClick="onCheckboxClicked"/>
 
         <CheckBox
             android:id="@+id/executive_team"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
-            android:text="Executive" />
+            android:text="Executive"
+            android:onClick="onCheckboxClicked"/>
 
         <CheckBox
             android:id="@+id/r_and_d_team"
@@ -153,7 +158,8 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:text="R &amp; D"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:onClick="onCheckboxClicked"/>
 
         <CheckBox
             android:id="@+id/marketing_team"
@@ -161,7 +167,8 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:text="Marketing"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:onClick="onCheckboxClicked"/>
 
     </LinearLayout>
 
