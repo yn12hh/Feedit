@@ -1,7 +1,5 @@
 package com.example.feedit;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -9,11 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,14 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.feedit.Post;
-import com.example.feedit.R;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 
 import java.util.Arrays;
 import java.util.List;
@@ -58,7 +46,7 @@ public class Feed extends AppCompatActivity  {
         feed_recycler = findViewById(R.id.feed_recycler_view);
         feed_recycler.setHasFixedSize(true);
         feed_recycler.setLayoutManager(new LinearLayoutManager(this));
-        findViewById(R.id.sign_out_button);
+        findViewById(R.id.options_button);
 
         List<String> empty_list = Arrays.asList();
         fb_interface.setUpRecyclerViewForFeed(feed_recycler, empty_list, empty_list);
@@ -154,10 +142,9 @@ public class Feed extends AppCompatActivity  {
     }
 
 
-    public void signout(View view) {
-        if (view.getId()==R.id.sign_out_button)
+    public void options(View view) {
+        if (view.getId()==R.id.options_button)
         {
-         //   FirebaseAuth.getInstance().signOut();
             Intent myIntent = new Intent(getBaseContext(), FilterActivity.class);
             startActivity(myIntent);
         }
