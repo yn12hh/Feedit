@@ -26,6 +26,7 @@ public class FilterActivity extends AppCompatActivity {
     private List<String> projects_list = Arrays.asList();
     private List<String> teams_list = Arrays.asList();
     private FeedItFBInterface fb_interface;
+    private String main_office_string = "", production_string = "", pr_string = "", executive_string = "", r_and_d_string = "", marketing_string = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,53 +55,12 @@ public class FilterActivity extends AppCompatActivity {
 
     public void passQueryInfoToRecyclerView(View view) {//we need to implement the passing part
 
-
-//            switch(view.getId()) {
-//                case R.id.project_1_projects:
-//                    if (checked) {
-//                        checkbox = (CheckBox) view.findViewById(R.id.project_1_projects);
-//                        projects_list.add(checkbox.getText().toString());
-//                    }
-//                    break;
-//
-//                case R.id.project_2_projects:
-//                    if (checked) {
-//                        checkbox = (CheckBox) view.findViewById(R.id.project_2_projects);
-//                        projects_list.add(checkbox.getText().toString());
-//                    }
-//                    break;
-//
-//                case R.id.project_3_projects:
-//                    if (checked) {
-//                        checkbox = (CheckBox) view.findViewById(R.id.project_3_projects);
-//                        projects_list.add(checkbox.getText().toString());
-//                    }
-//                    break;
-//
-//                case R.id.project_4_projects:
-//                    if (checked) {
-//                        checkbox = (CheckBox) view.findViewById(R.id.project_4_projects);
-//                        projects_list.add(checkbox.getText().toString());
-//                    }
-//                    break;
-//
-//                case R.id.project_5_projects:
-//                    if (checked) {
-//                        checkbox = (CheckBox) view.findViewById(R.id.project_5_projects);
-//                        projects_list.add(checkbox.getText().toString());
-//                    }
-//                    break;
-//
-//
-//            }
     }
 
     public void onCheckboxClicked(View view) {
 
         CheckBox checkbox;
-        String main_office_string = "", production_string = "", pr_string = "", executive_string = "", r_and_d_string = "", marketing_string = "";
         boolean checked = ((CheckBox) view).isChecked();
-
         switch(view.getId()) {
             case R.id.main_office_team:
                 if (checked) {
@@ -144,7 +104,7 @@ public class FilterActivity extends AppCompatActivity {
                 }
                 break;
         }
-        teams_list = Arrays.asList(executive_string, main_office_string, marketing_string, pr_string, production_string, r_and_d_string);
+        this.teams_list = Arrays.asList(executive_string, main_office_string, marketing_string, pr_string, production_string, r_and_d_string);
 
     }
 
