@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -33,6 +35,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     FirebaseAuth auth_comp;
     ProgressBar signin_progressbar;
     GoogleSignInClient mGoogleSignInClient;
+    TextView username_textview, password_textview, google_option_textview, or_textview;
+    Button google_sign_in_button;
 
 
     @Override
@@ -42,6 +46,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         edittext_username = findViewById(R.id.sign_in_username);
         edittext_password = findViewById(R.id.sign_in_password);
         signin_progressbar = findViewById(R.id.signin_progressbar);
+        username_textview = findViewById(R.id.email_title_sign_in);
+        password_textview = findViewById(R.id.password_title_sign_in);
+        google_option_textview = findViewById(R.id.google_option);
         findViewById(R.id.Resigstration_signin_textView).setOnClickListener(this);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
         findViewById(R.id.sign_in_google_button).setOnClickListener(new View.OnClickListener() {
@@ -72,7 +79,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(this, RegistrationActivity.class));
                 break;
             case R.id.sign_in_button:
-                userLogin();
+            {
+                if (edittext_username.isShown())
+                    userLogin();
+                else {
+                    edittext_username.setVisibility(View.VISIBLE);
+                    edittext_password.setVisibility(View.VISIBLE);
+                    username_textview.setVisibility(View.VISIBLE);
+                    password_textview.setVisibility(View.VISIBLE);
+                }
+            }
                 break;
         }
     }
