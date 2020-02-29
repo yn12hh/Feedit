@@ -56,7 +56,8 @@ public class Feed extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
 
-                showAddPostDialog();
+                Intent my_intent = new Intent(getBaseContext(), newPostActivity.class);
+                startActivity(my_intent);
             }
 
 
@@ -89,65 +90,7 @@ public class Feed extends AppCompatActivity  {
 
 
 
-   public void showAddPostDialog(){
-
-       final AlertDialog.Builder mbuilder = new AlertDialog.Builder(Feed.this);
-       View mview = getLayoutInflater().inflate(R.layout.add_post_dialog, null);
-
-       mbuilder.setView(mview);
-       new_post_dialog = mbuilder.create();
-       new_post_dialog.show();
-
-       title_et = (EditText) mview.findViewById(R.id.title_input);
-       teams_et = (EditText) mview.findViewById(R.id.teams_name_input);
-       projects_et = (EditText) mview.findViewById(R.id.projects_name_input);
-       post_content_et = (EditText) mview.findViewById(R.id.posts_content_input);
-       
-       post_button_clicked = (Button) mview.findViewById(R.id.post_button);
-       post_button_clicked.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               String title = title_et.getText().toString();
-               String teams = teams_et.getText().toString();
-               String projects = projects_et.getText().toString();
-               String post_content = post_content_et.getText().toString();
-               if(!title.isEmpty() && !teams.isEmpty() && !projects.isEmpty() && !post_content.isEmpty()) {
-
-                   sendDetailsToFB(title, teams, projects, post_content);
-                   new_post_dialog.dismiss();
-               }
-                else {
-
-                   Toast.makeText(getApplicationContext(),"You left one of the fields empty, please try again", Toast.LENGTH_LONG).show();
-               }
-           }
-       });
-
-       close_dialog = (ImageView) mview.findViewById(R.id.close_dialog_imag);
-       close_dialog.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               new_post_dialog.dismiss();
-           }
-       });
 
 
-    }
-
-    public void sendDetailsToFB(String title, String teams, String projects, String post_content) {
-        Post new_post = new Post(title,teams,post_content, projects);
-        fb_interface.uploadPost(new_post);
-        new_post_dialog.dismiss();
-    }
-
-
-    public void options(View view) {
-        if (view.getId()==R.id.options_button)
-        {
-            Intent myIntent = new Intent(getBaseContext(), FilterActivity.class);
-            startActivity(myIntent);
-        }
-
-    }
 
 }
