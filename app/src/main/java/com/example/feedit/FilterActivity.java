@@ -3,6 +3,8 @@ package com.example.feedit;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,15 +32,18 @@ public class FilterActivity extends AppCompatActivity {
     private List<String> teams_list_first_stage = new ArrayList<>();
     private FeedItFBInterface fb_interface;
     private String main_office_string = "", production_string = "", pr_string = "", executive_string = "", r_and_d_string = "", marketing_string = "";
-    private String project1_string = "", project2_string = "", project3_string = "", project4_string = "", project5_string = "", project6_string = "", project7_string = "", project8_string = "", project9_string = "", project10_string = "", project11_string = "", project12_string = "", project13_string = "", project14_string = "", project15_string = "", project16_string = "", project17_string = "", project18_string = "", project19_string = "", project20_string = "";
+    private String project1 = "", project2 = "", project3 = "", project4 = "", project5 = "", project6 = "", project7 = "", project8 = "", project9 = "", project10 = "", project11 = "", project12 = "", project13 = "", project14 = "", project15 = "", project16 = "", project17 = "", project18 = "", project19 = "", project20 = "";
+    private RecyclerView project_recycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
         findViewById(R.id.sign_out_button);
+
         main_office_string = ""; production_string = ""; pr_string = ""; executive_string = ""; r_and_d_string = ""; marketing_string = "";
         project1_string = ""; project2_string = ""; project3_string = ""; project4_string = ""; project5_string = ""; project6_string = ""; project7_string = ""; project8_string = ""; project9_string = ""; project10_string = "";  project11_string = ""; project12_string = ""; project13_string = ""; project14_string = ""; project15_string = ""; project16_string = ""; project17_string = ""; project18_string = ""; project19_string = ""; project20_string = "";
+
 
         fb_interface = FeedItFBInterface.getInstance();
         save_button = (ImageView) findViewById(R.id.save);
@@ -55,11 +60,18 @@ public class FilterActivity extends AppCompatActivity {
 
         });
 
+        project_recycler = findViewById(R.id.project_filter_recycler);
+        project_recycler.setHasFixedSize(true);
+        project_recycler.setLayoutManager(new LinearLayoutManager(this));
+        fb_interface.setUpRecyclerViewForProjectFilter(project_recycler);
+
     }
 
     public void saveUpdatedQuery(){
+
         teams_list=teams_list_first_stage;
         projects_list=projects_list_first_stage;
+
         fb_interface.setQueryForFeed(projects_list, teams_list);
     }
 
