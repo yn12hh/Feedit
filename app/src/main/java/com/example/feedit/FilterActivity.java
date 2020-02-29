@@ -26,6 +26,7 @@ public class FilterActivity extends AppCompatActivity {
     private List<String> projects_list = Arrays.asList();
     private List<String> teams_list = Arrays.asList();
     private FeedItFBInterface fb_interface;
+    private List<CheckBox> projects_checkboxs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class FilterActivity extends AppCompatActivity {
     }
 
     public void passQueryInfoToRecyclerView(View view) {//we need to implement the passing part
-
+        fb_interface.setQueryForFeed(projects_list, teams_list);
 
 //            switch(view.getId()) {
 //                case R.id.project_1_projects:
@@ -145,7 +146,6 @@ public class FilterActivity extends AppCompatActivity {
                 break;
         }
         teams_list = Arrays.asList(executive_string, main_office_string, marketing_string, pr_string, production_string, r_and_d_string);
-        fb_interface.setQueryForFeed(projects_list, teams_list);
 
     }
 
