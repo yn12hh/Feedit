@@ -88,6 +88,14 @@ public class Feed extends AppCompatActivity  {
         fb_interface.stopFeedListening();
     }
 
+        public void options(View view) {
+        if (view.getId()==R.id.options_button)
+        {
+            Intent myIntent = new Intent(getBaseContext(), FilterActivity.class);
+            startActivity(myIntent);
+        }
+
+    }
 
 
 
