@@ -27,10 +27,12 @@ public class FeedItFBInterface {
     private FeedAdapter feed_adapter;
     private RecyclerView feed_rv;
     private Query feed_query;
+    private Boolean query_chnged_flag;
 
     private FeedItFBInterface(){
         entries_collection = FirebaseFirestore.getInstance().collection("entries");
         feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
+        query_chnged_flag = false;
     }
 
     public static FeedItFBInterface getInstance() {
@@ -58,7 +60,7 @@ public class FeedItFBInterface {
         feed_rv = view;
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(feed_query, Post.class).build();
         feed_adapter =  new FeedAdapter(options);
-        view.setAdapter(feed_adapter);
+        feed_rv.setAdapter(feed_adapter);
     }
 
     public void setQueryForFeed(List<String> projects_for_query, List<String> teams_for_query) {
@@ -73,9 +75,15 @@ public class FeedItFBInterface {
         } else {
             feed_query = entries_collection.whereIn("team", teams_for_query).whereEqualTo("project", projects_for_query.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
         }
+        query_chnged_flag = true;
     }
 
     public void startFeedListening() {
+        if(query_chnged_flag = true) {
+            feed_adapter.stopListening();
+            setUpRecyclerViewForFeed(feed_rv);
+            query_chnged_flag = false;
+        }
         feed_adapter.startListening();
     }
 
