@@ -21,9 +21,12 @@ import java.util.List;
 import java.util.Map;
 
 public class FeedItFBInterface {
+    private static FeedItFBInterface instance = null;
+
     private CollectionReference entries_collection;
     private FeedAdapter feed_adapter;
-    private static FeedItFBInterface instance = null;
+    private RecyclerView feed_rv;
+    private Query feed_query;
 
     private FeedItFBInterface(){
         entries_collection = FirebaseFirestore.getInstance().collection("entries");
@@ -51,26 +54,24 @@ public class FeedItFBInterface {
     }
 
     public void setUpRecyclerViewForFeed(RecyclerView view, List<String> projects_for_query, List<String> teams_for_query){
-        Query query = setQueryForFeed(projects_for_query, teams_for_query);
-        FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, Post.class).build();
+        setQueryForFeed(projects_for_query, teams_for_query);
+        FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(feed_query, Post.class).build();
         feed_adapter =  new FeedAdapter(options);
         view.setAdapter(feed_adapter);
     }
 
-    public Query setQueryForFeed(List<String> projects_for_query, List<String> teams_for_query) {
-        Query query ;
+    public void setQueryForFeed(List<String> projects_for_query, List<String> teams_for_query) {
         if(projects_for_query.isEmpty() && teams_for_query.isEmpty()) {
-            query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
+            feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
         } else if (projects_for_query.isEmpty()) {
-            query = entries_collection.whereIn("team", teams_for_query).orderBy("timestamp", Query.Direction.DESCENDING);
+            feed_query = entries_collection.whereIn("team", teams_for_query).orderBy("timestamp", Query.Direction.DESCENDING);
         } else if (teams_for_query.isEmpty()) {
-            query = entries_collection.whereIn("project", projects_for_query).orderBy("timestamp", Query.Direction.DESCENDING);
+            feed_query = entries_collection.whereIn("project", projects_for_query).orderBy("timestamp", Query.Direction.DESCENDING);
         } else if(projects_for_query.size() > 1){
-            query = entries_collection.whereIn("project", projects_for_query).whereEqualTo("team", teams_for_query.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
+            feed_query = entries_collection.whereIn("project", projects_for_query).whereEqualTo("team", teams_for_query.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
         } else {
-            query = entries_collection.whereIn("team", teams_for_query).whereEqualTo("project", projects_for_query.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
+            feed_query = entries_collection.whereIn("team", teams_for_query).whereEqualTo("project", projects_for_query.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
         }
-        return query;
     }
 
     public void startFeedListening() {
