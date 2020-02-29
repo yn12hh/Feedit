@@ -42,7 +42,7 @@ public class Feed extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-        fb_interface = new FeedItFBInterface();
+        fb_interface = FeedItFBInterface.getInstance();
         feed_recycler = findViewById(R.id.feed_recycler_view);
         feed_recycler.setHasFixedSize(true);
         feed_recycler.setLayoutManager(new LinearLayoutManager(this));

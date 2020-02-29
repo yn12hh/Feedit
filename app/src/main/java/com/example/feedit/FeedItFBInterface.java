@@ -23,9 +23,17 @@ import java.util.Map;
 public class FeedItFBInterface {
     private CollectionReference entries_collection;
     private FeedAdapter feed_adapter;
+    private static FeedItFBInterface instance = null;
 
-    FeedItFBInterface(){
+    private FeedItFBInterface(){
         entries_collection = FirebaseFirestore.getInstance().collection("entries");
+    }
+
+    public static FeedItFBInterface getInstance() {
+        if(instance == null) {
+            instance = new FeedItFBInterface();
+        }
+        return instance;
     }
 
 
