@@ -17,6 +17,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -59,24 +60,13 @@ public class FeedItFBInterface {
         uploadable_post.put("team", post.getTeam());
         uploadable_post.put("project", post.getProject());
 
-        final DocumentReference proj_ref = projects_names_collection.document(post.getProject());
-        Task<DocumentSnapshot> task = proj_ref.get();
-        task.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot doc = task.getResult();
-                if(doc.exists()) {
-                    proj_ref.update("last_changed", post.getTimeStamp());
-                }
-                else {
-                    Map<String, Object> proj_changed = new HashMap<>();
-                    proj_changed.put("project_name", post.getProject());
-                    proj_changed.put("last_changed", post.getTimeStamp());
-                    projects_names_collection.add(proj_changed);
-                }
-            }
-        });
-        return task.isSuccessful() && entries_collection.add(uploadable_post).isSuccessful();
+
+        Map<String, Object> proj_changed = new HashMap<>();
+        proj_changed.put("project_name", post.getProject());
+        proj_changed.put("last_changed", post.getTimeStamp());
+        projects_names_collection.document(post.getProject()).set(proj_changed, SetOptions.merge());
+
+        return entries_collection.add(uploadable_post).isSuccessful();
     }
 
     public void setUpRecyclerViewForFeed(RecyclerView view){
