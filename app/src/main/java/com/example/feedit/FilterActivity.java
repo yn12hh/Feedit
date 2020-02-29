@@ -3,6 +3,8 @@ package com.example.feedit;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +30,7 @@ public class FilterActivity extends AppCompatActivity {
     private FeedItFBInterface fb_interface;
     private String main_office_string = "", production_string = "", pr_string = "", executive_string = "", r_and_d_string = "", marketing_string = "";
     private String project1 = "", project2 = "", project3 = "", project4 = "", project5 = "", project6 = "", project7 = "", project8 = "", project9 = "", project10 = "", project11 = "", project12 = "", project13 = "", project14 = "", project15 = "", project16 = "", project17 = "", project18 = "", project19 = "", project20 = "";
+    private RecyclerView project_recycler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +55,16 @@ public class FilterActivity extends AppCompatActivity {
 
         });
 
+        project_recycler = findViewById(R.id.project_filter_recycler);
+        project_recycler.setHasFixedSize(true);
+        project_recycler.setLayoutManager(new LinearLayoutManager(this));
+        fb_interface.setUpRecyclerViewForProjectFilter(project_recycler);
+
     }
 
     public void saveUpdatedQuery(){
         teams_list = Arrays.asList(executive_string, main_office_string, marketing_string, pr_string, production_string, r_and_d_string);
-        projects_list = Arrays.asList(project1, project2, project3, project4, project5, project6, project7, project8, project9, project10);
+        projects_list = Arrays.asList();
         //, project15, project16, project17, project18, project19 ,project20);
         fb_interface.setQueryForFeed(projects_list, teams_list);
     }
