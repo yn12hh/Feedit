@@ -57,7 +57,7 @@ public class FeedItFBInterface {
         view.setAdapter(feed_adapter);
     }
 
-    private Query setQueryForFeed(List<String> projects_for_query, List<String> teams_for_query) {
+    public Query setQueryForFeed(List<String> projects_for_query, List<String> teams_for_query) {
         Query query ;
         if(projects_for_query.isEmpty() && teams_for_query.isEmpty()) {
             query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
