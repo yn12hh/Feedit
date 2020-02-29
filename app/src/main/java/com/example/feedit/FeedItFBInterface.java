@@ -79,7 +79,7 @@ public class FeedItFBInterface {
     }
 
     public void startFeedListening() {
-        if(query_chnged_flag = true) {
+        if(query_chnged_flag) {
             feed_adapter.stopListening();
             setUpRecyclerViewForFeed(feed_rv);
             query_chnged_flag = false;
