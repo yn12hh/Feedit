@@ -10,7 +10,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -28,12 +32,12 @@ public class FeedItFBInterface {
     private RecyclerView feed_rv;
     private Query feed_query;
     private Boolean query_chnged_flag;
-    private CollectionReference projects_names_collectoin;
+    private CollectionReference projects_names_collection;
 
-    private FeedItFBInterface(){
+    private FeedItFBInterface() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         entries_collection = db.collection("entries");
-        projects_names_collectoin = db.collection("projects_names");
+        projects_names_collection = db.collection("projects_names");
         feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
         query_chnged_flag = false;
     }
@@ -45,7 +49,7 @@ public class FeedItFBInterface {
         return instance;
     }
 
-    public boolean uploadPost(Post post) {
+    public boolean uploadPost(final Post post) {
 
         Map<String, Object> uploadable_post = new HashMap<>();
         uploadable_post.put("title", post.getTitle());
@@ -55,7 +59,24 @@ public class FeedItFBInterface {
         uploadable_post.put("team", post.getTeam());
         uploadable_post.put("project", post.getProject());
 
-        return entries_collection.add(uploadable_post).isSuccessful();
+        final DocumentReference proj_ref = projects_names_collection.document(post.getProject());
+        Task<DocumentSnapshot> task = proj_ref.get();
+        task.addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                DocumentSnapshot doc = task.getResult();
+                if(doc.exists()) {
+                    proj_ref.update("last_changed", post.getTimeStamp());
+                }
+                else {
+                    Map<String, Object> proj_changed = new HashMap<>();
+                    proj_changed.put("project_name", post.getProject());
+                    proj_changed.put("last_changed", post.getTimeStamp());
+                    projects_names_collection.add(proj_changed);
+                }
+            }
+        });
+        return task.isSuccessful() && entries_collection.add(uploadable_post).isSuccessful();
     }
 
     public void setUpRecyclerViewForFeed(RecyclerView view){
