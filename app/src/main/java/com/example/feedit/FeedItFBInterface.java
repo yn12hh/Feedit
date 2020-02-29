@@ -30,6 +30,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.google.firebase.firestore.SetOptions;
 
 public class FeedItFBInterface {
     private static FeedItFBInterface instance = null;
@@ -38,6 +39,7 @@ public class FeedItFBInterface {
     private FeedAdapter feed_adapter;
     private RecyclerView feed_rv;
     private Query feed_query;
+
     private Boolean query_chnged_flag;
     private CollectionReference projects_names_collection;
 
@@ -53,6 +55,7 @@ public class FeedItFBInterface {
         feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
         query_chnged_flag = false;
         updateProjectsNames();
+
     }
 
     public static FeedItFBInterface getInstance() {
@@ -109,14 +112,14 @@ public class FeedItFBInterface {
         } else {
             feed_query = entries_collection.whereIn("team", teams_for_query).whereEqualTo("project", projects_for_query.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
         }
-        query_chnged_flag = true;
+        query_changed_flag = true;
     }
 
     public void startFeedListening() {
-        if(query_chnged_flag) {
+        if(query_changed_flag) {
             feed_adapter.stopListening();
             setUpRecyclerViewForFeed(feed_rv);
-            query_chnged_flag = false;
+            query_changed_flag = false;
         }
         feed_adapter.startListening();
     }

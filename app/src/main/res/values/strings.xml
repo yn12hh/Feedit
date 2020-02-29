@@ -26,6 +26,8 @@
     <string name="don_t_have_an_acount">Don\'t have an acount?</string>
     <string name="logo">Logo</string>
     <string name="app_logo">app_logo</string>
+    <string name="delete">Delete</string>
+    <string name="back">Back</string>
 
 
 </resources>
