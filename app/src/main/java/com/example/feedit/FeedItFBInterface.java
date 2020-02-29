@@ -62,15 +62,17 @@ public class FeedItFBInterface {
         return instance;
     }
 
+
     public boolean uploadPost(final Post post) {
 
-        Map<String, Object> uploadable_post = new HashMap<>();
-        uploadable_post.put("title", post.getTitle());
-        uploadable_post.put("author", post.getAuthor());
-        uploadable_post.put("timestamp", post.getTimeStamp());
-        uploadable_post.put("post_text", post.getPost_text());
-        uploadable_post.put("team", post.getTeam());
-        uploadable_post.put("project", post.getProject());
+
+    Map<String, Object> uploadable_post = new HashMap<>();
+    uploadable_post.put("title", post.getTitle());
+    uploadable_post.put("author", post.getAuthor());
+    uploadable_post.put("timestamp", post.getTimeStamp());
+    uploadable_post.put("post_text", post.getPost_text());
+    uploadable_post.put("team", post.getTeam());
+    uploadable_post.put("project", post.getProject());
 
 
         Map<String, Object> proj_changed = new HashMap<>();
@@ -80,6 +82,7 @@ public class FeedItFBInterface {
 
         return entries_collection.add(uploadable_post).isSuccessful();
     }
+
 
     public void setUpRecyclerViewForFeed(RecyclerView view){
         feed_rv = view;
