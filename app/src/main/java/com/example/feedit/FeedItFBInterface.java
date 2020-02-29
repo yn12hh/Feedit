@@ -30,6 +30,7 @@ public class FeedItFBInterface {
 
     private FeedItFBInterface(){
         entries_collection = FirebaseFirestore.getInstance().collection("entries");
+        feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
     }
 
     public static FeedItFBInterface getInstance() {
@@ -53,8 +54,8 @@ public class FeedItFBInterface {
         return entries_collection.add(uploadable_post).isSuccessful();
     }
 
-    public void setUpRecyclerViewForFeed(RecyclerView view, List<String> projects_for_query, List<String> teams_for_query){
-        setQueryForFeed(projects_for_query, teams_for_query);
+    public void setUpRecyclerViewForFeed(RecyclerView view){
+        feed_rv = view;
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(feed_query, Post.class).build();
         feed_adapter =  new FeedAdapter(options);
         view.setAdapter(feed_adapter);

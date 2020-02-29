@@ -48,8 +48,7 @@ public class Feed extends AppCompatActivity  {
         feed_recycler.setLayoutManager(new LinearLayoutManager(this));
         findViewById(R.id.options_button);
 
-        List<String> empty_list = Arrays.asList();
-        fb_interface.setUpRecyclerViewForFeed(feed_recycler, empty_list, empty_list);
+        fb_interface.setUpRecyclerViewForFeed(feed_recycler);
 
         add_post_button = (ImageView) findViewById(R.id.add_icon);
         add_post_button.setOnClickListener(new View.OnClickListener(){
