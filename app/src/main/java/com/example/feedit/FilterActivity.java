@@ -27,6 +27,8 @@ public class FilterActivity extends AppCompatActivity {
     private List<String> teams_list = Arrays.asList();
     private FeedItFBInterface fb_interface;
     private String main_office_string = "", production_string = "", pr_string = "", executive_string = "", r_and_d_string = "", marketing_string = "";
+    private List<CheckBox> projects_checkboxs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
