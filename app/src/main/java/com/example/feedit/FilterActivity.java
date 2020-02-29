@@ -3,6 +3,8 @@ package com.example.feedit;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,12 +32,13 @@ public class FilterActivity extends AppCompatActivity {
     private List<String> teams_list_first_stage = new ArrayList<>();
     private FeedItFBInterface fb_interface;
     private String project_string, team_string;
+    private RecyclerView project_recycler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
         findViewById(R.id.sign_out_button);
-
         fb_interface = FeedItFBInterface.getInstance();
         save_button = (ImageView) findViewById(R.id.save);
         save_button.setOnClickListener(new View.OnClickListener(){
@@ -51,11 +54,18 @@ public class FilterActivity extends AppCompatActivity {
 
         });
 
+        project_recycler = findViewById(R.id.project_filter_recycler);
+        project_recycler.setHasFixedSize(true);
+        project_recycler.setLayoutManager(new LinearLayoutManager(this));
+        fb_interface.setUpRecyclerViewForProjectFilter(project_recycler);
+
     }
 
     public void saveUpdatedQuery(){
+
         teams_list=teams_list_first_stage;
         projects_list=projects_list_first_stage;
+
         fb_interface.setQueryForFeed(projects_list, teams_list);
     }
 
