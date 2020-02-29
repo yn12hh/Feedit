@@ -34,8 +34,8 @@ public class FilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
         findViewById(R.id.sign_out_button);
-        main_office_string = ""; production_string = ""; pr_string = ""; executive_string = ""; r_and_d_string = ""; marketing_string = "";
-        project1 = ""; project2 = ""; project3 = ""; project4 = ""; project5 = ""; project6 = ""; project7 = ""; project8 = ""; project9 = ""; project10 = ""; project11 = ""; project12 = ""; project13 = ""; project14 = "";  project15 = ""; project16 = ""; project17 = ""; project18 = ""; project19 = ""; project20 = "";
+       // main_office_string = ""; production_string = ""; pr_string = ""; executive_string = ""; r_and_d_string = ""; marketing_string = "";
+        //project1 = ""; project2 = ""; project3 = ""; project4 = ""; project5 = ""; project6 = ""; project7 = ""; project8 = ""; project9 = ""; project10 = ""; project11 = ""; project12 = ""; project13 = ""; project14 = "";  project15 = ""; project16 = ""; project17 = ""; project18 = ""; project19 = ""; project20 = "";
 
         fb_interface = FeedItFBInterface.getInstance();
         save_button = (ImageView) findViewById(R.id.save);
