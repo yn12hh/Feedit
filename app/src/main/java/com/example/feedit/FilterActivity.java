@@ -145,6 +145,7 @@ public class FilterActivity extends AppCompatActivity {
                 break;
         }
         teams_list = Arrays.asList(executive_string, main_office_string, marketing_string, pr_string, production_string, r_and_d_string);
+        fb_interface.setQueryForFeed(projects_list, teams_list);
 
     }
 
