@@ -25,12 +25,14 @@ public class FilterActivity extends AppCompatActivity {
     private ImageView save_button;
     private List<String> projects_list = Arrays.asList();
     private List<String> teams_list = Arrays.asList();
+    private FeedItFBInterface fb_interface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
         findViewById(R.id.sign_out_button);
+        fb_interface = FeedItFBInterface.getInstance();
         save_button = (ImageView) findViewById(R.id.save);
         save_button.setOnClickListener(new View.OnClickListener(){
 
