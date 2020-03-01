@@ -100,7 +100,7 @@ public class newPostActivity extends AppCompatActivity {
                 String new_project_name_string = new_project_name.getText().toString();
                 if(!new_project_name_string.isEmpty()) {
 
-                    //FBINTERFACE
+                    fb_interface.newProjectName(new_project_name_string);
                     new_project_dialog.dismiss();
                 }
                 else {
