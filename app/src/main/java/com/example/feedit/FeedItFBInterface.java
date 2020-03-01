@@ -58,6 +58,7 @@ public class FeedItFBInterface {
         projects_names_collection = db.collection("projects_names");
         feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
         query_changed_flag = false;
+        updateProjectsNames();
     }
 
     public static FeedItFBInterface getInstance() {
@@ -101,7 +102,6 @@ public class FeedItFBInterface {
                 intent.putExtra("post_text", feed_adapter.getItem(position).getPost_text());
                 intent.putExtra("post_author", feed_adapter.getItem(position).getAuthor());
                 feed_rv.getContext().startActivity(intent);
-
             }
         });
     }
@@ -287,7 +287,7 @@ public class FeedItFBInterface {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {
                     int i = 0;
-                    for (QueryDocumentSnapshot document : task.getResult()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
                         String curr_proj_name = document.getString("project_name");
                         if(!Arrays.asList(project_names).contains(curr_proj_name)) {
                             project_names[i++] = curr_proj_name;
@@ -308,7 +308,26 @@ public class FeedItFBInterface {
     }
 
     public void newProjectName(String name) {
+        name = name.toLowerCase();
         updateProjectTime(name);
+    }
+
+    public String[] getProject_names() {
+        int counter = 0;
+        for (int i = 0; i < project_names.length; i++) {
+            if (!project_names[i].equals("")) {
+                counter++;
+            }
+        }
+        String[] ret_arr = new String[counter + 1];
+        ret_arr[0] = "Tap to choose";
+        counter = 1;
+        for (int i = 0; i < project_names.length; i++) {
+            if (!project_names[i].equals("")) {
+                ret_arr[counter++] = project_names[i];
+            }
+        }
+        return ret_arr;
     }
 }
 

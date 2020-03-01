@@ -8,6 +8,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,18 +29,18 @@ public class newPostActivity extends AppCompatActivity {
 
     private Button post_button_clicked;
     private FeedItFBInterface fb_interface;
-    private EditText title_et, projects_et, post_content_et, new_project_name; //et stands for Edit Text, written in acronym to save name length
-    private Spinner teams_sp;
+    private EditText title_et, post_content_et, new_project_name; //et stands for Edit Text, written in acronym to save name length
+    private Spinner teams_sp, projects_sp;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
-
+        Log.d("tag", "early hell");
         title_et = (EditText) findViewById(R.id.title_input);
         teams_sp = (Spinner) findViewById(R.id.teams_name_input);
-        projects_et = (EditText) findViewById(R.id.projects_name_input);
+        projects_sp = (Spinner) findViewById(R.id.projects_name_input);
         post_content_et = (EditText) findViewById(R.id.posts_content_input);
         fb_interface = FeedItFBInterface.getInstance();
 
@@ -49,9 +50,9 @@ public class newPostActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String title = title_et.getText().toString();
                 String teams = teams_sp.getSelectedItem().toString();
-                String projects = projects_et.getText().toString();
+                String projects = projects_sp.getSelectedItem().toString();
                 String post_content = post_content_et.getText().toString();
-                if(!title.isEmpty() && (!teams.isEmpty() && teams!= "Tap to choose") && !projects.isEmpty() && !post_content.isEmpty()) {
+                if (!title.isEmpty() && (!teams.isEmpty() && teams != "Tap to choose") && (!projects.isEmpty() && projects != "Tap to choose") && !post_content.isEmpty()) {
 
                     sendDetailsToFB(title, teams, projects, post_content);
                     Intent my_intent = new Intent(getBaseContext(), Feed.class);
@@ -65,14 +66,19 @@ public class newPostActivity extends AppCompatActivity {
         });
 
         String[] items = new String[] {"Tap to choose", "Main Office", "Production", "PR", "Executive","R & D", "Marketing"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,items);
-        teams_sp.setAdapter(adapter);
+        ArrayAdapter<String> teams_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        teams_sp.setAdapter(teams_adapter);
+
 
     }
 
 
-
-
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ArrayAdapter<String> proj_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, fb_interface.getProject_names());
+        projects_sp.setAdapter(proj_adapter);
+    }
 
     public void sendDetailsToFB(String title, String teams, String projects, String post_content) {
         Post new_post = new Post(title,teams,post_content, projects);
