@@ -27,6 +27,7 @@ import com.google.firebase.firestore.SetOptions;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,13 +76,9 @@ public class FeedItFBInterface {
     uploadable_post.put("team", post.getTeam());
     uploadable_post.put("project", post.getProject());
 
+    updateProjectTime(post.getProject());
 
-        Map<String, Object> proj_changed = new HashMap<>();
-        proj_changed.put("project_name", post.getProject());
-        proj_changed.put("last_changed", post.getTimeStamp());
-        projects_names_collection.document(post.getProject()).set(proj_changed, SetOptions.merge());
-
-        return entries_collection.add(uploadable_post).isSuccessful();
+    return entries_collection.add(uploadable_post).isSuccessful();
     }
 
     public void setUpRecyclerViewForFeed(RecyclerView view){
@@ -235,5 +232,15 @@ public class FeedItFBInterface {
         });
     }
 
+    private void updateProjectTime(String name) {
+        Map<String, Object> proj_changed = new HashMap<>();
+        proj_changed.put("project_name", name);
+        proj_changed.put("last_changed", new Date());
+        projects_names_collection.document(name).set(proj_changed, SetOptions.merge());
+    }
+
+    public void newProjectName(String name) {
+        updateProjectTime(name);
+    }
 }
 
