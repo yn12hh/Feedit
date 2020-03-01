@@ -55,7 +55,7 @@ public class show_full_post extends AppCompatActivity {
     }
 
     public void deletePost(View view){
-
+        post_doc_ref.delete();
     }
 
     public void goToFeed(View view){

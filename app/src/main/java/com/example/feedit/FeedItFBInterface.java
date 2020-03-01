@@ -187,9 +187,6 @@ public class FeedItFBInterface {
             return new FeedPostHolder(view, click_listener);
         }
 
-        public void deletePost(int position) {
-            getSnapshots().getSnapshot(position).getReference().delete();
-        }
 
         public static class FeedPostHolder extends RecyclerView.ViewHolder {
             TextView title, team, name, project, text, time_stamp;
