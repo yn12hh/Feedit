@@ -93,7 +93,6 @@ public class FeedItFBInterface {
         feed_adapter.setOnItemClickListener(new FeedAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(feed_rv.getContext(), "Clicked on " +feed_adapter.getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(feed_rv.getContext(), show_full_post.class);
                 intent.putExtra("post_title", feed_adapter.getItem(position).getTitle());
                 intent.putExtra("post_time_stamp", feed_adapter.getItem(position).getTimeStamp());
@@ -108,12 +107,6 @@ public class FeedItFBInterface {
 
     public void setUpRecyclerViewForProjectFilter(RecyclerView view){
         project_rv = view;
-        proj_recycler_adapter.setOnItemClickListener(new ProjRecyclerAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-
-            }
-        });
     }
 
     public void startProjectFilter() {
@@ -225,15 +218,6 @@ public class FeedItFBInterface {
 
         private String project_names[];
         private Context context;
-        private OnItemClickListener click_listener;
-
-        public interface OnItemClickListener {
-            void onItemClick(int position);
-        }
-
-        public void setOnItemClickListener(OnItemClickListener listener) {
-            click_listener = listener;
-        }
 
         public ProjRecyclerAdapter(String[] project_names, Context context) {
             this.project_names = project_names;
@@ -244,7 +228,7 @@ public class FeedItFBInterface {
         @Override
         public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.project_filter_checkbox, parent, false);
-            return new ProjectViewHolder(view, click_listener);
+            return new ProjectViewHolder(view);
         }
 
         @Override
@@ -262,21 +246,9 @@ public class FeedItFBInterface {
 
         public class ProjectViewHolder extends RecyclerView.ViewHolder {
             CheckBox name;
-            public ProjectViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+            public ProjectViewHolder(@NonNull View itemView) {
                 super(itemView);
                 name = (CheckBox)itemView.findViewById(R.id.project_name);
-
-                itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(listener != null) {
-                            int position = getAdapterPosition();
-                            if(position != RecyclerView.NO_POSITION) {
-                                listener.onItemClick(position);
-                            }
-                        }
-                    }
-                });
             }
         }
     }
