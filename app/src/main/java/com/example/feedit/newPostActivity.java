@@ -124,4 +124,7 @@ public class newPostActivity extends AppCompatActivity {
 
 
 
+    public void cancelNewPost(View view) {
+        Intent cencel_post = new Intent(getBaseContext(), Feed.class);
+        startActivity(cencel_post);    }
 }
