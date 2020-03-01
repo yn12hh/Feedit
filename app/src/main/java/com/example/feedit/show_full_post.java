@@ -2,15 +2,17 @@ package com.example.feedit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 
-import org.w3c.dom.Text;
+import android.app.AlertDialog;
 
 public class show_full_post extends AppCompatActivity {
 
@@ -55,7 +57,41 @@ public class show_full_post extends AppCompatActivity {
     }
 
     public void deletePost(View view){
-        post_doc_ref.delete();
+        areYouSureDialog();
+    }
+
+    public void areYouSureDialog(){
+        Button delete_post_button;
+        ImageView close_dialog;
+        final Dialog delete_post_dialog;
+
+        final AlertDialog.Builder mbuilder = new AlertDialog.Builder(show_full_post.this);
+        View mview = getLayoutInflater().inflate(R.layout.delete_post_dialog, null);
+
+        mbuilder.setView(mview);
+        delete_post_dialog = mbuilder.create();
+        delete_post_dialog.show();
+
+        delete_post_button = (Button) mview.findViewById(R.id.delete_post_button);
+        delete_post_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                post_doc_ref.delete();
+                Intent my_intent = new Intent(getBaseContext(), Feed.class);
+                startActivity(my_intent);
+
+            }
+        });
+
+        close_dialog = (ImageView) mview.findViewById(R.id.close_dialog_imag);
+        close_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                delete_post_dialog.dismiss();
+            }
+        });
+
+
     }
 
     public void goToFeed(View view){

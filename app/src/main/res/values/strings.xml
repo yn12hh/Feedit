@@ -38,6 +38,9 @@
     <string name="new_project">New Project</string>
     <string name="add_project">Add Project</string>
     <string name="project_s_name">Project\'s Name</string>
+    <string name="delete_post">Delete Post</string>
+    <string name="delete_prompt">Are you sure you want to delete this post?</string>
+
 
 
 </resources>
