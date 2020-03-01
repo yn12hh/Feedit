@@ -54,7 +54,6 @@ public class FeedItFBInterface {
         projects_names_collection = db.collection("projects_names");
         feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
         query_changed_flag = false;
-        updateProjectsNames();
 
     }
 
@@ -64,7 +63,6 @@ public class FeedItFBInterface {
         }
         return instance;
     }
-
 
     public boolean uploadPost(final Post post) {
 
@@ -86,7 +84,6 @@ public class FeedItFBInterface {
         return entries_collection.add(uploadable_post).isSuccessful();
     }
 
-
     public void setUpRecyclerViewForFeed(RecyclerView view){
         feed_rv = view;
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(feed_query, Post.class).build();
@@ -96,9 +93,14 @@ public class FeedItFBInterface {
 
     public void setUpRecyclerViewForProjectFilter(RecyclerView view){
         project_rv = view;
+    }
+
+    public void startProjectFilter() {
+        updateProjectsNames();
         proj_recycler_adapter = new ProjRecyclerAdapter(project_names, project_rv.getContext());
         project_rv.setAdapter(proj_recycler_adapter);
     }
+
 
     public void setQueryForFeed(List<String> projects_for_query, List<String> teams_for_query) {
         if(projects_for_query.isEmpty() && teams_for_query.isEmpty()) {
@@ -192,7 +194,7 @@ public class FeedItFBInterface {
         @Override
         public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
             holder.name.setText(project_names[position]);
-            if(project_names[position] == "") {
+            if(project_names[position].equals("")) {
                 holder.name.setVisibility(View.GONE);
             }
         }
@@ -212,27 +214,22 @@ public class FeedItFBInterface {
     }
 
     public void updateProjectsNames() {
-
         projects_names_collection.orderBy("last_changed", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {
                     int i = 0;
                     for (QueryDocumentSnapshot document : task.getResult()){
-                        project_names[i] = document.getString("project_name");
-                        i++;
-                        if(i == project_names.length) break;
+                        String curr_proj_name = document.getString("project_name");
+                        if(!Arrays.asList(project_names).contains(curr_proj_name)) {
+                            project_names[i++] = curr_proj_name;
+                            if(i == project_names.length) break;
+                        }
                     }
                     Arrays.sort(project_names);
                 }
             }
         });
-    }
-
-    public void editCheckBoxesNamesFromFb (final List<CheckBox> cb_list) {
-
-        for(int i = 0; i < cb_list.size(); i++) {
-        }
     }
 
 }
