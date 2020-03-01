@@ -52,7 +52,7 @@ public class newPostActivity extends AppCompatActivity {
                 String teams = teams_sp.getSelectedItem().toString();
                 String projects = projects_sp.getSelectedItem().toString();
                 String post_content = post_content_et.getText().toString();
-                if(!title.isEmpty() && (!teams.isEmpty() && teams!= "Tap to choose") && !projects.isEmpty() && !post_content.isEmpty()) {
+                if (!title.isEmpty() && (!teams.isEmpty() && teams != "Tap to choose") && (!projects.isEmpty() && projects != "Tap to choose") && !post_content.isEmpty()) {
 
                     sendDetailsToFB(title, teams, projects, post_content);
                     Intent my_intent = new Intent(getBaseContext(), Feed.class);
