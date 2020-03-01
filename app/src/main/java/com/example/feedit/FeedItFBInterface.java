@@ -27,6 +27,7 @@ import com.google.firebase.firestore.SetOptions;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,7 @@ public class FeedItFBInterface {
         projects_names_collection = db.collection("projects_names");
         feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
         query_changed_flag = false;
-        updateProjectsNames();
+
 
     }
 
@@ -64,7 +65,6 @@ public class FeedItFBInterface {
         }
         return instance;
     }
-
 
     public boolean uploadPost(final Post post) {
 
@@ -77,15 +77,10 @@ public class FeedItFBInterface {
     uploadable_post.put("team", post.getTeam());
     uploadable_post.put("project", post.getProject());
 
+    updateProjectTime(post.getProject());
 
-        Map<String, Object> proj_changed = new HashMap<>();
-        proj_changed.put("project_name", post.getProject());
-        proj_changed.put("last_changed", post.getTimeStamp());
-        projects_names_collection.document(post.getProject()).set(proj_changed, SetOptions.merge());
-
-        return entries_collection.add(uploadable_post).isSuccessful();
+    return entries_collection.add(uploadable_post).isSuccessful();
     }
-
 
     public void setUpRecyclerViewForFeed(RecyclerView view){
         feed_rv = view;
@@ -96,6 +91,10 @@ public class FeedItFBInterface {
 
     public void setUpRecyclerViewForProjectFilter(RecyclerView view){
         project_rv = view;
+    }
+
+    public void startProjectFilter() {
+        updateProjectsNames();
         proj_recycler_adapter = new ProjRecyclerAdapter(project_names, project_rv.getContext());
         project_rv.setAdapter(proj_recycler_adapter);
     }
@@ -156,6 +155,10 @@ public class FeedItFBInterface {
             return new FeedPostHolder(view);
         }
 
+        public void deletePost(int position) {
+            getSnapshots().getSnapshot(position).getReference().delete();
+        }
+
         class FeedPostHolder extends RecyclerView.ViewHolder {
             TextView title, team, name, project, text, time_stamp;
             public FeedPostHolder(@NonNull View itemView) {
@@ -192,7 +195,7 @@ public class FeedItFBInterface {
         @Override
         public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
             holder.name.setText(project_names[position]);
-            if(project_names[position] == "") {
+            if(project_names[position].equals("")) {
                 holder.name.setVisibility(View.GONE);
             }
         }
@@ -212,16 +215,17 @@ public class FeedItFBInterface {
     }
 
     public void updateProjectsNames() {
-
         projects_names_collection.orderBy("last_changed", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {
                     int i = 0;
                     for (QueryDocumentSnapshot document : task.getResult()){
-                        project_names[i] = document.getString("project_name");
-                        i++;
-                        if(i == project_names.length) break;
+                        String curr_proj_name = document.getString("project_name");
+                        if(!Arrays.asList(project_names).contains(curr_proj_name)) {
+                            project_names[i++] = curr_proj_name;
+                            if(i == project_names.length) break;
+                        }
                     }
                     Arrays.sort(project_names);
                 }
@@ -229,11 +233,15 @@ public class FeedItFBInterface {
         });
     }
 
-    public void editCheckBoxesNamesFromFb (final List<CheckBox> cb_list) {
-
-        for(int i = 0; i < cb_list.size(); i++) {
-        }
+    private void updateProjectTime(String name) {
+        Map<String, Object> proj_changed = new HashMap<>();
+        proj_changed.put("project_name", name);
+        proj_changed.put("last_changed", new Date());
+        projects_names_collection.document(name).set(proj_changed, SetOptions.merge());
     }
 
+    public void newProjectName(String name) {
+        updateProjectTime(name);
+    }
 }
 
