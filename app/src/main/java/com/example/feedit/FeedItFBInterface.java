@@ -100,6 +100,7 @@ public class FeedItFBInterface {
                 intent.putExtra("post_project", feed_adapter.getItem(position).getProject());
                 intent.putExtra("post_text", feed_adapter.getItem(position).getPost_text());
                 intent.putExtra("post_author", feed_adapter.getItem(position).getAuthor());
+                intent.putExtra("postion", position);
                 feed_rv.getContext().startActivity(intent);
             }
         });
@@ -148,6 +149,10 @@ public class FeedItFBInterface {
         feed_adapter.startListening();
     }
 
+    public DocumentReference getPostDocRef(int position) {
+        return feed_adapter.getSnapshots().getSnapshot(position).getReference();
+    }
+
     //changed FeedAdapter from private to public static
     public static class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.FeedPostHolder> {
 
@@ -182,9 +187,6 @@ public class FeedItFBInterface {
             return new FeedPostHolder(view, click_listener);
         }
 
-        public void deletePost(int position) {
-            getSnapshots().getSnapshot(position).getReference().delete();
-        }
 
         public static class FeedPostHolder extends RecyclerView.ViewHolder {
             TextView title, team, name, project, text, time_stamp;
