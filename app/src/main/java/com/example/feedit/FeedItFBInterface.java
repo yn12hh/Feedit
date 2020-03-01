@@ -149,6 +149,10 @@ public class FeedItFBInterface {
         feed_adapter.startListening();
     }
 
+    public DocumentReference getPostDocRef(int position) {
+        return feed_adapter.getSnapshots().getSnapshot(position).getReference();
+    }
+
     //changed FeedAdapter from private to public static
     public static class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.FeedPostHolder> {
 

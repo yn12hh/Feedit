@@ -7,15 +7,19 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+
 import org.w3c.dom.Text;
 
 public class show_full_post extends AppCompatActivity {
 
     private String title_string, time_stamp_string, team_string, project_string, text_string, author_string;
-    private int position;
-    private FeedItFBInterface fb_interface;
     TextView title, time_stamp, team, project, text, author;
 
+    private int position;
+    private FeedItFBInterface fb_interface;
+    private DocumentReference post_doc_ref;
 
 
     @Override
@@ -46,6 +50,8 @@ public class show_full_post extends AppCompatActivity {
         project.setText(project_string);
         text.setText(text_string);
         author.setText(author_string);
+
+        post_doc_ref = fb_interface.getPostDocRef(position);
     }
 
     public void deletePost(View view){
