@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class show_full_post extends AppCompatActivity {
 
-    private String title_string, time_stamp_string, teams_string, projects_string, content_string;
-    TextView title, time_stamp, teams, projects, content;
+    private String title_string, time_stamp_string, team_string, project_string, text_string, author_string;
+    TextView title, time_stamp, team, project, text, author;
 
 
 
@@ -18,23 +20,28 @@ public class show_full_post extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_full_post);
-        title_string = getIntent().getStringExtra("title");
-        time_stamp_string = getIntent().getStringExtra("time_stamp");
-        teams_string = getIntent().getStringExtra("teams");
-        projects_string = getIntent().getStringExtra("projects");
-        content_string = getIntent().getStringExtra("content");
 
-        title = (TextView) findViewById(R.id.title);
-        time_stamp = (TextView) findViewById(R.id.time_stamp);
-        teams = (TextView) findViewById(R.id.teams);
-        projects = (TextView) findViewById(R.id.projects);
-        content = (TextView) findViewById(R.id.content);
+        //we must implement these methods in a seperate function called "intializeView"
+        title_string = getIntent().getStringExtra("post_title");
+        time_stamp_string = getIntent().getStringExtra("post_time_stamp");
+        team_string = getIntent().getStringExtra("post_team");
+        project_string = getIntent().getStringExtra("post_project");
+        text_string = getIntent().getStringExtra("post_text");
+        author_string = getIntent().getStringExtra("post_author");
+
+        title = (TextView) findViewById(R.id.post_title);
+        time_stamp = (TextView) findViewById(R.id.post_time_stamp);
+        team = (TextView) findViewById(R.id.post_team);
+        project = (TextView) findViewById(R.id.post_project);
+        text = (TextView) findViewById(R.id.post_text);
+        author = (TextView) findViewById(R.id.post_author);
 
         title.setText(title_string);
         time_stamp.setText(time_stamp_string);
-        teams.setText(teams_string);
-        projects.setText(projects_string);
-        content.setText(content_string);
+        team.setText(team_string);
+        project.setText(project_string);
+        text.setText(text_string);
+        author.setText(author_string);
     }
 
     public void deletePost(View view){
