@@ -22,6 +22,7 @@
         android:id="@+id/close_dialog_imag"
         android:layout_width="31dp"
         android:layout_height="31dp"
+        android:onClick="cancelNewPost"
         app:layout_constraintBottom_toTopOf="@+id/new_post_background_purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.989"

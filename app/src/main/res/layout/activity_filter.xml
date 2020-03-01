@@ -69,31 +69,44 @@
             android:layout_marginLeft="27dp"
             app:srcCompat="@drawable/teams" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/all_text_teams"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="All"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/clear_text_teams"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:fontFamily="sans-serif"
+                android:onClick="clearTeams"
                 android:text="Clear"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/all_teams_switch"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+            <Switch
+                android:id="@+id/all_teams_switch"
+                android:layout_width="64dp"
+                android:layout_height="29dp"
+                android:layout_gravity="start"
+                android:layout_weight="1"
+                android:checked="false"
+                android:gravity="start|left|center_vertical"
+                android:onClick="allTeams"
+                android:text="@string/all"
+                android:textColorHighlight="#9C27B0"
+                android:textColorLink="#9C27B0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,7 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
-            android:onClick="onCheckboxClicked"
+            android:onClick="onCheckboxClickedTeams"
             android:text="Main Office"
             android:textSize="14sp" />
 
@@ -131,7 +144,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
-            android:onClick="onCheckboxClicked"
+            android:onClick="onCheckboxClickedTeams"
             android:text="Production"
             android:textSize="14sp" />
 
@@ -140,7 +153,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
-            android:onClick="onCheckboxClicked"
+            android:onClick="onCheckboxClickedTeams"
             android:text="PR"
             android:textSize="14sp" />
 
@@ -149,7 +162,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
-            android:onClick="onCheckboxClicked"
+            android:onClick="onCheckboxClickedTeams"
             android:text="Executive" />
 
         <CheckBox
@@ -157,7 +170,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
-            android:onClick="onCheckboxClicked"
+            android:onClick="onCheckboxClickedTeams"
             android:text="R &amp; D"
             android:textSize="14sp" />
 
@@ -166,7 +179,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
-            android:onClick="onCheckboxClicked"
+            android:onClick="onCheckboxClickedTeams"
             android:text="Marketing"
             android:textSize="14sp" />
 
@@ -190,24 +203,43 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/all_text_projects"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif"
-                android:text="All"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/clear_text_projects"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:fontFamily="sans-serif"
-                android:text="Clear"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                <Switch
+                    android:id="@+id/all_projects_switch"
+                    android:layout_width="64dp"
+                    android:layout_height="29dp"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:gravity="start|left|center_vertical"
+                    android:onClick="allProjects"
+                    android:text="@string/all"
+                    android:textColorHighlight="#9C27B0"
+                    android:textColorLink="#9C27B0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/clear_text_projects"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
+                    android:fontFamily="sans-serif"
+                    android:text="Clear"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/all_projects_switch"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
 
@@ -248,7 +280,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 1"
                     android:textSize="14sp" />
 
@@ -257,7 +289,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 2"
                     android:textSize="14sp" />
 
@@ -266,7 +298,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 3"
                     android:textSize="14sp" />
 
@@ -275,7 +307,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 4"
                     android:textSize="14sp" />
 
@@ -284,7 +316,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 5"
                     android:textSize="14sp" />
 
@@ -293,7 +325,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 6"
                     android:textSize="14sp" />
 
@@ -302,7 +334,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 7"
                     android:textSize="14sp" />
 
@@ -311,7 +343,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 8"
                     android:textSize="14sp" />
 
@@ -320,7 +352,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 9"
                     android:textSize="14sp" />
 
@@ -329,7 +361,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 10"
                     android:textSize="14sp" />
 
@@ -338,7 +370,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 11"
                     android:textSize="14sp" />
 
@@ -347,7 +379,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 12"
                     android:textSize="14sp" />
 
@@ -356,7 +388,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 13"
                     android:textSize="14sp" />
 
@@ -365,7 +397,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 14"
                     android:textSize="14sp" />
 
@@ -374,7 +406,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 15"
                     android:textSize="14sp" />
 
@@ -383,7 +415,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 16"
                     android:textSize="14sp" />
 
@@ -392,7 +424,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 17"
                     android:textSize="14sp" />
 
@@ -401,7 +433,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 18"
                     android:textSize="14sp" />
 
@@ -410,7 +442,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 19"
                     android:textSize="14sp" />
 
@@ -419,7 +451,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif"
-                    android:onClick="onCheckboxClicked"
+                    android:onClick="onCheckboxClickedTeams"
                     android:text="Project 20"
                     android:textSize="14sp" />
 

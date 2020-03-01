@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,7 +14,9 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.SetOptions;
 
+import com.google.firebase.firestore.SetOptions;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -28,11 +31,15 @@ public class FeedItFBInterface {
     private RecyclerView feed_rv;
     private Query feed_query;
     private Boolean query_chnged_flag;
+    private CollectionReference projects_names_collection;
 
     private FeedItFBInterface(){
-        entries_collection = FirebaseFirestore.getInstance().collection("entries");
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        entries_collection = db.collection("entries");
+        projects_names_collection = db.collection("projects_names");
         feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
         query_chnged_flag = false;
+
     }
 
     public static FeedItFBInterface getInstance() {
@@ -67,6 +74,14 @@ public boolean uploadPost(final Post post) {
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(feed_query, Post.class).build();
         feed_adapter =  new FeedAdapter(options);
         feed_rv.setAdapter(feed_adapter);
+
+        //I need to change here something --Ari
+        feed_adapter.setOnItemClickListener(new FeedAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(feed_rv.getContext(), "Position: " +feed_adapter.getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void setQueryForFeed(List<String> projects_for_query, List<String> teams_for_query) {
@@ -102,7 +117,18 @@ public boolean uploadPost(final Post post) {
         feed_adapter.startListening();
     }
 
-    private class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.FeedPostHolder> {
+    //changed FeedAdapter from private to public static
+    public static class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.FeedPostHolder> {
+
+        private OnItemClickListener click_listener;
+
+        public interface OnItemClickListener {
+            void onItemClick(int position);
+        }
+
+        public void setOnItemClickListener(OnItemClickListener listener) {
+            click_listener = listener;
+        }
 
         public FeedAdapter(@NonNull FirestoreRecyclerOptions<Post> options) {
             super(options);
@@ -122,12 +148,13 @@ public boolean uploadPost(final Post post) {
         @Override
         public FeedPostHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_post, parent, false);
-            return new FeedPostHolder(view);
+            return new FeedPostHolder(view, click_listener);
         }
 
-        class FeedPostHolder extends RecyclerView.ViewHolder {
+        //added public static here
+        public static class FeedPostHolder extends RecyclerView.ViewHolder {
             TextView title, team, name, project, text, time_stamp;
-            public FeedPostHolder(@NonNull View itemView) {
+            public FeedPostHolder(@NonNull View itemView, final OnItemClickListener listener) {
                 super(itemView);
                 title = itemView.findViewById(R.id.post_title);
                 team = itemView.findViewById(R.id.post_team);
@@ -136,6 +163,17 @@ public boolean uploadPost(final Post post) {
                 text = itemView.findViewById(R.id.post_text);
                 time_stamp = itemView.findViewById(R.id.post_time_stamp);
 
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(listener != null) {
+                            int position = getAdapterPosition();
+                            if(position != RecyclerView.NO_POSITION) {
+                                listener.onItemClick(position);
+                            }
+                        }
+                    }
+                });
             }
         }
 
