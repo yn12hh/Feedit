@@ -155,35 +155,35 @@ public class FilterActivity extends AppCompatActivity {
 
     public void onCheckboxClickedProjects(View view) {
 
-        CheckBox checkbox;
-        boolean checked = ((CheckBox) view).isChecked();
-
-        switch(view.getId()) {
-            case R.id.project_1:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_1);
-                    project1_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project1_string);
-                }
-                break;
-
-            case R.id.project_2:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_2);
-                    project2_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project2_string);
-                }
-                break;
-
-            case R.id.project_3:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_3);
-                    project3_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project3_string);
-                }
-                break;
-
-        }
+//        CheckBox checkbox;
+//        boolean checked = ((CheckBox) view).isChecked();
+//
+//        switch(view.getId()) {
+//            case R.id.project_1:
+//                if (checked) {
+//                    checkbox = (CheckBox) view.findViewById(R.id.project_1);
+//                    project1_string = checkbox.getText().toString();
+//                    projects_list_first_stage.add(project1_string);
+//                }
+//                break;
+//
+//            case R.id.project_2:
+//                if (checked) {
+//                    checkbox = (CheckBox) view.findViewById(R.id.project_2);
+//                    project2_string = checkbox.getText().toString();
+//                    projects_list_first_stage.add(project2_string);
+//                }
+//                break;
+//
+//            case R.id.project_3:
+//                if (checked) {
+//                    checkbox = (CheckBox) view.findViewById(R.id.project_3);
+//                    project3_string = checkbox.getText().toString();
+//                    projects_list_first_stage.add(project3_string);
+//                }
+//                break;
+//
+//        }
     }
 
     public void signOut(View view) {

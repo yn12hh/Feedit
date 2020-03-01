@@ -56,6 +56,7 @@ public class FeedItFBInterface {
         projects_names_collection = db.collection("projects_names");
         feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
         query_changed_flag = false;
+        updateProjectsNames();
     }
 
     public static FeedItFBInterface getInstance() {
