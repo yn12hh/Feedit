@@ -12,6 +12,8 @@ import org.w3c.dom.Text;
 public class show_full_post extends AppCompatActivity {
 
     private String title_string, time_stamp_string, team_string, project_string, text_string, author_string;
+    private int position;
+    private FeedItFBInterface fb_interface;
     TextView title, time_stamp, team, project, text, author;
 
 
@@ -20,6 +22,7 @@ public class show_full_post extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_full_post);
+        fb_interface = FeedItFBInterface.getInstance();
 
         //we must implement these methods in a seperate function called "intializeView"
         title_string = getIntent().getStringExtra("post_title");
@@ -28,6 +31,7 @@ public class show_full_post extends AppCompatActivity {
         project_string = getIntent().getStringExtra("post_project");
         text_string = getIntent().getStringExtra("post_text");
         author_string = getIntent().getStringExtra("post_author");
+        position = getIntent().getIntExtra("position", 0);
 
         title = (TextView) findViewById(R.id.post_title);
         time_stamp = (TextView) findViewById(R.id.post_time_stamp);
