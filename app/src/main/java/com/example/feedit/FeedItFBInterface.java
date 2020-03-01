@@ -29,6 +29,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import com.google.firebase.firestore.SetOptions;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -47,10 +49,11 @@ public class FeedItFBInterface {
     private Boolean query_changed_flag;
     private CollectionReference projects_names_collection;
 
-    private final String project_names[] = {"","","","","","","","","","","","","","","","","","","",""};
+    private final String project_names[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
     private String actual_project_names[];
     private ProjRecyclerAdapter proj_recycler_adapter;
     private RecyclerView project_rv;
+
     private FeedItFBInterface() {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -62,7 +65,7 @@ public class FeedItFBInterface {
     }
 
     public static FeedItFBInterface getInstance() {
-        if(instance == null) {
+        if (instance == null) {
             instance = new FeedItFBInterface();
         }
         return instance;
@@ -71,23 +74,23 @@ public class FeedItFBInterface {
     public boolean uploadPost(final Post post) {
 
 
-    Map<String, Object> uploadable_post = new HashMap<>();
-    uploadable_post.put("title", post.getTitle());
-    uploadable_post.put("author", post.getAuthor());
-    uploadable_post.put("timestamp", post.getTimeStamp());
-    uploadable_post.put("post_text", post.getPost_text());
-    uploadable_post.put("team", post.getTeam());
-    uploadable_post.put("project", post.getProject());
+        Map<String, Object> uploadable_post = new HashMap<>();
+        uploadable_post.put("title", post.getTitle());
+        uploadable_post.put("author", post.getAuthor());
+        uploadable_post.put("timestamp", post.getTimeStamp());
+        uploadable_post.put("post_text", post.getPost_text());
+        uploadable_post.put("team", post.getTeam());
+        uploadable_post.put("project", post.getProject());
 
-    updateProjectTime(post.getProject());
+        updateProjectTime(post.getProject());
 
-    return entries_collection.add(uploadable_post).isSuccessful();
+        return entries_collection.add(uploadable_post).isSuccessful();
     }
 
-    public void setUpRecyclerViewForFeed(RecyclerView view){
+    public void setUpRecyclerViewForFeed(RecyclerView view) {
         feed_rv = view;
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(feed_query, Post.class).build();
-        feed_adapter =  new FeedAdapter(options);
+        feed_adapter = new FeedAdapter(options);
         feed_rv.setAdapter(feed_adapter);
 
         feed_adapter.setOnItemClickListener(new FeedAdapter.OnItemClickListener() {
@@ -105,7 +108,7 @@ public class FeedItFBInterface {
         });
     }
 
-    public void setUpRecyclerViewForProjectFilter(RecyclerView view){
+    public void setUpRecyclerViewForProjectFilter(RecyclerView view) {
         project_rv = view;
     }
 
@@ -116,13 +119,13 @@ public class FeedItFBInterface {
     }
 
     public void setQueryForFeed(List<String> projects_for_query, List<String> teams_for_query) {
-        if(projects_for_query.isEmpty() && teams_for_query.isEmpty()) {
+        if (projects_for_query.isEmpty() && teams_for_query.isEmpty()) {
             feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
         } else if (projects_for_query.isEmpty()) {
             feed_query = entries_collection.whereIn("team", teams_for_query).orderBy("timestamp", Query.Direction.DESCENDING);
         } else if (teams_for_query.isEmpty()) {
             feed_query = entries_collection.whereIn("project", projects_for_query).orderBy("timestamp", Query.Direction.DESCENDING);
-        } else if(projects_for_query.size() > 1){
+        } else if (projects_for_query.size() > 1) {
             feed_query = entries_collection.whereIn("project", projects_for_query).whereEqualTo("team", teams_for_query.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
         } else {
             feed_query = entries_collection.whereIn("team", teams_for_query).whereEqualTo("project", projects_for_query.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
@@ -131,7 +134,7 @@ public class FeedItFBInterface {
     }
 
     public void startFeedListening() {
-        if(query_changed_flag) {
+        if (query_changed_flag) {
             feed_adapter.stopListening();
             setUpRecyclerViewForFeed(feed_rv);
             query_changed_flag = false;
@@ -188,6 +191,7 @@ public class FeedItFBInterface {
 
         public static class FeedPostHolder extends RecyclerView.ViewHolder {
             TextView title, team, name, project, text, time_stamp;
+
             public FeedPostHolder(@NonNull View itemView, final OnItemClickListener listener) {
                 super(itemView);
                 title = itemView.findViewById(R.id.post_title);
@@ -200,9 +204,9 @@ public class FeedItFBInterface {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if(listener != null) {
+                        if (listener != null) {
                             int position = getAdapterPosition();
-                            if(position != RecyclerView.NO_POSITION) {
+                            if (position != RecyclerView.NO_POSITION) {
                                 listener.onItemClick(position);
                             }
                         }
@@ -214,10 +218,12 @@ public class FeedItFBInterface {
     }
 
     //I've made this static for OnItemClickListener --Ari
-    private static class ProjRecyclerAdapter extends RecyclerView.Adapter<ProjRecyclerAdapter.ProjectViewHolder> {
+    public static class ProjRecyclerAdapter extends RecyclerView.Adapter<ProjRecyclerAdapter.ProjectViewHolder> {
 
         private String project_names[];
         private Context context;
+        private List<String> checked_projects_first_stage = new ArrayList<>();
+
 
         public ProjRecyclerAdapter(String[] project_names, Context context) {
             this.project_names = project_names;
@@ -234,9 +240,23 @@ public class FeedItFBInterface {
         @Override
         public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
             holder.name.setText(project_names[position]);
-            if(project_names[position].equals("")) {
+            if (project_names[position].equals("")) {
                 holder.name.setVisibility(View.GONE);
             }
+            holder.setItemClickListener(new ItemClickListener() {
+                @Override
+                public void onItemClick(View v, int position) {
+                    CheckBox checkbox = (CheckBox) v;
+
+                    if (checkbox.isChecked()) {
+                        {
+                            checked_projects_first_stage.add(project_names[position]);
+                        }
+                    } else if (!checkbox.isChecked()) {
+                        checked_projects_first_stage.remove(project_names[position]);
+                    }
+                }
+            });
         }
 
         @Override
@@ -244,12 +264,30 @@ public class FeedItFBInterface {
             return project_names.length;
         }
 
-        public class ProjectViewHolder extends RecyclerView.ViewHolder {
+        public class ProjectViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             CheckBox name;
+            ItemClickListener item_click_listener;
+
             public ProjectViewHolder(@NonNull View itemView) {
                 super(itemView);
-                name = (CheckBox)itemView.findViewById(R.id.project_name);
+                name = (CheckBox) itemView.findViewById(R.id.project_name);
+
+                name.setOnClickListener(this);
             }
+
+            public void setItemClickListener(ItemClickListener ic) {
+                this.item_click_listener = ic;
+            }
+
+            @Override
+            public void onClick(View v) {
+                this.item_click_listener.onItemClick(v, getLayoutPosition());
+            }
+        }
+
+        //this may need to be outside of the adapter class
+        public interface ItemClickListener {
+            void onItemClick(View v, int position);
         }
     }
 
@@ -257,13 +295,13 @@ public class FeedItFBInterface {
         projects_names_collection.orderBy("last_changed", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()) {
+                if (task.isSuccessful()) {
                     int i = 0;
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         String curr_proj_name = document.getString("project_name");
-                        if(!Arrays.asList(project_names).contains(curr_proj_name)) {
+                        if (!Arrays.asList(project_names).contains(curr_proj_name)) {
                             project_names[i++] = curr_proj_name;
-                            if(i == project_names.length) break;
+                            if (i == project_names.length) break;
                         }
                     }
                     Arrays.sort(project_names);
@@ -300,6 +338,28 @@ public class FeedItFBInterface {
             }
         }
         return ret_arr;
+    }
+
+    public class ProjectCheckBox {
+        String name;
+
+        public ProjectCheckBox() {
+        }
+
+        public ProjectCheckBox(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+    }
+
+    public List<String> sendCheckedInfo() {
+//        StringBuffer sb = null;
+//        List<String> checked_projects = Arrays.asList();
+//        checked_projects = proj_recycler_adapter.checked_projects_first_stage;
+        return proj_recycler_adapter.checked_projects_first_stage;
     }
 }
 
