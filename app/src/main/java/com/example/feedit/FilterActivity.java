@@ -179,6 +179,7 @@ public class FilterActivity extends AppCompatActivity {
 
     public void onCheckboxClickedProjects(View view) {
 
+
         CheckBox checkbox;
         boolean checked = ((CheckBox) view).isChecked();
 //
