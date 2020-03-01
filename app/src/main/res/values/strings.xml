@@ -28,6 +28,15 @@
     <string name="app_logo">app_logo</string>
     <string name="delete">Delete</string>
     <string name="back">Back</string>
+    <string name="executive">Executive</string>
+    <string name="pr">PR</string>
+    <string name="production">Production</string>
+    <string name="main_office">Main Office</string>
+    <string name="r_amp_d"><![CDATA[R & D]]></string>
+    <string name="marketing">Marketing</string>
+    <string name="new_project">New Project</string>
+    <string name="add_project">Add Project</string>
+    <string name="project_s_name">Project\'s Name</string>
 
 
 </resources>

@@ -135,6 +135,7 @@ public class FilterActivity extends AppCompatActivity {
                     teams_list_first_stage.add(team_string);
                 }
                 break;
+
         }
     }
 

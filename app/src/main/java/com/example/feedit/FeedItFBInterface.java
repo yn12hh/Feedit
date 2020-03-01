@@ -56,6 +56,7 @@ public class FeedItFBInterface {
         feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
         query_changed_flag = false;
 
+
     }
 
     public static FeedItFBInterface getInstance() {
