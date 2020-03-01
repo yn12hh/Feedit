@@ -138,7 +138,7 @@
             #FFFFFF
         </item>
 
-        <item name="android:fontFamily">@font/carter_one</item>
+        <item name="android:fontFamily">@font/catamaran</item>
 
     </style>
 
@@ -152,7 +152,7 @@
             #66158B
         </item>
 
-        <item name="android:fontFamily">@font/carter_one</item>
+        <item name="android:fontFamily">@font/catamaran</item>
 
     </style>
 
@@ -166,7 +166,7 @@
             #000000
         </item>
 
-        <item name="android:fontFamily">@font/carter_one</item>
+        <item name="android:fontFamily">@font/catamaran</item>
 
     </style>
 

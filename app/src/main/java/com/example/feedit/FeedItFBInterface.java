@@ -1,8 +1,11 @@
 package com.example.feedit;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -11,17 +14,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
 import com.google.firebase.firestore.SetOptions;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import com.google.firebase.firestore.SetOptions;
 
 public class FeedItFBInterface {
     private static FeedItFBInterface instance = null;
@@ -30,16 +42,20 @@ public class FeedItFBInterface {
     private FeedAdapter feed_adapter;
     private RecyclerView feed_rv;
     private Query feed_query;
-    private Boolean query_chnged_flag;
+    private Boolean query_changed_flag;
     private CollectionReference projects_names_collection;
 
-    private FeedItFBInterface(){
+    private final String project_names[] = {"","","","","","","","","","","","","","","","","","","",""};
+    private String actual_project_names[];
+    private ProjRecyclerAdapter proj_recycler_adapter;
+    private RecyclerView project_rv;
+    private FeedItFBInterface() {
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         entries_collection = db.collection("entries");
         projects_names_collection = db.collection("projects_names");
         feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
-        query_chnged_flag = false;
-
+        query_changed_flag = false;
     }
 
     public static FeedItFBInterface getInstance() {
@@ -49,8 +65,8 @@ public class FeedItFBInterface {
         return instance;
     }
 
+    public boolean uploadPost(final Post post) {
 
-public boolean uploadPost(final Post post) {
 
     Map<String, Object> uploadable_post = new HashMap<>();
     uploadable_post.put("title", post.getTitle());
@@ -60,14 +76,10 @@ public boolean uploadPost(final Post post) {
     uploadable_post.put("team", post.getTeam());
     uploadable_post.put("project", post.getProject());
 
-
-    Map<String, Object> proj_changed = new HashMap<>();
-    proj_changed.put("project_name", post.getProject());
-    proj_changed.put("last_changed", post.getTimeStamp());
-    projects_names_collection.document(post.getProject()).set(proj_changed, SetOptions.merge());
+    updateProjectTime(post.getProject());
 
     return entries_collection.add(uploadable_post).isSuccessful();
-}
+    }
 
     public void setUpRecyclerViewForFeed(RecyclerView view){
         feed_rv = view;
@@ -84,6 +96,16 @@ public boolean uploadPost(final Post post) {
         });
     }
 
+    public void setUpRecyclerViewForProjectFilter(RecyclerView view){
+        project_rv = view;
+    }
+
+    public void startProjectFilter() {
+        updateProjectsNames();
+        proj_recycler_adapter = new ProjRecyclerAdapter(project_names, project_rv.getContext());
+        project_rv.setAdapter(proj_recycler_adapter);
+    }
+
     public void setQueryForFeed(List<String> projects_for_query, List<String> teams_for_query) {
         if(projects_for_query.isEmpty() && teams_for_query.isEmpty()) {
             feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
@@ -96,14 +118,14 @@ public boolean uploadPost(final Post post) {
         } else {
             feed_query = entries_collection.whereIn("team", teams_for_query).whereEqualTo("project", projects_for_query.get(0)).orderBy("timestamp", Query.Direction.DESCENDING);
         }
-        query_chnged_flag = true;
+        query_changed_flag = true;
     }
 
     public void startFeedListening() {
-        if(query_chnged_flag) {
+        if(query_changed_flag) {
             feed_adapter.stopListening();
             setUpRecyclerViewForFeed(feed_rv);
-            query_chnged_flag = false;
+            query_changed_flag = false;
         }
         feed_adapter.startListening();
     }
@@ -151,7 +173,10 @@ public boolean uploadPost(final Post post) {
             return new FeedPostHolder(view, click_listener);
         }
 
-        //added public static here
+        public void deletePost(int position) {
+            getSnapshots().getSnapshot(position).getReference().delete();
+        }
+
         public static class FeedPostHolder extends RecyclerView.ViewHolder {
             TextView title, team, name, project, text, time_stamp;
             public FeedPostHolder(@NonNull View itemView, final OnItemClickListener listener) {
@@ -179,5 +204,73 @@ public boolean uploadPost(final Post post) {
 
     }
 
+    private class ProjRecyclerAdapter extends RecyclerView.Adapter<ProjRecyclerAdapter.ProjectViewHolder> {
+
+        private String project_names[];
+        private Context context;
+
+        public ProjRecyclerAdapter(String[] project_names, Context context) {
+            this.project_names = project_names;
+            this.context = context;
+        }
+
+        @NonNull
+        @Override
+        public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.project_filter_checkbox, parent, false);
+            return new ProjectViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
+            holder.name.setText(project_names[position]);
+            if(project_names[position].equals("")) {
+                holder.name.setVisibility(View.GONE);
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return project_names.length;
+        }
+
+        public class ProjectViewHolder extends RecyclerView.ViewHolder {
+            CheckBox name;
+            public ProjectViewHolder(@NonNull View itemView) {
+                super(itemView);
+                name = (CheckBox)itemView.findViewById(R.id.project_name);
+            }
+        }
+    }
+
+    public void updateProjectsNames() {
+        projects_names_collection.orderBy("last_changed", Query.Direction.DESCENDING).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()) {
+                    int i = 0;
+                    for (QueryDocumentSnapshot document : task.getResult()){
+                        String curr_proj_name = document.getString("project_name");
+                        if(!Arrays.asList(project_names).contains(curr_proj_name)) {
+                            project_names[i++] = curr_proj_name;
+                            if(i == project_names.length) break;
+                        }
+                    }
+                    Arrays.sort(project_names);
+                }
+            }
+        });
+    }
+
+    private void updateProjectTime(String name) {
+        Map<String, Object> proj_changed = new HashMap<>();
+        proj_changed.put("project_name", name);
+        proj_changed.put("last_changed", new Date());
+        projects_names_collection.document(name).set(proj_changed, SetOptions.merge());
+    }
+
+    public void newProjectName(String name) {
+        updateProjectTime(name);
+    }
 }
 
