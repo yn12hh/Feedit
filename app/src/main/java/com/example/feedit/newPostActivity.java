@@ -49,7 +49,7 @@ public class newPostActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String title = title_et.getText().toString();
                 String teams = teams_sp.getSelectedItem().toString();
-                String projects = projects_et.getText().toString();
+                String projects = projects_et.getText().toString().toLowerCase();
                 String post_content = post_content_et.getText().toString();
                 if(!title.isEmpty() && (!teams.isEmpty() && teams!= "Tap to choose") && !projects.isEmpty() && !post_content.isEmpty()) {
 

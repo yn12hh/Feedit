@@ -92,8 +92,8 @@ public class FeedItFBInterface {
             @Override
             public void onItemClick(int position) {
                 Toast.makeText(feed_rv.getContext(), "Position: " +feed_adapter.getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
-            }
-        });
+    }
+});
     }
 
     public void setUpRecyclerViewForProjectFilter(RecyclerView view){
@@ -249,7 +249,7 @@ public class FeedItFBInterface {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {
                     int i = 0;
-                    for (QueryDocumentSnapshot document : task.getResult()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
                         String curr_proj_name = document.getString("project_name");
                         if(!Arrays.asList(project_names).contains(curr_proj_name)) {
                             project_names[i++] = curr_proj_name;
@@ -270,6 +270,7 @@ public class FeedItFBInterface {
     }
 
     public void newProjectName(String name) {
+        name = name.toLowerCase();
         updateProjectTime(name);
     }
 }
