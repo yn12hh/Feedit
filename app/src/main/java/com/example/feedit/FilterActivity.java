@@ -20,6 +20,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 import android.content.Intent;
+import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class FilterActivity extends AppCompatActivity {
     private Switch all_teams_sw, all_projects_sw;
     private String project_string, team_string;
     private RecyclerView project_recycler;
+    private ProgressBar proj_prog_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,7 @@ public class FilterActivity extends AppCompatActivity {
         marketing_cb = findViewById(R.id.marketing_team);
         all_projects_sw = findViewById(R.id.all_projects_switch);
         all_teams_sw = findViewById(R.id.all_teams_switch);
+        proj_prog_bar = findViewById(R.id.project_progress_bar);
 
         fb_interface = FeedItFBInterface.getInstance();
         save_button = (ImageView) findViewById(R.id.save);
@@ -77,8 +80,11 @@ public class FilterActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        proj_prog_bar.setVisibility(View.VISIBLE);
         fb_interface.startProjectFilter();
+        proj_prog_bar.setVisibility(View.INVISIBLE);
     }
+
 
     @Override
     protected void onStop() {

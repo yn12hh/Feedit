@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +36,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 import com.google.firebase.firestore.SetOptions;
 
 public class FeedItFBInterface {
@@ -284,6 +287,7 @@ public class FeedItFBInterface {
     public void newProjectName(String name) {
         name = name.toLowerCase();
         updateProjectTime(name);
+        updateProjectsNames();
     }
 
     public String[] getProject_names() {
