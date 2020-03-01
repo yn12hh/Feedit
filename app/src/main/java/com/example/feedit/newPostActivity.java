@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class newPostActivity extends AppCompatActivity {
+public class NewPostActivity extends AppCompatActivity {
 
     private Button post_button_clicked;
     private FeedItFBInterface fb_interface;
@@ -90,7 +90,7 @@ public class newPostActivity extends AppCompatActivity {
         ImageView close_dialog;
         final Dialog  new_project_dialog;
 
-        final AlertDialog.Builder mbuilder = new AlertDialog.Builder(newPostActivity.this);
+        final AlertDialog.Builder mbuilder = new AlertDialog.Builder(NewPostActivity.this);
         View mview = getLayoutInflater().inflate(R.layout.add_project_dialog, null);
 
         mbuilder.setView(mview);
@@ -131,6 +131,7 @@ public class newPostActivity extends AppCompatActivity {
 
 
     public void cancelNewPost(View view) {
-        Intent cencel_post = new Intent(getBaseContext(), Feed.class);
-        startActivity(cencel_post);    }
+
+        Intent cancel_post = new Intent(getBaseContext(), Feed.class);
+        startActivity(cancel_post);    }
 }

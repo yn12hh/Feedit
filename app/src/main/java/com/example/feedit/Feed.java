@@ -56,7 +56,7 @@ public class Feed extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
 
-                Intent my_intent = new Intent(getBaseContext(), newPostActivity.class);
+                Intent my_intent = new Intent(getBaseContext(), NewPostActivity.class);
                 startActivity(my_intent);
             }
 

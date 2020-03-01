@@ -93,7 +93,7 @@ public class FeedItFBInterface {
         feed_adapter.setOnItemClickListener(new FeedAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(feed_rv.getContext(), show_full_post.class);
+                Intent intent = new Intent(feed_rv.getContext(), ShowFullPost.class);
                 intent.putExtra("post_title", feed_adapter.getItem(position).getTitle());
                 intent.putExtra("post_time_stamp", feed_adapter.getItem(position).getTimeStamp());
                 intent.putExtra("post_team", feed_adapter.getItem(position).getTeam());
