@@ -281,8 +281,9 @@ public class FeedItFBInterface {
                 counter++;
             }
         }
-        String[] ret_arr = new String[counter];
-        counter = 0;
+        String[] ret_arr = new String[counter + 1];
+        ret_arr[0] = "Tap to choose";
+        counter = 1;
         for (int i = 0; i < project_names.length; i++) {
             if (!project_names[i].equals("")) {
                 ret_arr[counter++] = project_names[i];
