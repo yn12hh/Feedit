@@ -58,9 +58,14 @@ public class FilterActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                saveUpdatedQuery();
-                Intent my_intent = new Intent(getBaseContext(), Feed.class);
-                startActivity(my_intent);
+                projects_list = fb_interface.sendCheckedInfo();
+                if(projects_list.size()>1 && teams_list.size()>1)
+                    Toast.makeText(getApplicationContext(), "You can't choose more than 1 filter query in both projects and teams, please try again", Toast.LENGTH_SHORT).show();
+                else {
+                    saveUpdatedQuery();
+                    Intent my_intent = new Intent(getBaseContext(), Feed.class);
+                    startActivity(my_intent);
+                }
 
             }
 
@@ -89,8 +94,6 @@ public class FilterActivity extends AppCompatActivity {
     public void saveUpdatedQuery(){
 
         teams_list=teams_list_first_stage;
-        projects_list=projects_list_first_stage;
-
         fb_interface.setQueryForFeed(projects_list, teams_list);
     }
 
