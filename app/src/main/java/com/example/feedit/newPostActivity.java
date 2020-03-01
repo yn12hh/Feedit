@@ -76,6 +76,10 @@ public class newPostActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        setProjetSp();
+    }
+
+    private void setProjetSp() {
         ArrayAdapter<String> proj_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, fb_interface.getProject_names());
         projects_sp.setAdapter(proj_adapter);
     }
@@ -107,7 +111,9 @@ public class newPostActivity extends AppCompatActivity {
                 if(!new_project_name_string.isEmpty()) {
 
                     fb_interface.newProjectName(new_project_name_string);
+                    setProjetSp();
                     new_project_dialog.dismiss();
+
                 }
                 else {
 
