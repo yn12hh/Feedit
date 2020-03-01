@@ -40,7 +40,7 @@ public class FeedItFBInterface {
     private RecyclerView feed_rv;
     private Query feed_query;
 
-    private Boolean query_chnged_flag;
+    private Boolean query_changed_flag;
     private CollectionReference projects_names_collection;
 
     private final String project_names[] = {"","","","","","","","","","","","","","","","","","","",""};
@@ -53,7 +53,7 @@ public class FeedItFBInterface {
         entries_collection = db.collection("entries");
         projects_names_collection = db.collection("projects_names");
         feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
-        query_chnged_flag = false;
+        query_changed_flag = false;
         updateProjectsNames();
 
     }

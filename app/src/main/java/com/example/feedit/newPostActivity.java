@@ -9,9 +9,11 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,8 +28,8 @@ public class newPostActivity extends AppCompatActivity {
 
     private Button post_button_clicked;
     private FeedItFBInterface fb_interface;
-    private EditText title_et, projects_et, teams_et, post_content_et; //et stands for Edit Text, written in acronym to save name length
-
+    private EditText title_et, projects_et, post_content_et, new_project_name; //et stands for Edit Text, written in acronym to save name length
+    private Spinner teams_sp;
 
 
     @Override
@@ -36,7 +38,7 @@ public class newPostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_new_post);
 
         title_et = (EditText) findViewById(R.id.title_input);
-        teams_et = (EditText) findViewById(R.id.teams_name_input);
+        teams_sp = (Spinner) findViewById(R.id.teams_name_input);
         projects_et = (EditText) findViewById(R.id.projects_name_input);
         post_content_et = (EditText) findViewById(R.id.posts_content_input);
         fb_interface = FeedItFBInterface.getInstance();
@@ -46,10 +48,10 @@ public class newPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String title = title_et.getText().toString();
-                String teams = teams_et.getText().toString();
+                String teams = teams_sp.getSelectedItem().toString();
                 String projects = projects_et.getText().toString();
                 String post_content = post_content_et.getText().toString();
-                if(!title.isEmpty() && !teams.isEmpty() && !projects.isEmpty() && !post_content.isEmpty()) {
+                if(!title.isEmpty() && (!teams.isEmpty() && teams!= "Tap to choose") && !projects.isEmpty() && !post_content.isEmpty()) {
 
                     sendDetailsToFB(title, teams, projects, post_content);
                     Intent my_intent = new Intent(getBaseContext(), Feed.class);
@@ -62,7 +64,9 @@ public class newPostActivity extends AppCompatActivity {
             }
         });
 
-
+        String[] items = new String[] {"Tap to choose", "Main Office", "Production", "PR", "Executive","R & D", "Marketing"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,items);
+        teams_sp.setAdapter(adapter);
 
     }
 
@@ -73,6 +77,49 @@ public class newPostActivity extends AppCompatActivity {
     public void sendDetailsToFB(String title, String teams, String projects, String post_content) {
         Post new_post = new Post(title,teams,post_content, projects);
         fb_interface.uploadPost(new_post);
+    }
+
+    public void addProject(View view) {
+        Button add_project_button;
+        ImageView close_dialog;
+        final Dialog  new_project_dialog;
+
+        final AlertDialog.Builder mbuilder = new AlertDialog.Builder(newPostActivity.this);
+        View mview = getLayoutInflater().inflate(R.layout.add_project_dialog, null);
+
+        mbuilder.setView(mview);
+        new_project_dialog = mbuilder.create();
+        new_project_dialog.show();
+
+        new_project_name = (EditText) mview.findViewById(R.id.project_input);
+
+        add_project_button = (Button) mview.findViewById(R.id.add_project_button);
+        add_project_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String new_project_name_string = new_project_name.getText().toString();
+                if(!new_project_name_string.isEmpty()) {
+
+                    //FBINTERFACE
+                    new_project_dialog.dismiss();
+                }
+                else {
+
+                    Toast.makeText(getApplicationContext(),"You left the field empty, please try again", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        close_dialog = (ImageView) mview.findViewById(R.id.close_dialog_imag);
+        close_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new_project_dialog.dismiss();
+            }
+        });
+
+
+
     }
 
 
