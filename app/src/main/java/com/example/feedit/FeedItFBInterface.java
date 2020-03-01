@@ -273,5 +273,22 @@ public class FeedItFBInterface {
     public void newProjectName(String name) {
         updateProjectTime(name);
     }
+
+    public String[] getProject_names() {
+        int counter = 0;
+        for (int i = 0; i < project_names.length; i++) {
+            if (!project_names[i].equals("")) {
+                counter++;
+            }
+        }
+        String[] ret_arr = new String[counter];
+        counter = 0;
+        for (int i = 0; i < project_names.length; i++) {
+            if (!project_names[i].equals("")) {
+                ret_arr[counter++] = project_names[i];
+            }
+        }
+        return ret_arr;
+    }
 }
 

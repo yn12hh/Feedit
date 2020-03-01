@@ -76,6 +76,7 @@
 <!--            android:hint="@string/relevant_teams"-->
 <!--            android:inputType="text"-->
 <!--            android:textAppearance="@style/title" />-->
+
         <Spinner
             android:id="@+id/teams_name_input"
             android:layout_width="match_parent"
@@ -89,8 +90,7 @@
             android:layout_marginTop="32dp"/>
 
 
-
-        <EditText
+        <Spinner
             android:id="@+id/projects_name_input"
             android:layout_width="match_parent"
             android:layout_height="42dp"
@@ -100,8 +100,8 @@
             android:background="@color/white"
             android:fontFamily="@font/catamaran"
             android:hint="@string/relevant_project"
-            android:inputType="text"
             android:textAppearance="@style/title" />
+
 
         <EditText
             android:id="@+id/posts_content_input"
