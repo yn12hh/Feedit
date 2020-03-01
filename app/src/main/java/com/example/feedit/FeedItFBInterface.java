@@ -1,6 +1,8 @@
 package com.example.feedit;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,17 +90,30 @@ public class FeedItFBInterface {
         feed_adapter =  new FeedAdapter(options);
         feed_rv.setAdapter(feed_adapter);
 
-        //I need to change here something --Ari
         feed_adapter.setOnItemClickListener(new FeedAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(feed_rv.getContext(), "Position: " +feed_adapter.getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
-    }
-});
+                Toast.makeText(feed_rv.getContext(), "Clicked on " +feed_adapter.getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(feed_rv.getContext(), show_full_post.class);
+                intent.putExtra("post_title", feed_adapter.getItem(position).getTitle());
+                intent.putExtra("post_time_stamp", feed_adapter.getItem(position).getTimeStamp());
+                intent.putExtra("post_team", feed_adapter.getItem(position).getTeam());
+                intent.putExtra("post_project", feed_adapter.getItem(position).getProject());
+                intent.putExtra("post_text", feed_adapter.getItem(position).getPost_text());
+                intent.putExtra("post_author", feed_adapter.getItem(position).getAuthor());
+                feed_rv.getContext().startActivity(intent);
+            }
+        });
     }
 
     public void setUpRecyclerViewForProjectFilter(RecyclerView view){
         project_rv = view;
+        proj_recycler_adapter.setOnItemClickListener(new ProjRecyclerAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+            }
+        });
     }
 
     public void startProjectFilter() {
@@ -205,10 +220,20 @@ public class FeedItFBInterface {
 
     }
 
-    private class ProjRecyclerAdapter extends RecyclerView.Adapter<ProjRecyclerAdapter.ProjectViewHolder> {
+    //I've made this static for OnItemClickListener --Ari
+    private static class ProjRecyclerAdapter extends RecyclerView.Adapter<ProjRecyclerAdapter.ProjectViewHolder> {
 
         private String project_names[];
         private Context context;
+        private OnItemClickListener click_listener;
+
+        public interface OnItemClickListener {
+            void onItemClick(int position);
+        }
+
+        public void setOnItemClickListener(OnItemClickListener listener) {
+            click_listener = listener;
+        }
 
         public ProjRecyclerAdapter(String[] project_names, Context context) {
             this.project_names = project_names;
@@ -219,7 +244,7 @@ public class FeedItFBInterface {
         @Override
         public ProjectViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(context.getApplicationContext()).inflate(R.layout.project_filter_checkbox, parent, false);
-            return new ProjectViewHolder(view);
+            return new ProjectViewHolder(view, click_listener);
         }
 
         @Override
@@ -237,9 +262,21 @@ public class FeedItFBInterface {
 
         public class ProjectViewHolder extends RecyclerView.ViewHolder {
             CheckBox name;
-            public ProjectViewHolder(@NonNull View itemView) {
+            public ProjectViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
                 super(itemView);
                 name = (CheckBox)itemView.findViewById(R.id.project_name);
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if(listener != null) {
+                            int position = getAdapterPosition();
+                            if(position != RecyclerView.NO_POSITION) {
+                                listener.onItemClick(position);
+                            }
+                        }
+                    }
+                });
             }
         }
     }
