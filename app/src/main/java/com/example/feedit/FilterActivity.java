@@ -61,6 +61,18 @@ public class FilterActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        fb_interface.startProjectFilter();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+    }
+
     public void saveUpdatedQuery(){
 
         teams_list=teams_list_first_stage;
@@ -75,7 +87,7 @@ public class FilterActivity extends AppCompatActivity {
         CheckBox checkbox;
         boolean checked = ((CheckBox) view).isChecked();
 
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.main_office_team:
                 if (checked) {
                     checkbox = (CheckBox) view.findViewById(R.id.main_office_team);
@@ -123,167 +135,7 @@ public class FilterActivity extends AppCompatActivity {
                     teams_list_first_stage.add(team_string);
                 }
                 break;
-
-            case R.id.project_1:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_1);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_2:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_2);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_3:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_3);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_4:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_4);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_5:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_5);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_6:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_6);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-            case R.id.project_7:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_7);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_8:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_8);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_9:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_9);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_10:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_10);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_11:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_11);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_12:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_12);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_13:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_13);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_14:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_14);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_15:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_15);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_16:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_16);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_17:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_17);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_18:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_18);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_19:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_19);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
-
-            case R.id.project_20:
-                if (checked) {
-                    checkbox = (CheckBox) view.findViewById(R.id.project_20);
-                    project_string = checkbox.getText().toString();
-                    projects_list_first_stage.add(project_string);
-                }
-                break;
         }
-
     }
 
     public void signOut(View view) {
