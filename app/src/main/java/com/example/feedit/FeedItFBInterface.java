@@ -101,7 +101,6 @@ public class FeedItFBInterface {
         project_rv.setAdapter(proj_recycler_adapter);
     }
 
-
     public void setQueryForFeed(List<String> projects_for_query, List<String> teams_for_query) {
         if(projects_for_query.isEmpty() && teams_for_query.isEmpty()) {
             feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
@@ -156,6 +155,10 @@ public class FeedItFBInterface {
         public FeedPostHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.feed_post, parent, false);
             return new FeedPostHolder(view);
+        }
+
+        public void deletePost(int position) {
+            getSnapshots().getSnapshot(position).getReference().delete();
         }
 
         class FeedPostHolder extends RecyclerView.ViewHolder {
