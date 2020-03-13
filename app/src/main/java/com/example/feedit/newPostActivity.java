@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -78,7 +79,6 @@ public class newPostActivity extends AppCompatActivity {
         teams_sp.setAdapter(teams_adapter);
         setUpProjSpinner();
 
-
     }
 
     private void setUpProjSpinner() {
@@ -87,11 +87,21 @@ public class newPostActivity extends AppCompatActivity {
         proj_spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         projects_sp.setAdapter(proj_spinner_adapter);
         fb_interface.populateProjSpinner(proj_spinner_adapter, projects_names);
-    }
+        projects_sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                if(item.equals("Add new project")) {
+                    parent.setSelection(0);
+                    addProject();
+                }
+            }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
 
@@ -100,7 +110,7 @@ public class newPostActivity extends AppCompatActivity {
         fb_interface.uploadPost(new_post);
     }
 
-    public void addProject(View view) {
+    public void addProject() {
         Button add_project_button;
         ImageView close_dialog;
         final Dialog  new_project_dialog;

@@ -140,7 +140,6 @@
         android:layout_height="49dp"
         android:background="@drawable/button_creat_user_backgrpund"
         android:fontFamily="@font/catamaran_medium"
-        android:onClick="addProject"
         android:text="@string/add_project"
         android:textAppearance="@style/post_prompt"
         android:textColor="@color/white"

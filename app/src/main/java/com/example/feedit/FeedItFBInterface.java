@@ -346,7 +346,6 @@ public class FeedItFBInterface {
     public void newProjectName(String name) {
         name = name.toLowerCase();
         updateProjectTime(name);
-        updateProjectsNames();
     }
 
     public String[] getProject_names() {
