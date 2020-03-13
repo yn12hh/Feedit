@@ -28,7 +28,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class FilterActivity extends AppCompatActivity {
 
-    private ImageView save_button;
     private List<String> projects_list = Arrays.asList();
     private List<String> teams_list = Arrays.asList();
     private List<String> projects_list_first_stage= new ArrayList<>();
@@ -60,24 +59,6 @@ public class FilterActivity extends AppCompatActivity {
         proj_prog_bar = findViewById(R.id.project_progress_bar);
 
         fb_interface = FeedItFBInterface.getInstance();
-        save_button = (ImageView) findViewById(R.id.save);
-        save_button.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                projects_list = fb_interface.sendCheckedInfo();
-                if(projects_list.size()>1 && teams_list_first_stage.size()>1)
-                    Toast.makeText(getApplicationContext(), "You can't choose more than 1 filter query in both projects and teams, please try again", Toast.LENGTH_LONG).show();
-                else {
-                    saveUpdatedQuery();
-                    Intent my_intent = new Intent(getBaseContext(), Feed.class);
-                    startActivity(my_intent);
-                }
-
-            }
-
-
-        });
 
         project_recycler = findViewById(R.id.project_filter_recycler);
         project_recycler.setHasFixedSize(true);
@@ -106,6 +87,19 @@ public class FilterActivity extends AppCompatActivity {
 
         teams_list=teams_list_first_stage; /*this is essential because the setQueryForFeed can get only lists with definite size.*/
         fb_interface.setQueryForFeed(projects_list, teams_list);
+    }
+
+    public void onClickedSave(View view) {
+
+        projects_list = fb_interface.sendCheckedInfo();
+        if(projects_list.size()>1 && teams_list_first_stage.size()>1)
+            Toast.makeText(getApplicationContext(), "You can't choose more than 1 filter query in both projects and teams, please try again", Toast.LENGTH_LONG).show();
+        else {
+            saveUpdatedQuery();
+            Intent my_intent = new Intent(getBaseContext(), Feed.class);
+            startActivity(my_intent);
+        }
+
     }
 
 
