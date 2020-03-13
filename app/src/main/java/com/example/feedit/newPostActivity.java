@@ -1,4 +1,5 @@
 package com.example.feedit;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,9 +20,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -69,28 +77,40 @@ public class newPostActivity extends AppCompatActivity {
         String[] items = new String[] {"Tap to choose", "Main Office", "Production", "PR", "Executive","R & D", "Marketing"};
         ArrayAdapter<String> teams_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         teams_sp.setAdapter(teams_adapter);
-
+        setUpProjSpinner();
 
     }
 
+    private void setUpProjSpinner() {
+        final List<String> projects_names = new ArrayList<>();
+        final ArrayAdapter<String> proj_spinner_adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, projects_names);
+        proj_spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        projects_sp.setAdapter(proj_spinner_adapter);
+        fb_interface.populateProjSpinner(proj_spinner_adapter, projects_names);
+        projects_sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String item = parent.getItemAtPosition(position).toString();
+                if(item.equals("Add new project")) {
+                    parent.setSelection(0);
+                    addProject();
+                }
+            }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        setProjetSp();
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
-    private void setProjetSp() {
-        ArrayAdapter<String> proj_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, fb_interface.getProject_names());
-        projects_sp.setAdapter(proj_adapter);
-    }
 
     public void sendDetailsToFB(String title, String teams, String projects, String post_content) {
         Post new_post = new Post(title,teams,post_content, projects);
         fb_interface.uploadPost(new_post);
     }
 
-    public void addProject(View view) {
+    public void addProject() {
         Button add_project_button;
         ImageView close_dialog;
         final Dialog  new_project_dialog;
@@ -112,7 +132,7 @@ public class newPostActivity extends AppCompatActivity {
                 if(!new_project_name_string.isEmpty()) {
 
                     fb_interface.newProjectName(new_project_name_string);
-                    setProjetSp();
+                    setUpProjSpinner();
                     new_project_dialog.dismiss();
 
                 }

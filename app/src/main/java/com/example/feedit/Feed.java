@@ -27,6 +27,7 @@ public class Feed extends AppCompatActivity  {
     private FeedItFBInterface fb_interface;
     private SwipeRefreshLayout feed_swipe_refresh_layout;
 
+
     private RecyclerView feed_recycler;
 
     @Override
