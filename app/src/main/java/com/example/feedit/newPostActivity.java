@@ -38,7 +38,7 @@ public class newPostActivity extends AppCompatActivity {
 
     private Button post_button_clicked;
     private FeedItFBInterface fb_interface;
-    private EditText title_et, post_content_et, new_project_name; //et stands for Edit Text, written in acronym to save name length
+    private EditText title_et, post_content_et, new_project_name; //et stands for Edit Text, written in acronym to short name length
     private Spinner teams_sp, projects_sp;
 
 
@@ -46,7 +46,6 @@ public class newPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
-        Log.d("tag", "early hell");
         title_et = (EditText) findViewById(R.id.title_input);
         teams_sp = (Spinner) findViewById(R.id.teams_name_input);
         projects_sp = (Spinner) findViewById(R.id.projects_name_input);
@@ -157,7 +156,7 @@ public class newPostActivity extends AppCompatActivity {
 
 
 
-    public void cancelNewPost(View view) {
+    public void onClickcancelNewPost(View view) {/*called when the x button pressed in newpost.xml*/
         Intent cencel_post = new Intent(getBaseContext(), Feed.class);
         startActivity(cencel_post);    }
 }

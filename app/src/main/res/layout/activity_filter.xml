@@ -68,7 +68,7 @@
                 android:layout_marginLeft="8dp"
                 android:fontFamily="sans-serif"
                 android:onClick="clearTeams"
-                android:text="Clear"
+                android:text="@string/clear"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -82,7 +82,7 @@
                 android:layout_gravity="start"
                 android:layout_weight="1"
                 android:checked="false"
-                android:gravity="start|left|center_vertical"
+                android:gravity="start|center_vertical"
                 android:onClick="allTeams"
                 android:text="@string/all"
                 android:textColorHighlight="#9C27B0"
@@ -123,7 +123,7 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:onClick="onCheckboxClickedTeams"
-            android:text="Main Office"
+            android:text="@string/main_office"
             android:textSize="14sp" />
 
         <CheckBox
@@ -132,7 +132,7 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:onClick="onCheckboxClickedTeams"
-            android:text="Production"
+            android:text="@string/production"
             android:textSize="14sp" />
 
         <CheckBox
@@ -141,7 +141,7 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:onClick="onCheckboxClickedTeams"
-            android:text="PR"
+            android:text="@string/pr"
             android:textSize="14sp" />
 
         <CheckBox
@@ -150,7 +150,7 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:onClick="onCheckboxClickedTeams"
-            android:text="Executive" />
+            android:text="@string/executive" />
 
         <CheckBox
             android:id="@+id/r_and_d_team"
@@ -158,7 +158,7 @@
             android:layout_height="match_parent"
             android:fontFamily="sans-serif"
             android:onClick="onCheckboxClickedTeams"
-            android:text="R &amp; D"
+            android:text="@string/r_amp_d"
             android:textSize="14sp" />
 
         <CheckBox
@@ -200,7 +200,7 @@
                     android:layout_height="29dp"
                     android:layout_gravity="start"
                     android:layout_weight="1"
-                    android:gravity="start|left|center_vertical"
+                    android:gravity="start|center_vertical"
                     android:onClick="allProjects"
                     android:text="@string/all"
                     android:textColorHighlight="#9C27B0"
