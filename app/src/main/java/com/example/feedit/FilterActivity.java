@@ -79,6 +79,7 @@ public class FilterActivity extends AppCompatActivity {
         project_recycler.setHasFixedSize(true);
         project_recycler.setLayoutManager(new LinearLayoutManager(this));
         fb_interface.setUpRecyclerViewForProjectFilter(project_recycler);
+        fb_interface.startProjectFilter();
 
     }
 
