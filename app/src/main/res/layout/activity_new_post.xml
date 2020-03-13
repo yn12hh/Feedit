@@ -22,7 +22,7 @@
         android:id="@+id/close_post_imag"
         android:layout_width="31dp"
         android:layout_height="31dp"
-        android:onClick="onClickcancelNewPost"
+        android:onClick="onClickCancelNewPost"
         app:layout_constraintBottom_toTopOf="@+id/new_post_background_purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.989"
@@ -109,9 +109,10 @@
 
     </LinearLayout>
 
+
     <Button
         android:id="@+id/post_button"
-        android:layout_width="156dp"
+        android:layout_width="214dp"
         android:layout_height="49dp"
         android:background="@drawable/button_creat_user_backgrpund"
         android:fontFamily="@font/catamaran_medium"
@@ -120,26 +121,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/new_post_background_purple"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.117"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.544" />
-
-    <Button
-        android:id="@+id/add_project"
-        android:layout_width="156dp"
-        android:layout_height="49dp"
-        android:background="@drawable/button_creat_user_backgrpund"
-        android:fontFamily="@font/catamaran_medium"
-        android:text="@string/add_project"
-        android:textAppearance="@style/post_prompt"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/new_post_background_purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.937"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.538" />
+        app:layout_constraintVertical_bias="0.508" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
