@@ -24,10 +24,16 @@ import java.util.List;
 public class Feed extends AppCompatActivity  {
 
     private ImageView add_post_button;
+    private Dialog  new_post_dialog;
+    private ImageView close_dialog;
+    private Button post_button_clicked;
     private FeedItFBInterface fb_interface;
+    private EditText title_et, projects_et, teams_et, post_content_et; //et stands for Edit Text, written in acronym to save name length
+    private TextView title_tv,teams_tv, projects_tv, post_content_tv, author_tv; //tv stands for Text View, written in acronym to save name length
+
     private SwipeRefreshLayout feed_swipe_refresh_layout;
 
-    private FirebaseFirestore firestore_database = FirebaseFirestore.getInstance();
+    private CollectionReference feed_it_posts_ref = firestore_database.collection("entries");
 
     private RecyclerView feed_recycler;
 
@@ -89,5 +95,9 @@ public class Feed extends AppCompatActivity  {
         }
 
     }
+
+
+
+
 
 }
