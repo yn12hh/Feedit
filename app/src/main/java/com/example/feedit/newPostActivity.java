@@ -122,6 +122,7 @@ public class newPostActivity extends AppCompatActivity {
                 if(!new_project_name_string.isEmpty()) {
 
                     fb_interface.newProjectName(new_project_name_string);
+                    setUpProjSpinner();
                     new_project_dialog.dismiss();
 
                 }
