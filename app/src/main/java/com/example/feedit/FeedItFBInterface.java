@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -157,6 +159,10 @@ public class FeedItFBInterface {
 
     public DocumentReference getPostDocRef(int position) {
         return feed_adapter.getSnapshots().getSnapshot(position).getReference();
+    }
+
+    public void populateProjSpinner(final ArrayAdapter<String> proj_spinner_adapter, final List<String> projects_names) {
+
     }
 
     //changed FeedAdapter from private to public static

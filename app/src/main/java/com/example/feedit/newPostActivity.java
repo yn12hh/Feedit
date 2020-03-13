@@ -82,10 +82,11 @@ public class newPostActivity extends AppCompatActivity {
     }
 
     private void setUpProjSpinner() {
-        final List<String> subjects = new ArrayList<>();
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, subjects);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        projects_sp.setAdapter(adapter);
+        final List<String> projects_names = new ArrayList<>();
+        final ArrayAdapter<String> proj_spinner_adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, projects_names);
+        proj_spinner_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        projects_sp.setAdapter(proj_spinner_adapter);
+        fb_interface.populateProjSpinner(proj_spinner_adapter, projects_names);
     }
 
     @Override
