@@ -4,12 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,7 +23,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
@@ -34,9 +31,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     EditText edittext_username, edittext_password;
     FirebaseAuth auth_comp;
     ProgressBar signin_progressbar;
-    GoogleSignInClient mGoogleSignInClient;
-    TextView username_textview, password_textview, google_option_textview, or_textview;
-    Button google_sign_in_button;
+    GoogleSignInClient m_google_sign_in_client;
+    TextView username_textview, password_textview, google_option_textview;
 
 
     @Override
@@ -60,14 +56,14 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         auth_comp = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        m_google_sign_in_client = GoogleSignIn.getClient(this, gso);
     }
 
     /**
      * Signing in the user with google account.
      */
     private void signInWithGoogle() {
-        Intent sign_in_intent = mGoogleSignInClient.getSignInIntent();
+        Intent sign_in_intent = m_google_sign_in_client.getSignInIntent();
         startActivityForResult(sign_in_intent, RC_SIGN_IN);
     }
 
@@ -152,6 +148,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
+                assert account != null;
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 // Google Sign In failed, update user with appropriate massage.
@@ -173,14 +170,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            Toast.makeText(SignInActivity.this, "User signed in successfully with Google account", Toast.LENGTH_SHORT).show();
-                            FirebaseUser user = auth_comp.getCurrentUser();
+                            Log.d(TAG, getString(R.string.sign_in_credential_success));
+                            Toast.makeText(SignInActivity.this, R.string.google_sign_in_successfully, Toast.LENGTH_SHORT).show();
                             Intent my_intent = new Intent(getBaseContext(), Feed.class);
                             startActivity(my_intent);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Log.w(TAG, getString(R.string.sign_in_with_credential_failure), task.getException());
                             Toast.makeText(SignInActivity.this, getString(R.string.auth_failed), Toast.LENGTH_SHORT).show();
 
                         }

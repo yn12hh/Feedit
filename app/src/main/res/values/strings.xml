@@ -40,7 +40,9 @@
     <string name="project_s_name">Project\'s Name</string>
     <string name="delete_post">Delete Post</string>
     <string name="delete_prompt">Are you sure you want to delete this post?</string>
-
+    <string name="sign_in_with_credential_failure">signInWithCredential:failure</string>
+    <string name="google_sign_in_successfully">User signed in successfully with Google account</string>
+    <string name="sign_in_credential_success">signInWithCredential:success</string>
 
 
 </resources>
