@@ -36,6 +36,7 @@ import com.google.firebase.firestore.SetOptions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -166,14 +167,14 @@ public class FeedItFBInterface {
         project_names_query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                projects_names.add("Tap to choose");
-                projects_names.add("Add new project");
                 if (task.isSuccessful()) {
 
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        String subject = document.getString("project_name");
-                        projects_names.add(subject);
+                        projects_names.add(document.getString("project_name"));
                     }
+                    Collections.sort(projects_names);
+                    projects_names.add(0,"Tap to choose");
+                    projects_names.add(1,"Add new project");
                     proj_spinner_adapter.notifyDataSetChanged();
                 }
             }
