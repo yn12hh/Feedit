@@ -16,6 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.83"
+        android:onClick="onPostButtonClicked"
         app:srcCompat="@drawable/new_post_background" />
 
     <ImageView

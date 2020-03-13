@@ -36,7 +36,6 @@ import java.util.concurrent.TimeUnit;
 
 public class newPostActivity extends AppCompatActivity {
 
-    private Button post_button_clicked;
     private FeedItFBInterface fb_interface;
     private EditText title_et, post_content_et, new_project_name; //et stands for Edit Text, written in acronym to short name length
     private Spinner teams_sp, projects_sp;
@@ -51,27 +50,6 @@ public class newPostActivity extends AppCompatActivity {
         projects_sp = (Spinner) findViewById(R.id.projects_name_input);
         post_content_et = (EditText) findViewById(R.id.posts_content_input);
         fb_interface = FeedItFBInterface.getInstance();
-
-        post_button_clicked = (Button) findViewById(R.id.post_button);
-        post_button_clicked.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String title = title_et.getText().toString();
-                String teams = teams_sp.getSelectedItem().toString();
-                String projects = projects_sp.getSelectedItem().toString();
-                String post_content = post_content_et.getText().toString();
-                if (!title.isEmpty() && (!teams.isEmpty() && teams != "Tap to choose") && (!projects.isEmpty() && projects != "Tap to choose") && !post_content.isEmpty()) {
-
-                    sendDetailsToFB(title, teams, projects, post_content);
-                    Intent my_intent = new Intent(getBaseContext(), Feed.class);
-                    startActivity(my_intent);
-                }
-                else {
-
-                    Toast.makeText(getApplicationContext(),"You left one of the fields empty, please try again", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
 
         String[] items = new String[] {"Tap to choose", "Main Office", "Production", "PR", "Executive","R & D", "Marketing"};
         ArrayAdapter<String> teams_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
@@ -101,6 +79,23 @@ public class newPostActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void onPostButtonClicked(View view){
+        String title = title_et.getText().toString();
+        String teams = teams_sp.getSelectedItem().toString();
+        String projects = projects_sp.getSelectedItem().toString();
+        String post_content = post_content_et.getText().toString();
+        if (!title.isEmpty() && (!teams.isEmpty() && teams != "Tap to choose") && (!projects.isEmpty() && projects != "Tap to choose") && !post_content.isEmpty()) {
+
+            sendDetailsToFB(title, teams, projects, post_content);
+            Intent my_intent = new Intent(getBaseContext(), Feed.class);
+            startActivity(my_intent);
+        }
+        else {
+
+            Toast.makeText(getApplicationContext(),"You left one of the fields empty, please try again", Toast.LENGTH_LONG).show();
+        }
     }
 
 
