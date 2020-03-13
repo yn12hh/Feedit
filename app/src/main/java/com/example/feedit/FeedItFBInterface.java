@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ import com.google.firebase.firestore.SetOptions;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -49,11 +52,11 @@ public class FeedItFBInterface {
     private FeedAdapter feed_adapter;
     private RecyclerView feed_rv;
     private Query feed_query;
+    private Query project_names_query;
     private Boolean query_changed_flag;
     private CollectionReference projects_names_collection;
 
     private final String project_names[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
-    private String actual_project_names[];
     private ProjRecyclerAdapter proj_recycler_adapter;
     private RecyclerView project_rv;
 
@@ -63,6 +66,7 @@ public class FeedItFBInterface {
         entries_collection = db.collection("entries");
         projects_names_collection = db.collection("projects_names");
         feed_query = entries_collection.orderBy("timestamp", Query.Direction.DESCENDING);
+        project_names_query = projects_names_collection.orderBy("last_changed", Query.Direction.DESCENDING).limit(10);
         query_changed_flag = false;
         updateProjectsNames();
     }
@@ -157,6 +161,24 @@ public class FeedItFBInterface {
 
     public DocumentReference getPostDocRef(int position) {
         return feed_adapter.getSnapshots().getSnapshot(position).getReference();
+    }
+
+    public void populateProjSpinner(final ArrayAdapter<String> proj_spinner_adapter, final List<String> projects_names) {
+        project_names_query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        projects_names.add(document.getString("project_name"));
+                    }
+                    Collections.sort(projects_names);
+                    projects_names.add(0,"Tap to choose");
+                    projects_names.add(1,"Add new project");
+                    proj_spinner_adapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     //changed FeedAdapter from private to public static
@@ -262,6 +284,7 @@ public class FeedItFBInterface {
                     }
                 }
             });
+
         }
 
         @Override
@@ -325,7 +348,6 @@ public class FeedItFBInterface {
     public void newProjectName(String name) {
         name = name.toLowerCase();
         updateProjectTime(name);
-        updateProjectsNames();
     }
 
     public String[] getProject_names() {

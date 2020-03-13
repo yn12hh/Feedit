@@ -30,7 +30,7 @@ public class show_full_post extends AppCompatActivity {
         setContentView(R.layout.activity_show_full_post);
         fb_interface = FeedItFBInterface.getInstance();
 
-        //we must implement these methods in a seperate function called "intializeView"
+
         title_string = getIntent().getStringExtra("post_title");
         time_stamp_string = getIntent().getStringExtra("post_time_stamp");
         team_string = getIntent().getStringExtra("post_team");
@@ -56,13 +56,9 @@ public class show_full_post extends AppCompatActivity {
         post_doc_ref = fb_interface.getPostDocRef(position);
     }
 
-    public void deletePost(View view){
-        areYouSureDialog();
-    }
-
-    public void areYouSureDialog(){
+    public void onClickDeletePost(View view){
         Button delete_post_button;
-        ImageView close_dialog;
+        ImageView close_dialog_button;
         final Dialog delete_post_dialog;
 
         final AlertDialog.Builder mbuilder = new AlertDialog.Builder(show_full_post.this);
@@ -83,18 +79,17 @@ public class show_full_post extends AppCompatActivity {
             }
         });
 
-        close_dialog = (ImageView) mview.findViewById(R.id.close_dialog_imag);
-        close_dialog.setOnClickListener(new View.OnClickListener() {
+        close_dialog_button = (ImageView) mview.findViewById(R.id.close_dialog_imag);
+        close_dialog_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 delete_post_dialog.dismiss();
             }
         });
-
-
     }
 
-    public void goToFeed(View view){
+
+    public void goToFeed(View view){/*called when the x button is pressed*/
         Intent my_intent = new Intent(getBaseContext(), Feed.class);
         startActivity(my_intent);
     }
