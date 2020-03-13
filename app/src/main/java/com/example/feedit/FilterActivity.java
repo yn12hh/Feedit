@@ -36,7 +36,7 @@ public class FilterActivity extends AppCompatActivity {
     private FeedItFBInterface fb_interface;
     private CheckBox main_office_cb, production_cb, pr_cb, executive_cb, rd_cb, marketing_cb;
     private Switch all_teams_sw, all_projects_sw;
-    private String project_string, team_string;
+    private String team_string;
     private RecyclerView project_recycler;
     private ProgressBar proj_prog_bar;
 
@@ -45,15 +45,18 @@ public class FilterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
         findViewById(R.id.sign_out_button);
+
         main_office_cb = findViewById(R.id.main_office_team);
         production_cb = findViewById(R.id.production_team);
         pr_cb = findViewById(R.id.pr_team);
         rd_cb = findViewById(R.id.r_and_d_team);
         executive_cb = findViewById(R.id.executive_team);
         marketing_cb = findViewById(R.id.marketing_team);
+
         all_projects_sw = findViewById(R.id.all_projects_switch);
         all_teams_sw = findViewById(R.id.all_teams_switch);
         all_projects_sw = findViewById(R.id.all_projects_switch);
+
         proj_prog_bar = findViewById(R.id.project_progress_bar);
 
         fb_interface = FeedItFBInterface.getInstance();
@@ -100,7 +103,7 @@ public class FilterActivity extends AppCompatActivity {
 
     public void saveUpdatedQuery(){
 
-        teams_list=teams_list_first_stage; //this is essential because the setQueryForFeed can get only lists with definite size.
+        teams_list=teams_list_first_stage; /*this is essential because the setQueryForFeed can get only lists with definite size.*/
         fb_interface.setQueryForFeed(projects_list, teams_list);
     }
 
@@ -117,11 +120,7 @@ public class FilterActivity extends AppCompatActivity {
                 if (checked) {
                     checkbox = (CheckBox) view.findViewById(R.id.main_office_team);
                     team_string = checkbox.getText().toString();
-                    if(teams_list_first_stage.size()>0 && projects_list_first_stage.size()>0) {
-                        checkbox.setChecked(false);
-                        Toast.makeText(getApplicationContext(), "The projects list is bigger than 1, you can check up to one team", Toast.LENGTH_LONG).show();
-                    }
-                    else  teams_list_first_stage.add(team_string);
+                    teams_list_first_stage.add(team_string);
                 }
                 else teams_list_first_stage.remove(team_string);
                 break;
@@ -130,11 +129,7 @@ public class FilterActivity extends AppCompatActivity {
                 if (checked) {
                     checkbox = (CheckBox) view.findViewById(R.id.production_team);
                     team_string = checkbox.getText().toString();
-                    if(teams_list_first_stage.size()>0 && projects_list_first_stage.size()>0) {
-                        checkbox.setChecked(false);
-                        Toast.makeText(getApplicationContext(), "The projects list is bigger than 1, you can check up to one team", Toast.LENGTH_LONG).show();
-                    }
-                    else  teams_list_first_stage.add(team_string);
+                    teams_list_first_stage.add(team_string);
                 }
                 else teams_list_first_stage.remove(team_string);
                 break;
@@ -143,11 +138,7 @@ public class FilterActivity extends AppCompatActivity {
                 if (checked) {
                     checkbox = (CheckBox) view.findViewById(R.id.pr_team);
                     team_string = checkbox.getText().toString();
-                    if(teams_list_first_stage.size()>0 && projects_list_first_stage.size()>0) {
-                        checkbox.setChecked(false);
-                        Toast.makeText(getApplicationContext(), "The projects list is bigger than 1, you can check up to one team", Toast.LENGTH_LONG).show();
-                    }
-                    else  teams_list_first_stage.add(team_string);
+                    teams_list_first_stage.add(team_string);
                 }
                 else teams_list_first_stage.remove(team_string);
                 break;
@@ -156,11 +147,7 @@ public class FilterActivity extends AppCompatActivity {
                 if (checked) {
                     checkbox = (CheckBox) view.findViewById(R.id.executive_team);
                     team_string = checkbox.getText().toString();
-                    if(teams_list_first_stage.size()>0 && projects_list_first_stage.size()>0) {
-                        checkbox.setChecked(false);
-                        Toast.makeText(getApplicationContext(), "The projects list is bigger than 1, you can check up to one team", Toast.LENGTH_LONG).show();
-                    }
-                    else  teams_list_first_stage.add(team_string);
+                    teams_list_first_stage.add(team_string);
                 }
                 else teams_list_first_stage.remove(team_string);
                 break;
@@ -169,11 +156,7 @@ public class FilterActivity extends AppCompatActivity {
                 if (checked) {
                     checkbox = (CheckBox) view.findViewById(R.id.r_and_d_team);
                     team_string = checkbox.getText().toString();
-                    if(teams_list_first_stage.size()>0 && projects_list_first_stage.size()>0) {
-                        checkbox.setChecked(false);
-                        Toast.makeText(getApplicationContext(), "The projects list is bigger than 1, you can check up to one team", Toast.LENGTH_LONG).show();
-                    }
-                    else  teams_list_first_stage.add(team_string);
+                    teams_list_first_stage.add(team_string);
                 }
                 else teams_list_first_stage.remove(team_string);
                 break;
@@ -182,11 +165,7 @@ public class FilterActivity extends AppCompatActivity {
                 if (checked) {
                     checkbox = (CheckBox) view.findViewById(R.id.marketing_team);
                     team_string = checkbox.getText().toString();
-                    if(teams_list_first_stage.size()>0 && projects_list_first_stage.size()>0) {
-                        checkbox.setChecked(false);
-                        Toast.makeText(getApplicationContext(), "The projects list is bigger than 1, you can check up to one team", Toast.LENGTH_LONG).show();
-                    }
-                    else  teams_list_first_stage.add(team_string);
+                    teams_list_first_stage.add(team_string);
                 }
                 else teams_list_first_stage.remove(team_string);
                 break;
@@ -194,14 +173,6 @@ public class FilterActivity extends AppCompatActivity {
 
     }
 
-    public void onCheckboxClickedProjects(View view) {
-
-
-        CheckBox checkbox;
-        boolean checked = ((CheckBox) view).isChecked();
-
-        
-    }
 
     public void signOut(View view) {
         if (view.getId()==R.id.sign_out_button)
@@ -251,6 +222,7 @@ public class FilterActivity extends AppCompatActivity {
         rd_cb.setChecked(false);
         marketing_cb.setChecked(false);
         executive_cb.setChecked(false);
+        teams_list_first_stage.clear();
     }
     public void allProjects(View view) {
         if (all_projects_sw.isChecked())
