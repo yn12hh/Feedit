@@ -33,7 +33,6 @@ public class Feed extends AppCompatActivity  {
 
     private SwipeRefreshLayout feed_swipe_refresh_layout;
 
-    private CollectionReference feed_it_posts_ref = firestore_database.collection("entries");
 
     private RecyclerView feed_recycler;
 
