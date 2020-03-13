@@ -53,6 +53,7 @@ public class FilterActivity extends AppCompatActivity {
         marketing_cb = findViewById(R.id.marketing_team);
         all_projects_sw = findViewById(R.id.all_projects_switch);
         all_teams_sw = findViewById(R.id.all_teams_switch);
+        all_projects_sw = findViewById(R.id.all_projects_switch);
         proj_prog_bar = findViewById(R.id.project_progress_bar);
 
         fb_interface = FeedItFBInterface.getInstance();
@@ -62,8 +63,8 @@ public class FilterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 projects_list = fb_interface.sendCheckedInfo();
-                if(projects_list.size()>1 && teams_list.size()>1)
-                    Toast.makeText(getApplicationContext(), "You can't choose more than 1 filter query in both projects and teams, please try again", Toast.LENGTH_SHORT).show();
+                if(projects_list.size()>1 && teams_list_first_stage.size()>1)
+                    Toast.makeText(getApplicationContext(), "You can't choose more than 1 filter query in both projects and teams, please try again", Toast.LENGTH_LONG).show();
                 else {
                     saveUpdatedQuery();
                     Intent my_intent = new Intent(getBaseContext(), Feed.class);
@@ -99,7 +100,7 @@ public class FilterActivity extends AppCompatActivity {
 
     public void saveUpdatedQuery(){
 
-        teams_list=teams_list_first_stage;
+        teams_list=teams_list_first_stage; //this is essential because the setQueryForFeed can get only lists with definite size.
         fb_interface.setQueryForFeed(projects_list, teams_list);
     }
 
@@ -107,6 +108,7 @@ public class FilterActivity extends AppCompatActivity {
     public void onCheckboxClickedTeams(View view) {
         colorAllTeamsBlack();
         all_teams_sw.setChecked(false);
+        all_projects_sw.setChecked(false);
         CheckBox checkbox;
         boolean checked = ((CheckBox) view).isChecked();
 
@@ -121,6 +123,7 @@ public class FilterActivity extends AppCompatActivity {
                     }
                     else  teams_list_first_stage.add(team_string);
                 }
+                else teams_list_first_stage.remove(team_string);
                 break;
 
             case R.id.production_team:
@@ -133,6 +136,7 @@ public class FilterActivity extends AppCompatActivity {
                     }
                     else  teams_list_first_stage.add(team_string);
                 }
+                else teams_list_first_stage.remove(team_string);
                 break;
 
             case R.id.pr_team:
@@ -145,6 +149,7 @@ public class FilterActivity extends AppCompatActivity {
                     }
                     else  teams_list_first_stage.add(team_string);
                 }
+                else teams_list_first_stage.remove(team_string);
                 break;
 
             case R.id.executive_team:
@@ -157,6 +162,7 @@ public class FilterActivity extends AppCompatActivity {
                     }
                     else  teams_list_first_stage.add(team_string);
                 }
+                else teams_list_first_stage.remove(team_string);
                 break;
 
             case R.id.r_and_d_team:
@@ -169,6 +175,7 @@ public class FilterActivity extends AppCompatActivity {
                     }
                     else  teams_list_first_stage.add(team_string);
                 }
+                else teams_list_first_stage.remove(team_string);
                 break;
 
             case R.id.marketing_team:
@@ -181,6 +188,7 @@ public class FilterActivity extends AppCompatActivity {
                     }
                     else  teams_list_first_stage.add(team_string);
                 }
+                else teams_list_first_stage.remove(team_string);
                 break;
         }
 
@@ -245,7 +253,46 @@ public class FilterActivity extends AppCompatActivity {
         executive_cb.setChecked(false);
     }
     public void allProjects(View view) {
+        if (all_projects_sw.isChecked())
+        {
+            unceckAllProjects();
+            colorAllProjectsGrey();
+        }
+        else
+            colorAllProjectsBlack();
     }
+
+
+    public void colorAllProjectsGrey()
+    {
+        main_office_cb.setTextColor(Color.GRAY);
+        production_cb.setTextColor(Color.GRAY);
+        pr_cb.setTextColor(Color.GRAY);
+        rd_cb.setTextColor(Color.GRAY);
+        marketing_cb.setTextColor(Color.GRAY);
+        executive_cb.setTextColor(Color.GRAY);
+    }
+
+    public void colorAllProjectsBlack()
+    {
+        main_office_cb.setTextColor(Color.BLACK);
+        production_cb.setTextColor(Color.BLACK);
+        pr_cb.setTextColor(Color.BLACK);
+        rd_cb.setTextColor(Color.BLACK);
+        marketing_cb.setTextColor(Color.BLACK);
+        executive_cb.setTextColor(Color.BLACK);
+    }
+
+    public void unceckAllProjects()
+    {
+        main_office_cb.setChecked(false);
+        production_cb.setChecked(false);
+        pr_cb.setChecked(false);
+        rd_cb.setChecked(false);
+        marketing_cb.setChecked(false);
+        executive_cb.setChecked(false);
+    }
+
 
 
     public void clearTeams(View view) {
