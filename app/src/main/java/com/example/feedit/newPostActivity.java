@@ -1,4 +1,5 @@
 package com.example.feedit;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,9 +19,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -69,10 +76,17 @@ public class newPostActivity extends AppCompatActivity {
         String[] items = new String[] {"Tap to choose", "Main Office", "Production", "PR", "Executive","R & D", "Marketing"};
         ArrayAdapter<String> teams_adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         teams_sp.setAdapter(teams_adapter);
+        setUpProjSpinner();
 
 
     }
 
+    private void setUpProjSpinner() {
+        final List<String> subjects = new ArrayList<>();
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, subjects);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        projects_sp.setAdapter(adapter);
+    }
 
     @Override
     protected void onStart() {
