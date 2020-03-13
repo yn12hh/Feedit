@@ -71,7 +71,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
         }
 
         if (password.length() < 6) {
-            edittext_password.setError("Minimum lenght of password should be 6");
+            edittext_password.setError("Minimum length of password should be 6");
             edittext_password.requestFocus();
             return;
         }
@@ -83,7 +83,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
             public void onComplete(@NonNull Task<AuthResult> task) {
                 reg_progressbar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "User Registered Successfull", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "User Registered Successfully", Toast.LENGTH_SHORT).show();
                     Intent myIntent = new Intent(getBaseContext(), Feed.class);
                     startActivity(myIntent);
                 } else {
