@@ -29,18 +29,23 @@
     <string name="all">All</string>
     <string name="delete">Delete</string>
     <string name="back">Back</string>
-    <string name="executive">Executive</string>
-    <string name="pr">PR</string>
-    <string name="production">Production</string>
-    <string name="main_office">Main Office</string>
-    <string name="r_amp_d"><![CDATA[R & D]]></string>
     <string name="marketing">Marketing</string>
     <string name="new_project">New Project</string>
     <string name="add_project">Add Project</string>
     <string name="project_s_name">Project\'s Name</string>
     <string name="delete_post">Delete Post</string>
     <string name="delete_prompt">Are you sure you want to delete this post?</string>
-
+    <string name="clear">Clear</string>
+    <string name="main_office">Main Office</string>
+    <string name="production">Production</string>
+    <string name="pr">PR</string>
+    <string name="executive">Executive</string>
+    <string name="r_amp_d"><![CDATA[R & D]]></string>
+    <string name="post_title">Post Title</string>
+    <string name="team">Team</string>
+    <string name="_10_00">10:00</string>
+    <string name="post_text">Post Text</string>
+    <string name="project">Project</string>
 
 
 </resources>
