@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -63,8 +64,29 @@ public class FilterActivity extends AppCompatActivity {
         project_recycler = findViewById(R.id.project_filter_recycler);
         project_recycler.setHasFixedSize(true);
         project_recycler.setLayoutManager(new LinearLayoutManager(this));
-        fb_interface.setUpRecyclerViewForProjectFilter(project_recycler);
+        fb_interface.setUpRecyclerViewForProjectFilter(project_recycler, all_projects_sw);
         fb_interface.startProjectFilter();
+
+        all_projects_sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //fb_interface.changeProjColor(isChecked);
+
+            }
+        });
+
+        all_teams_sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    unceckAllTeams();
+                    colorAllTeamsGrey();
+                }
+                else {
+                    colorAllTeamsBlack();
+                }
+            }
+        });
 
     }
 
@@ -72,16 +94,10 @@ public class FilterActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         proj_prog_bar.setVisibility(View.VISIBLE);
-        fb_interface.startProjectFilterListening();
+        fb_interface.startProjectFilter();
         proj_prog_bar.setVisibility(View.INVISIBLE);
     }
 
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        fb_interface.stopProjectFilterListening();
-    }
 
     public void saveUpdatedQuery(){
 
@@ -106,7 +122,6 @@ public class FilterActivity extends AppCompatActivity {
     public void onCheckboxClickedTeams(View view) {
         colorAllTeamsBlack();
         all_teams_sw.setChecked(false);
-        all_projects_sw.setChecked(false);
         CheckBox checkbox;
         boolean checked = ((CheckBox) view).isChecked();
 
@@ -177,16 +192,6 @@ public class FilterActivity extends AppCompatActivity {
             startActivity(myIntent);
         }
 
-    }
-
-    public void allTeams(View view) {
-        if (all_teams_sw.isChecked())
-        {
-            unceckAllTeams();
-            colorAllTeamsGrey();
-        }
-        else
-            colorAllTeamsBlack();
     }
 
     public void colorAllTeamsGrey()
