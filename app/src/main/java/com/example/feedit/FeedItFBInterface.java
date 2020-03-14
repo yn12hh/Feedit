@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,7 @@ public class FeedItFBInterface {
     private final String project_names[] = {"", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""};
     private ProjRecyclerAdapter proj_recycler_adapter;
     private RecyclerView project_rv;
+    private static Switch all_projects_sw;
 
     private FeedItFBInterface() {
 
@@ -116,8 +118,9 @@ public class FeedItFBInterface {
         });
     }
 
-    public void setUpRecyclerViewForProjectFilter(RecyclerView view) {
+    public void setUpRecyclerViewForProjectFilter(RecyclerView view, Switch sw) {
         project_rv = view;
+        all_projects_sw = sw;
     }
 
     public void startProjectFilter() {
@@ -309,6 +312,7 @@ public class FeedItFBInterface {
 
             @Override
             public void onClick(View v) {
+                all_projects_sw.setChecked(false);
                 this.item_click_listener.onItemClick(v, getLayoutPosition());
             }
         }

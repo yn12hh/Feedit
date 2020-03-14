@@ -63,7 +63,7 @@ public class FilterActivity extends AppCompatActivity {
         project_recycler = findViewById(R.id.project_filter_recycler);
         project_recycler.setHasFixedSize(true);
         project_recycler.setLayoutManager(new LinearLayoutManager(this));
-        fb_interface.setUpRecyclerViewForProjectFilter(project_recycler);
+        fb_interface.setUpRecyclerViewForProjectFilter(project_recycler, all_projects_sw);
         fb_interface.startProjectFilter();
 
     }
@@ -100,7 +100,6 @@ public class FilterActivity extends AppCompatActivity {
     public void onCheckboxClickedTeams(View view) {
         colorAllTeamsBlack();
         all_teams_sw.setChecked(false);
-        all_projects_sw.setChecked(false);
         CheckBox checkbox;
         boolean checked = ((CheckBox) view).isChecked();
 
