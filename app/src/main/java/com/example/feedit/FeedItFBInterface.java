@@ -394,4 +394,3 @@ public class FeedItFBInterface {
         return proj_recycler_adapter.checked_projects_list;
     }
 }
-

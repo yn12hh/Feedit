@@ -84,7 +84,6 @@
                 android:layout_weight="1"
                 android:checked="false"
                 android:gravity="start|center_vertical"
-                android:onClick="allTeams"
                 android:text="@string/all"
                 android:textColorHighlight="#9C27B0"
                 android:textColorLink="#9C27B0"

@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
@@ -65,6 +66,32 @@ public class FilterActivity extends AppCompatActivity {
         project_recycler.setLayoutManager(new LinearLayoutManager(this));
         fb_interface.setUpRecyclerViewForProjectFilter(project_recycler, all_projects_sw);
         fb_interface.startProjectFilter();
+
+        all_projects_sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    unceckAllProjects();
+                    colorAllProjectsGrey();
+                }
+                else {
+                    colorAllTeamsBlack();
+                }
+            }
+        });
+
+        all_teams_sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    unceckAllTeams();
+                    colorAllTeamsGrey();
+                }
+                else {
+                    colorAllTeamsBlack();
+                }
+            }
+        });
 
     }
 
