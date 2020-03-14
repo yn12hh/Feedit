@@ -70,8 +70,7 @@ public class FilterActivity extends AppCompatActivity {
         all_projects_sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //fb_interface.changeProjColor(isChecked);
-
+                fb_interface.changeProjColor(isChecked);
             }
         });
 

@@ -64,7 +64,7 @@ public class FeedItFBInterface {
     private ProjRecyclerAdapter proj_recycler_adapter;
     private RecyclerView project_rv;
     private static Switch all_projects_sw;
-    public static ArrayList<CheckBox> lis;
+    private static ArrayList<CheckBox> project_checkbox_list;
 
     private FeedItFBInterface() {
 
@@ -75,7 +75,7 @@ public class FeedItFBInterface {
         project_names_query = projects_names_collection.orderBy("last_changed", Query.Direction.DESCENDING).limit(10);
         query_changed_flag = false;
         updateProjectsNames();
-        lis = new ArrayList<CheckBox>();
+        project_checkbox_list = new ArrayList<CheckBox>();
     }
 
     public static FeedItFBInterface getInstance() {
@@ -294,7 +294,7 @@ public class FeedItFBInterface {
                     }
                 }
             });
-            //checkbox_list.add(holder.name);
+            project_checkbox_list.add(holder.name);
         }
 
         @Override
@@ -329,12 +329,6 @@ public class FeedItFBInterface {
             void onItemClick(View v, int position);
         }
 
-//        public void changeColor(boolean to_grey) {
-//            int color = to_grey ? Color.GRAY : Color.BLACK;
-//            for(int i = 0; i < checkbox_list.size(); i++) {
-//                checkbox_list.get(i).setTextColor(color);
-//            }
-//        }
     }
 
     public void updateProjectsNames() {
@@ -409,6 +403,13 @@ public class FeedItFBInterface {
     }
 
     public void changeProjColor(boolean to_grey) {
-        //proj_recycler_adapter.changeColor(to_grey);
+        int color = to_grey ? Color.GRAY : Color.BLACK;
+        for (int i = 0; i < project_checkbox_list.size(); i++) {
+            CheckBox cb = project_checkbox_list.get(i);
+            cb.setTextColor(color);
+            if(to_grey) {
+                cb.setChecked(false);
+            }
+        }
     }
 }
