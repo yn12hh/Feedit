@@ -128,7 +128,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     signin_progressbar.setVisibility(View.GONE);
-                    Intent my_intent = new Intent(getBaseContext(), Feed.class);
+                    Intent my_intent = new Intent(getBaseContext(), FeedActivity.class);
                     startActivity(my_intent);
                 } else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -172,7 +172,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, getString(R.string.sign_in_credential_success));
                             Toast.makeText(SignInActivity.this, R.string.google_sign_in_successfully, Toast.LENGTH_SHORT).show();
-                            Intent my_intent = new Intent(getBaseContext(), Feed.class);
+                            Intent my_intent = new Intent(getBaseContext(), FeedActivity.class);
                             startActivity(my_intent);
                         } else {
                             // If sign in fails, display a message to the user.

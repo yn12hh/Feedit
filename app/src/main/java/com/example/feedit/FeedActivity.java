@@ -4,24 +4,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.Arrays;
-import java.util.List;
-
-public class Feed extends AppCompatActivity  {
+public class FeedActivity extends AppCompatActivity  {
 
     private ImageView add_post_button;
     private FeedItFBInterface fb_interface;
@@ -48,7 +36,7 @@ public class Feed extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
 
-                Intent my_intent = new Intent(getBaseContext(), newPostActivity.class);
+                Intent my_intent = new Intent(getBaseContext(), NewPostActivity.class);
                 startActivity(my_intent);
             }
 

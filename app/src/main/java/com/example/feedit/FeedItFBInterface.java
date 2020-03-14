@@ -1,21 +1,15 @@
 package com.example.feedit;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,31 +17,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
-import com.google.firebase.firestore.SetOptions;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
-
-import com.google.firebase.firestore.SetOptions;
 
 public class FeedItFBInterface {
     private static FeedItFBInterface instance = null;
@@ -110,7 +95,7 @@ public class FeedItFBInterface {
         feed_adapter.setOnItemClickListener(new FeedAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Intent intent = new Intent(feed_rv.getContext(), show_full_post.class);
+                Intent intent = new Intent(feed_rv.getContext(), ShowFullPostActivity.class);
                 intent.putExtra("post_title", feed_adapter.getItem(position).getTitle());
                 intent.putExtra("post_time_stamp", feed_adapter.getItem(position).getTimeStamp());
                 intent.putExtra("post_team", feed_adapter.getItem(position).getTeam());
@@ -190,7 +175,7 @@ public class FeedItFBInterface {
         });
     }
 
-    //changed FeedAdapter from private to public static
+
     public static class FeedAdapter extends FirestoreRecyclerAdapter<Post, FeedAdapter.FeedPostHolder> {
 
         private OnItemClickListener click_listener;
@@ -253,7 +238,7 @@ public class FeedItFBInterface {
 
     }
 
-    //I've made this static for OnItemClickListener --Ari
+
     public static class ProjRecyclerAdapter extends RecyclerView.Adapter<ProjRecyclerAdapter.ProjectViewHolder> {
 
         private String project_names[];
@@ -313,20 +298,20 @@ public class FeedItFBInterface {
                 name.setOnClickListener(this);
             }
 
-            public void setItemClickListener(ItemClickListener ic) {
-                this.item_click_listener = ic;
+            public void setItemClickListener(ItemClickListener item_click_listener) {
+                this.item_click_listener = item_click_listener;
             }
 
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 all_projects_sw.setChecked(false);
-                this.item_click_listener.onItemClick(v, getLayoutPosition());
+                this.item_click_listener.onItemClick(view, getLayoutPosition());
             }
         }
 
-        //this may need to be outside of the adapter class
+
         public interface ItemClickListener {
-            void onItemClick(View v, int position);
+            void onItemClick(View view, int position);
         }
 
     }
@@ -362,7 +347,7 @@ public class FeedItFBInterface {
         updateProjectTime(name);
     }
 
-    public String[] getProject_names() {
+/*    public String[] getProject_names() {
         int counter = 0;
         for (int i = 0; i < project_names.length; i++) {
             if (!project_names[i].equals("")) {
@@ -378,27 +363,10 @@ public class FeedItFBInterface {
             }
         }
         return ret_arr;
-    }
+    }*/
 
-    public class ProjectCheckBox {
-        String name;
-
-        public ProjectCheckBox() {
-        }
-
-        public ProjectCheckBox(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-    }
 
     public List<String> sendCheckedInfo() {
-//        StringBuffer sb = null;
-//        List<String> checked_projects = Arrays.asList();
-//        checked_projects = proj_recycler_adapter.checked_projects_first_stage;
         return proj_recycler_adapter.checked_projects_list;
     }
 

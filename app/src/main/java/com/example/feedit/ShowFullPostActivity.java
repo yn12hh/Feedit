@@ -14,7 +14,7 @@ import com.google.firebase.firestore.DocumentReference;
 
 import android.app.AlertDialog;
 
-public class show_full_post extends AppCompatActivity {
+public class ShowFullPostActivity extends AppCompatActivity {
 
     private String title_string, time_stamp_string, team_string, project_string, text_string, author_string;
     TextView title, time_stamp, team, project, text, author;
@@ -61,7 +61,7 @@ public class show_full_post extends AppCompatActivity {
         ImageView close_dialog_button;
         final Dialog delete_post_dialog;
 
-        final AlertDialog.Builder mbuilder = new AlertDialog.Builder(show_full_post.this);
+        final AlertDialog.Builder mbuilder = new AlertDialog.Builder(ShowFullPostActivity.this);
         View mview = getLayoutInflater().inflate(R.layout.delete_post_dialog, null);
 
         mbuilder.setView(mview);
@@ -73,7 +73,7 @@ public class show_full_post extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 post_doc_ref.delete();
-                Intent my_intent = new Intent(getBaseContext(), Feed.class);
+                Intent my_intent = new Intent(getBaseContext(), FeedActivity.class);
                 startActivity(my_intent);
 
             }
@@ -90,7 +90,7 @@ public class show_full_post extends AppCompatActivity {
 
 
     public void goToFeed(View view){/*called when the x button is pressed*/
-        Intent my_intent = new Intent(getBaseContext(), Feed.class);
+        Intent my_intent = new Intent(getBaseContext(), FeedActivity.class);
         startActivity(my_intent);
     }
 }

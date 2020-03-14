@@ -84,7 +84,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnCl
                 reg_progressbar.setVisibility(View.GONE);
                 if (task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "User Registered Successfully", Toast.LENGTH_SHORT).show();
-                    Intent myIntent = new Intent(getBaseContext(), Feed.class);
+                    Intent myIntent = new Intent(getBaseContext(), FeedActivity.class);
                     startActivity(myIntent);
                 } else {
 

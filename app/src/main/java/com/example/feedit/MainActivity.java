@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
         if(mAuth.getCurrentUser()!= null){
             finish();
-            startActivity(new Intent(this, Feed.class));
+            startActivity(new Intent(this, FeedActivity.class));
 
         }
 

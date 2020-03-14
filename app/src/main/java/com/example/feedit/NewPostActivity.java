@@ -1,15 +1,10 @@
 package com.example.feedit;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,24 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
-public class newPostActivity extends AppCompatActivity {
+public class NewPostActivity extends AppCompatActivity {
 
     private FeedItFBInterface fb_interface;
     private EditText title_et, post_content_et, new_project_name; //et stands for Edit Text, written in acronym to short name length
@@ -89,7 +73,7 @@ public class newPostActivity extends AppCompatActivity {
         if (!title.isEmpty() && (!teams.isEmpty() && teams != "Tap to choose") && (!projects.isEmpty() && projects != "Tap to choose") && !post_content.isEmpty()) {
 
             sendDetailsToFB(title, teams, projects, post_content);
-            Intent my_intent = new Intent(getBaseContext(), Feed.class);
+            Intent my_intent = new Intent(getBaseContext(), FeedActivity.class);
             startActivity(my_intent);
         }
         else {
@@ -109,7 +93,7 @@ public class newPostActivity extends AppCompatActivity {
         ImageView close_dialog;
         final Dialog  new_project_dialog;
 
-        final AlertDialog.Builder mbuilder = new AlertDialog.Builder(newPostActivity.this);
+        final AlertDialog.Builder mbuilder = new AlertDialog.Builder(NewPostActivity.this);
         View mview = getLayoutInflater().inflate(R.layout.add_project_dialog, null);
 
         mbuilder.setView(mview);
@@ -152,6 +136,6 @@ public class newPostActivity extends AppCompatActivity {
 
 
     public void onClickCancelNewPost(View view) {/*called when the x button pressed in newpost.xml*/
-        Intent cencel_post = new Intent(getBaseContext(), Feed.class);
+        Intent cencel_post = new Intent(getBaseContext(), FeedActivity.class);
         startActivity(cencel_post);    }
 }

@@ -1,7 +1,5 @@
 package com.example.feedit;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,15 +10,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
-import android.content.Intent;
+
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.Toast;
@@ -111,7 +105,7 @@ public class FilterActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "You can't choose more than 1 filter query in both projects and teams, please try again", Toast.LENGTH_LONG).show();
         else {
             saveUpdatedQuery();
-            Intent my_intent = new Intent(getBaseContext(), Feed.class);
+            Intent my_intent = new Intent(getBaseContext(), FeedActivity.class);
             startActivity(my_intent);
         }
 
