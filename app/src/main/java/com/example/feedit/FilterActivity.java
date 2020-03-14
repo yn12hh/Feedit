@@ -70,13 +70,8 @@ public class FilterActivity extends AppCompatActivity {
         all_projects_sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    unceckAllProjects();
-                    colorAllProjectsGrey();
-                }
-                else {
-                    colorAllTeamsBlack();
-                }
+                //fb_interface.changeProjColor(isChecked);
+
             }
         });
 
@@ -197,16 +192,6 @@ public class FilterActivity extends AppCompatActivity {
             startActivity(myIntent);
         }
 
-    }
-
-    public void allTeams(View view) {
-        if (all_teams_sw.isChecked())
-        {
-            unceckAllTeams();
-            colorAllTeamsGrey();
-        }
-        else
-            colorAllTeamsBlack();
     }
 
     public void colorAllTeamsGrey()

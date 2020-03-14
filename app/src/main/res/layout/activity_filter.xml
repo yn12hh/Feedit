@@ -201,7 +201,6 @@
                     android:layout_gravity="start"
                     android:layout_weight="1"
                     android:gravity="start|center_vertical"
-                    android:onClick="allProjects"
                     android:text="@string/all"
                     android:textColorHighlight="#9C27B0"
                     android:textColorLink="#9C27B0"

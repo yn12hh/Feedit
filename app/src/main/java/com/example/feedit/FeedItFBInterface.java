@@ -3,12 +3,14 @@ package com.example.feedit;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -42,6 +44,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import com.google.firebase.firestore.SetOptions;
@@ -61,6 +64,7 @@ public class FeedItFBInterface {
     private ProjRecyclerAdapter proj_recycler_adapter;
     private RecyclerView project_rv;
     private static Switch all_projects_sw;
+    public static ArrayList<CheckBox> lis;
 
     private FeedItFBInterface() {
 
@@ -71,6 +75,7 @@ public class FeedItFBInterface {
         project_names_query = projects_names_collection.orderBy("last_changed", Query.Direction.DESCENDING).limit(10);
         query_changed_flag = false;
         updateProjectsNames();
+        lis = new ArrayList<CheckBox>();
     }
 
     public static FeedItFBInterface getInstance() {
@@ -127,6 +132,7 @@ public class FeedItFBInterface {
         updateProjectsNames();
         proj_recycler_adapter = new ProjRecyclerAdapter(project_names, project_rv.getContext());
         project_rv.setAdapter(proj_recycler_adapter);
+
     }
 
     public void setQueryForFeed(List<String> projects_for_query, List<String> teams_for_query) {
@@ -253,6 +259,7 @@ public class FeedItFBInterface {
         private String project_names[];
         private Context context;
         private List<String> checked_projects_list = new ArrayList<>();
+        //private ArrayList<CheckBox> checkbox_list;
 
 
         public ProjRecyclerAdapter(String[] project_names, Context context) {
@@ -268,7 +275,7 @@ public class FeedItFBInterface {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ProjectViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final ProjectViewHolder holder, int position) {
             holder.name.setText(project_names[position]);
             if (project_names[position].equals("")) {
                 holder.name.setVisibility(View.GONE);
@@ -287,7 +294,7 @@ public class FeedItFBInterface {
                     }
                 }
             });
-
+            //checkbox_list.add(holder.name);
         }
 
         @Override
@@ -321,6 +328,13 @@ public class FeedItFBInterface {
         public interface ItemClickListener {
             void onItemClick(View v, int position);
         }
+
+//        public void changeColor(boolean to_grey) {
+//            int color = to_grey ? Color.GRAY : Color.BLACK;
+//            for(int i = 0; i < checkbox_list.size(); i++) {
+//                checkbox_list.get(i).setTextColor(color);
+//            }
+//        }
     }
 
     public void updateProjectsNames() {
@@ -392,5 +406,9 @@ public class FeedItFBInterface {
 //        List<String> checked_projects = Arrays.asList();
 //        checked_projects = proj_recycler_adapter.checked_projects_first_stage;
         return proj_recycler_adapter.checked_projects_list;
+    }
+
+    public void changeProjColor(boolean to_grey) {
+        //proj_recycler_adapter.changeColor(to_grey);
     }
 }
