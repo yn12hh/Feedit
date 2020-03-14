@@ -249,7 +249,7 @@ public class FeedItFBInterface {
 
         private String project_names[];
         private Context context;
-        private List<String> checked_projects_first_stage = new ArrayList<>();
+        private List<String> checked_projects_list = new ArrayList<>();
 
 
         public ProjRecyclerAdapter(String[] project_names, Context context) {
@@ -277,10 +277,10 @@ public class FeedItFBInterface {
 
                     if (checkbox.isChecked()) {
                         {
-                            checked_projects_first_stage.add(project_names[position]);
+                            checked_projects_list.add(project_names[position]);
                         }
                     } else if (!checkbox.isChecked()) {
-                        checked_projects_first_stage.remove(project_names[position]);
+                        checked_projects_list.remove(project_names[position]);
                     }
                 }
             });
@@ -387,7 +387,7 @@ public class FeedItFBInterface {
 //        StringBuffer sb = null;
 //        List<String> checked_projects = Arrays.asList();
 //        checked_projects = proj_recycler_adapter.checked_projects_first_stage;
-        return proj_recycler_adapter.checked_projects_first_stage;
+        return proj_recycler_adapter.checked_projects_list;
     }
 }
 

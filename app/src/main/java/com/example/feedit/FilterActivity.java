@@ -72,16 +72,10 @@ public class FilterActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         proj_prog_bar.setVisibility(View.VISIBLE);
-        fb_interface.startProjectFilterListening();
+        fb_interface.startProjectFilter();
         proj_prog_bar.setVisibility(View.INVISIBLE);
     }
 
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        fb_interface.stopProjectFilterListening();
-    }
 
     public void saveUpdatedQuery(){
 
