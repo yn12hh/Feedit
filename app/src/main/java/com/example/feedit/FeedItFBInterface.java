@@ -102,7 +102,7 @@ public class FeedItFBInterface {
                 intent.putExtra("post_project", feed_adapter.getItem(position).getProject());
                 intent.putExtra("post_text", feed_adapter.getItem(position).getPost_text());
                 intent.putExtra("post_author", feed_adapter.getItem(position).getAuthor());
-                intent.putExtra("postion", position);
+                intent.putExtra("position", position);
                 feed_rv.getContext().startActivity(intent);
             }
         });
